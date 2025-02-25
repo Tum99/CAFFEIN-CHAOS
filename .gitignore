@@ -1,0 +1,5 @@
+.venv/
+instance/
+pycache/
+.env
+__pycache__/app.cpython-313.pyc
