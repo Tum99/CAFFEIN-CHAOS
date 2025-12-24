@@ -2,9 +2,10 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import Product, db
 
+
 products = Blueprint('products', __name__)
 
-@products.route('/products')
+@products.route('/products/')
 def list_products():
     all_products = Product.query.all()
     return render_template('products/list.html', products=all_products)
