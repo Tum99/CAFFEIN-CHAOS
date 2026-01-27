@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Buyer Dashboard | Caffein & Chaos{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <h1>Welcome, {{ current_user.email }}!</h1>
+    <p>This is your buyer dashboard.</p>
+
+    <div class="buyer-actions">
+        <a href="{{ url_for('buyer.post_order') }}" class="btn">Post an Order</a>
+        <a href="{{ url_for('buyer.messages') }}" class="btn">View Messages</a>
+        <a href="{{ url_for('buyer.profile') }}" class="btn">Profile</a>
+    </div>
+
+    <div class="recent-activities">
+        <h3>Recent Orders / Offers</h3>
+        {% if orders %}
+            <ul>
+            {% for order in orders %}
+                <li>{{ order.title }} - {{ order.status }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

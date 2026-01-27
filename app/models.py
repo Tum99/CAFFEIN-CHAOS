@@ -147,7 +147,7 @@ class Event(db.Model):
     location = db.Column(db.String(255))
 
 
-class OrderRequest(db.Model):
+class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     buyer_id = db.Column(db.Integer, db.ForeignKey('buyer_profile.id'))
     title = db.Column(db.String(255), nullable=False)
@@ -159,7 +159,7 @@ class OrderRequest(db.Model):
 
 class Bid(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    request_id = db.Column(db.Integer, db.ForeignKey('order_request.id'))
+    request_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     seller_id = db.Column(db.Integer, db.ForeignKey('seller_profile.id'))
     offer_price = db.Column(db.Float)
     message = db.Column(db.Text)

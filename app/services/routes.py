@@ -54,3 +54,16 @@ def book_service(id):
     db.session.commit()
 
     return redirect(url_for('services.view_service', id=id))
+
+
+@services.route('/menu')
+def menu():
+    """
+    Public services menu (coffee, repairs, maintenance, etc.)
+    """
+    services_list = Service.query.order_by(Service.category, Service.name).all()
+
+    return render_template(
+        'services/menu.html',
+        services=services_list
+    )

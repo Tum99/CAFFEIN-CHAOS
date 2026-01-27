@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seller Messages</title>
+</head>
+<body>
+
+<h1>💬 Seller Messages</h1>
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>
+                <strong>From:</strong> {{ message.sender.email }} <br>
+                <strong>Message:</strong> {{ message.content }} <br>
+                <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No messages yet.</p>
+{% endif %}
+
+<a href="{{ url_for('seller.dashboard') }}">⬅ Back to Dashboard</a>
+
+</body>
+</html>

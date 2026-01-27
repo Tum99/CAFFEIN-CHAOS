@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 
 
+
 import pymysql
 
 
@@ -43,6 +44,7 @@ def create_app():
     from app.seller.routes import seller
     from app.events.routes import events
     from app.products.routes import products
+    from app.general.routes import general
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
@@ -51,6 +53,7 @@ def create_app():
     app.register_blueprint(seller)
     app.register_blueprint(events)
     app.register_blueprint(products)
+    app.register_blueprint(general)
 
     @app.route('/test-products')
     def test_products():

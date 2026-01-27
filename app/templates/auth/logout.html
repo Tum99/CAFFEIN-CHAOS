@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Log out</title>
+  </head>
+  <body>
+    <h1>LOG OUT</h1>
+    <p>If you can see this, routing works.</p>
+
+    <form method="POST" action="{{ url_for('auth.logout') }}">
+      <button type="submit">Log Out</button>
+    </form>
+  </body>
+</html>
+

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="profile">
+    <h2>My Seller Profile</h2>
+
+    <p><strong>Email:</strong> {{ current_user.email }}</p>
+
+    {% if seller %}
+        <p><strong>Bio:</strong> {{ seller.bio }}</p>
+        <p><strong>Location:</strong> {{ seller.location }}</p>
+        <p><strong>Products:</strong> {{ seller.products|length }}</p>
+    {% else %}
+        <p>Your seller profile is incomplete.</p>
+    {% endif %}
+
+    <a href="#" class="btn">Edit Profile</a>
+</section>
+{% endblock %}
