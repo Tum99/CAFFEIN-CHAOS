@@ -1,34 +1,238 @@
 {% extends "base.html" %}
 
 {% block content %}
+<main id="home">
+  <!-- HERO SECTION -->
+  <section id= "hero" class="hero">
 
-<section class="hero">
-    <div class="hero-text">
-        <h1>Caffein & Chaos</h1>
-        <p>From farm to cup — connecting coffee growers, brewers, and buyers.</p>
-
+    <div class="hero-content"> 
+      <div class="hero_images">
+        <img src="/static/images/coffee-cup.png" alt="Caffein & Chaos cup" class="cup">
+        <!-- <img src="/static/images/coffee-plant.png" alt="coffee plant" class="plant"> -->
+      </div>     
+      <div class="hero-text">
+        <h1>Indulge In the<br><span>Art</span> of Flavour</h1>
+        <p>From farm to cup, we directly connect coffee farmers with consumers, enabling farmers to control prices and consumers
+          to choose the quality that suits their needs
+        </p>
         <div class="hero-buttons">
-            <a href="{{ url_for('auth.register') }}" class="btn primary">Get Started</a>
-            <a href="{{ url_for('main.about') }}" class="btn outline">Learn More</a>
+          <a href="#menu" class="btn-primary">View Menu</a>
+          <!-- <a href="#growers" class="btn-secondary">Meet Our Growers</a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="aboutUs" class="about-section">
+    <h2>What We Do</h2>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-track">
+
+            <!-- Item 1 -->
+            <div class="carousel-image">
+                <img src="/static/images/plant2.jpg" alt="Coffee plant">
+                <p>We source our beans directly from local farmers.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="carousel-image">
+                <img src="/static/images/beans12.jpg" alt="Coffee beans in a bag">
+                <p>Every batch is roasted to perfection.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="carousel-image">
+                <img src="/static/images/beans11.jpg" alt="Grounded coffee beans">
+                <p>Brewing methods crafted for true coffee lovers.</p>
+            </div>
+            
+            <div class="carousel-image">
+                <img src="/static/images/coffee-bag.jpg" alt="Coffee bag">
+                <p>We source our beans directly from local farmers.</p>
+            </div>
+
+            <div class="carousel-image">
+                <img src="/static/images/beans10.jpg" alt="Black cup with coffee beans">
+                <p>Every batch is roasted to perfection.</p>
+            </div>
+
+            <div class="carousel-image">
+                <img src="/static/images/cup2.jpg" alt="Coffee in a cup">
+                <p>Brewing methods crafted for true coffee lovers.</p>
+            </div>
+
+          <!-- Duplicate items for smooth infinite effect -->
+            <!-- Item 1 -->
+            <div class="carousel-image">
+                <img src="/static/images/plant2.jpg" alt="Coffee plant">
+                <p>We source our beans directly from local farmers.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="carousel-image">
+                <img src="/static/images/beans12.jpg" alt="Coffee beans in a bag">
+                <p>Every batch is roasted to perfection.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="carousel-image">
+                <img src="/static/images/beans11.jpg" alt="Grounded coffee beans">
+                <p>Brewing methods crafted for true coffee lovers.</p>
+            </div>
+            
+            <div class="carousel-image">
+                <img src="/static/images/coffee-bag.jpg" alt="Coffee bag">
+                <p>We source our beans directly from local farmers.</p>
+            </div>
+
+            <div class="carousel-image">
+                <img src="/static/images/beans10.jpg" alt="Black cup with coffee beans">
+                <p>Every batch is roasted to perfection.</p>
+            </div>
+
+            <div class="carousel-image">
+                <img src="/static/images/cup2.jpg" alt="Coffee in a cup">
+                <p>Brewing methods crafted for true coffee lovers.</p>
+            </div>
+
         </div>
     </div>
-</section>
 
-<section class="features">
-    <div class="feature">
-        <h3>☕ Coffee Menu & Services</h3>
-        <p>Explore our café menu and professional coffee services.</p>
+    <div class="aboutUsText">
+      <p class="p1">
+        Caffein & Chaos is where exceptional coffee meets beautiful unpredictability. <br>
+
+        We are more than just a marketplace — we are a living, breathing coffee experience. We source premium beans directly from verified growers who care deeply about their craft.
+        Every farmer we work with values quality, transparency, and the journey from soil to cup — and so do we. <br>
+
+        But we do not stop at sourcing. 
+      </p>
+
+      <p class="p2">
+        We brew the very same high-quality beans available on our marketplace, right here in-house. That means every espresso shot, every slow pour-over,
+        every signature seasonal creation carries a real story — one that begins on a farm and ends in your hands.
+
+        At Caffein & Chaos, we celebrate origin, flavor, and technique. From bold, classic espresso to creative brews that surprise you (in the best way), each 
+        cup is thoughtfully crafted to highlight what makes great coffee unforgettable.
+      </p>
+      <p class="p3">
+        The “caffeine” is our passion for precision, quality, and connection.
+        The “chaos”? That's the magic — the energy of experimentation, conversation, and community that happens when coffee brings people together.
+
+        Whether you are a grower looking to share your harvest, a buyer searching for transparency, or simply someone who believes coffee should taste as good as it feels — you belong here.
+
+        Welcome to coffee, reimagined. ☕
+      </p>
+    </div>
+  </section>
+
+    <!-- MENU -->
+  <section id="menu" class="section">
+    <div class="menu_container">
+      <div class="menu_item">
+        <h3>Fan Favourites</h3>
+        <p>Trending</p>
+      </div>
+      <div class="menu_item">
+        <h3>Black Coffee</h3>
+        <ul>
+          <li>Dopio</li>
+          <li>Irish coffee</li>
+          <li>Romana</li>
+        </ul>
+      </div>
+      <div class="menu_item">
+        <h3>Granito</h3>
+        <ul>
+          <li>Mango crush</li>
+          <li>Blue curacao</li>
+          <li>Kiwi crush</li>
+        </ul>       
+      </div>
+      <div class="menu_item">
+        <h3>Flavoured coffee</h3>
+        <ul>
+          <li>Nutty milano</li>
+          <li>Caramel classic</li>
+          <li>Espresso madness</li>
+        </ul>
+      </div>
+      <div class="menu_item">
+        <h3>Cold coffee</h3>
+        <ul>
+          <li>Iced mocha</li>
+          <li>Caffein frappe</li>
+          <li>Caffein freeze</li>
+        </ul>
+      </div>
+      
     </div>
 
-    <div class="feature">
-        <h3>🤝 Buyers & Sellers</h3>
-        <p>Connect directly with coffee farmers, roasters, and sellers.</p>
-    </div>
+    <div class="menu_item_description"></div>
+  </section>
 
-    <div class="feature">
-        <h3>📅 Events</h3>
-        <p>Discover upcoming coffee events and experiences.</p>
-    </div>
-</section>
+   <!-- BUYERS -->
+  <section id="buyers" class="section bg-image buyers-bg">
+    <div class="content-box">
+      <h2>For Coffee Buyers</h2>
+      <p>
+        Discover premium coffee from trusted growers. Compare offers,
+        request orders, communicate directly, and pay securely — all in one place.
+      </p>
 
+      <a href="/register" class="btn btn-primary">Join as a buyer</a>
+    </div>
+  </section>
+
+   <!-- GROWERS -->
+  <section id="growers" class="section">
+    <h2>For Coffee Growers</h2>
+    <p>
+      Showcase your coffee, connect with serious buyers, and build lasting
+      relationships without losing control of your pricing.
+    </p>
+
+    <a href="/register" class="btn btn-secondary">Join as a Grower</a>
+  </section>
+
+    <!-- VALUES -->
+  <section id="values" class="section bg-image values-bg">
+    <div class="content-box">
+      <h2>Our Commitment</h2>
+      <ul>
+        <li>Ethically sourced</li>
+        <li>Transparent trade</li>
+        <li>Fair value for growers</li>
+        <li>Exceptional quality in every cup</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="features">
+      <!-- <div class="feature">
+          <h3>☕ Coffee Menu & Services</h3>
+          <p>Explore our café menu and professional coffee services.</p>
+      </div>
+
+      <div class="feature">
+          <h3>🤝 Buyers & Sellers</h3>
+          <p>Connect directly with coffee farmers, roasters, and sellers.</p>
+      </div> -->
+
+      <div class="feature">
+          <h3>📅 Events</h3>
+          <p>Discover upcoming coffee events and experiences.</p>
+      </div>
+  </section>
+
+   <!-- CTA -->
+  <section id="cta" class="section cta">
+    <h2>Ready to experience coffee differently?</h2>
+    <a href="#hero" class="btn btn-primary">Back to Top</a>
+  </section>
+
+</main>
 {% endblock %}
