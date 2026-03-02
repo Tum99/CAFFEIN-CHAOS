@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Caffein & Chaos</title>
+    <title>{% block title %}Caffein & Chaos{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    {% block content %}{% endblock %}
+<nav class="navbar">
+    <div class="nav-container">
+       <a href="{{ url_for('main.home') }}" class="logo">
+            Caffein<span>&</span>Chaos
+        </a>
 
+      <ul class="navlinks">
+        <li><a href="{{ url_for('main.home') }}">Home</a></li>
+        <li><a href="{{ url_for('main.about') }}">About</a></li>
+        <li><a href="{{ url_for('services.menu') }}">Menu</a></li>
+        <li><a href="{{ url_for('products.list_products') }}">Products</a></li>
+        <li><a href="{{ url_for('services.list_services') }}">Services</a></li>
+      
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'buyer' %}
+                <a href="{{ url_for('buyer.dashboard') }}">Buyer Dashboard</a>
+            {% elif current_user.role == 'seller' %}
+                <a href="{{ url_for('seller.dashboard') }}">Seller Dashboard</a>
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('auth.register') }}">Register</a>
+        {% endif %}
+      </ul>
+    </nav>
+
+<hr>
+
+
+     <main class="container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-container">
+              {% for category, message in messages %}
+                <div class="flash-message flash-{{ category }}">
+                   {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+
+        {% block content %}
+    
+    
+        {% endblock %}
+
+    </main>
 </body>
 </html>

@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rye&display=swap');
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* GLOBAL */
+body {
+    font-family: "Playfair Display", serif;
+    background-color: #cfc9c7;
+    color: #2b2b2b;
+    line-height: 1.6;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn.primary {
+    background-color: #6f4e37; /* coffee brown */
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background-color: #5a3e2b;
+}
+
+.btn.outline {
+    border: 2px solid #6f4e37;
+    color: #6f4e37;
+}
+
+.btn.outline:hover {
+    background-color: #6f4e37;
+    color: #fff;
+}
+
+/* HERO SECTION */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        rgba(0,0,0,0.4),
+        rgba(0,0,0,0.4)
+    ), url("/static/images/coffee-main.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-family: "Rye", serif;
+
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* FEATURES */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+}
+
+.feature {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.feature h3 {
+    margin-bottom: 1rem;
+    color: #6f4e37;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1700px;
+    margin: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGO */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b2b2b;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #6f4e37; /* coffee accent */
+}
+
+/* LINKS */
+.navlinks {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #2b2b2b;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navlinks a:hover {
+    color: #6f4e37;
+}
+
+/* USER EMAIL */
+.nav-user a {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* BUTTON IN NAV */
+.nav-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: #6f4e37;
+    color: #fff !important;
+}
+
+.nav-btn:hover {
+    background-color: #5a3e2b;
+}
+
+.nav-links li a:not(.nav-btn)::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #6f4e37;
+    transition: width 0.3s;
+    margin-top: 4px;
+}
+
+.nav-links li a:not(.nav-btn):hover::after {
+    width: 100%;
+}
+

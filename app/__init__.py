@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 
 
+
 import pymysql
 
 
@@ -18,14 +19,14 @@ bcrypt = Bcrypt()
 migrate = Migrate()
 
 
-
 # Redirect unauthorized users to login page
-login_manager.login_view = 'auth.login'
-login_manager.login_message_category = 'info'
+login_manager.login_view = "auth.login"
+login_manager.login_message_category = "info"
+
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    app.config.from_object("config.Config")
 
     # Initialize extensions with app
     db.init_app(app)
@@ -42,8 +43,8 @@ def create_app():
     from app.buyer.routes import buyer
     from app.seller.routes import seller
     from app.events.routes import events
-    
-
+    from app.products.routes import products
+    from app.general.routes import general
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
@@ -51,11 +52,20 @@ def create_app():
     app.register_blueprint(buyer)
     app.register_blueprint(seller)
     app.register_blueprint(events)
+    app.register_blueprint(products)
+    app.register_blueprint(general)
+
+    @app.route('/test-products')
+    def test_products():
+        return "Products route is alive"
+
 
     return app
 
+
 # Flask-Login user loader
 from app.models import User
+
 
 @login_manager.user_loader
 def load_user(user_id):

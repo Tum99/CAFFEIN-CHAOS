@@ -12,8 +12,17 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(20), nullable=False)  # 'buyer' or 'seller'
 
     # Relationships
-    products = db.relationship('Product', backref='seller', lazy=True)
-    services = db.relationship('Service', backref='seller', lazy=True)
+    products = db.relationship(
+        'Product',
+        backref='seller', 
+        lazy=True
+        )
+
+    services = db.relationship(
+        'Service', 
+        backref='seller', 
+        lazy=True
+        )
 
     messages_sent = db.relationship(
         'DirectMessage',
@@ -68,10 +77,33 @@ class BuyerProfile(db.Model):
 # Products
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    name = db.Column(db.String(150), nullable=False)
     description = db.Column(db.Text)
-    price = db.Column(db.Float)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    price = db.Column(db.Float, nullable=False)
+    stock = db.Column(db.Integer, default=1)
+    category = db.Column(db.String(100))
+
+    # Relationship: each product has many images
+    images = db.relationship('ProductImage', backref='product', lazy=True, cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<Product {self.name}>"
+
+
+#Product Image
+class ProductImage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+
+    image_path = db.Column(db.String(255), nullable=False)
+    # example: "uploads/products/image_1234.jpg"
+
+    def __repr__(self):
+        return f"<ProductImage {self.id} for Product {self.product_id}>"
+
+
 
 # Services
 class Service(db.Model):
@@ -115,7 +147,7 @@ class Event(db.Model):
     location = db.Column(db.String(255))
 
 
-class OrderRequest(db.Model):
+class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     buyer_id = db.Column(db.Integer, db.ForeignKey('buyer_profile.id'))
     title = db.Column(db.String(255), nullable=False)
@@ -127,7 +159,7 @@ class OrderRequest(db.Model):
 
 class Bid(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    request_id = db.Column(db.Integer, db.ForeignKey('order_request.id'))
+    request_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     seller_id = db.Column(db.Integer, db.ForeignKey('seller_profile.id'))
     offer_price = db.Column(db.Float)
     message = db.Column(db.Text)

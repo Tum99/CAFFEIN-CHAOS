@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Buyer Dashboard | Caffein & Chaos{% endblock %}
+
+{% block content %}
+
+<h1>☕ Seller Dashboard</h1>
+<p>Welcome back, {{ current_user.email }}</p>
+
+<hr>
+
+<!-- PROFILE SUMMARY -->
+<section>
+    <h2>📌 Profile</h2>
+    {% if current_user.seller_profile %}
+        <p><strong>Location:</strong> {{ current_user.seller_profile.location }}</p>
+        <p><strong>Bio:</strong> {{ current_user.seller_profile.bio }}</p>
+    {% else %}
+        <p>You have not completed your seller profile.</p>
+        <a href="#">Complete Profile</a>
+    {% endif %}
+</section>
+
+<hr>
+
+<!-- PRODUCTS -->
+<section>
+    <h2>🛒 My Products</h2>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name }}</strong> – KES {{ product.price }} <br>
+                    {{ product.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products listed yet.</p>
+        <a href="#">Add Product</a>
+    {% endif %}
+</section>
+
+<hr>
+
+<!-- SERVICES -->
+<section>
+    <h2>🔧 My Services</h2>
+
+    {% if services %}
+        <ul>
+            {% for service in services %}
+                <li>
+                    <strong>{{ service.name }}</strong> – {{ service.category }} <br>
+                    KES {{ service.price }} <br>
+                    {{ service.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No services listed yet.</p>
+        <a href="#">Add Service</a>
+    {% endif %}
+</section>
+
+<hr>
+
+<!-- ORDER REQUEST BIDS -->
+<section>
+    <h2>📨 Incoming Bids</h2>
+
+    {% if bids %}
+        <ul>
+            {% for bid in bids %}
+                <li>
+                    <strong>{{ bid.request.title }}</strong><br>
+                    Offer: KES {{ bid.offer_price }}<br>
+                    Message: {{ bid.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No bids yet.</p>
+    {% endif %}
+</section>
+
+<hr>
+
+<!-- MESSAGES -->
+<section>
+    <h2>💬 Messages</h2>
+    <a href="{{ url_for('seller.messages') }}">View Messages</a>
+</section>
+
+{% endblock %}
