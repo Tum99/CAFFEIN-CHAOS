@@ -28,6 +28,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("config.Config")
 
+    app.config['SECRET_KEY'] = 'your-secret-key'
+
     # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
@@ -44,7 +46,9 @@ def create_app():
     from app.seller.routes import seller
     from app.events.routes import events
     from app.products.routes import products
-    from app.general.routes import general
+    from app.menu.routes import menu
+    from app.admin.routes import admin
+    
 
     app.register_blueprint(main)
     app.register_blueprint(auth)
@@ -53,7 +57,9 @@ def create_app():
     app.register_blueprint(seller)
     app.register_blueprint(events)
     app.register_blueprint(products)
-    app.register_blueprint(general)
+    app.register_blueprint(menu)
+    app.register_blueprint(admin)
+    
 
     @app.route('/test-products')
     def test_products():

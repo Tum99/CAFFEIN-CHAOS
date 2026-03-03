@@ -64,6 +64,6 @@ def menu():
     services_list = Service.query.order_by(Service.category, Service.name).all()
 
     return render_template(
-        'services/menu.html',
+        'services/services_menu.html',
         services=services_list
     )

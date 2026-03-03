@@ -4,12 +4,12 @@ from flask_login import UserMixin
 from app import db
 
 
-# Users (buyers and sellers)
+# Users (buyers, sellers, and admin)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # 'buyer' or 'seller'
+    role = db.Column(db.String(20), nullable=False)  # 'buyer', 'seller' or 'admin'
 
     # Relationships
     products = db.relationship(
@@ -83,13 +83,27 @@ class Product(db.Model):
     description = db.Column(db.Text)
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, default=1)
-    category = db.Column(db.String(100))
+    category_id = db.Column(
+        db.Integer,
+        db.ForeignKey("categories.id"),
+        nullable=False
+    )
 
     # Relationship: each product has many images
     images = db.relationship('ProductImage', backref='product', lazy=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Product {self.name}>"
+
+
+#Product Catehory
+class Category(db.Model):
+    __tablename__ = "categories"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+
+    products = db.relationship("Product", backref="category", lazy=True)
 
 
 #Product Image
@@ -102,6 +116,13 @@ class ProductImage(db.Model):
 
     def __repr__(self):
         return f"<ProductImage {self.id} for Product {self.product_id}>"
+
+#Cart Items
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    product_id = db.Column(db.Integer, db.ForeignKey("products.id"))
+    quantity = db.Column(db.Integer, default=1)
 
 
 

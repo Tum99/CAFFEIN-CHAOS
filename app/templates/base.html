@@ -13,7 +13,7 @@
       <ul class="navlinks">
         <li><a href="#hero">Home</a></li>
         <li><a href="#aboutUs">About</a></li>
-        <li><a href="#menu">Menu</a></li>
+        <li><a href="{{ url_for('menu.main_menu') }}">Menu</a></li>
         <li><a href="{{ url_for('products.list_products') }}">Products</a></li>
         <li><a href="{{ url_for('services.list_services') }}">Services</a></li>
       
@@ -51,10 +51,8 @@
       {% endwith %}
 
 
-      {% block content %}
-
-
-      {% endblock %}
+      {% block content %}{% endblock %}
+      {% block scripts %}{% endblock %}
 
   </main>
 </body>

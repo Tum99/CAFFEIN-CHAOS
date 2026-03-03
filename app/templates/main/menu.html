@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Menu{% endblock %}
+
+{% block content %}
+
+<div class="menu-page">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="menu-sidebar">
+        <h2>Our Menu</h2>
+
+        <a href="#" class="category-link active" data-category="all">
+            All
+        </a>
+
+        {% for category in categories %}
+            <button
+               class="category-link"
+               data-category="{{ category.id }}">
+                {{ category.name }}
+            </button>
+        {% endfor %}
+    </aside>
+
+
+    <!-- ================= MENU CONTENT ================= -->
+    <div class="menu-content">
+
+        <div class="menu-grid" id="products-container">
+
+            {% for product in products %}
+                <div class="product-card"
+                     data-category="{{ product.category_id }}">
+
+                    <div class="product-image">
+                        <img src="{{ url_for('static', filename=product.image) }}"
+                             alt="{{ product.name }}">
+                    </div>
+
+                    <div class="product-info">
+                        <h3>{{ product.name }}</h3>
+
+                        <p class="product-description">
+                            {{ product.description }}
+                        </p>
+
+                        <div class="product-footer">
+                            <span class="price">
+                                Ksh {{ product.price }}
+                            </span>
+
+                            <button class="add-to-cart-btn"
+                                    onclick="addToCart({{ product.id }})">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+{% endblock %}
