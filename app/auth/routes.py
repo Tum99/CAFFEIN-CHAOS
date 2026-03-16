@@ -20,10 +20,12 @@ def login():
             flash("Login successful!", "success")
 
             # Redirect based on role
-            if user.role == "seller":
-                return redirect(url_for("seller.dashboard"))
-            else:
+            if user.role == "admin":
+                return redirect(url_for("admin.dashboard"))
+            if user.role == "buyer":
                 return redirect(url_for("buyer.dashboard"))
+            else:
+                return redirect(url_for("seller.dashboard"))
 
         flash("Invalid email or password", "danger")
 
