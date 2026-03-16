@@ -36,7 +36,7 @@ category_names = [
     "Caffein Shake",
     "Sinful Cho Shake",
     "Hot Coffee",
-    "Beverages"
+    "Beverages",
     "Desserts"
 ]
 
@@ -161,11 +161,13 @@ for cat_name, products in products_data.items():
             existing = Product.query.filter_by(name=p["name"], category_id=category.id).first()
             if not existing:
                 product = Product(
+                    seller_id=admin_user.id,
                     name=p["name"],
                     price=p["price"],
+                    stock=1,
                     description=p["description"],
                     category_id=category.id
-                )
+                    )
                 db.session.add(product)
 db.session.commit()
 print("Products added")
