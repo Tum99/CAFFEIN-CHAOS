@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash
 app = create_app()
 app.app_context().push()
 
-# ----- Step 1: Create Admin -----
+# ----- Create Admin -----
 admin_email = "faithadmin@testing.com"
 admin_password = "password123"
 
@@ -23,7 +23,7 @@ if not admin_user:
 else:
     print("Admin already exists")
 
-# ----- Step 2: Create Categories -----
+
 category_names = [
     "Fan Favourites",
     "Black Coffee",
@@ -40,16 +40,16 @@ category_names = [
     "Desserts"
 ]
 
-for name in category_names:
+for index, name in enumerate(category_names):
     category = Category.query.filter_by(name=name).first()
     if not category:
-        category = Category(name=name)
+        category = Category(name=name, display_order=index)
         db.session.add(category)
+    else:
+        category.display_order = index
 db.session.commit()
 print("Categories added")
 
-# ----- Step 3: Create Products -----
-# Example structure: dictionary {category_name: [list of product dicts]}
 products_data = {
     "Black Coffee": [
         {"name": "Dopio", "price": 250, "description": "Strong double espresso"},
@@ -151,7 +151,6 @@ products_data = {
         {"name": "Mochalito", "price": 500, "description": "Italian classic espresso"},
         {"name": "Caramelo", "price": 500, "description": "Italian classic espresso"}
     ]
-    # Add other categories similarly to reach all 74 products
 }
 
 for cat_name, products in products_data.items():

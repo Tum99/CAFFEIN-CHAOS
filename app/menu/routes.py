@@ -7,7 +7,7 @@ menu = Blueprint('menu', __name__)
 @menu.route('/menu/')
 # @login_required
 def main_menu():
-    categories = Category.query.all()
+    categories = Category.query.order_by(Category.display_order.asc()).all()
     products = Product.query.all()
     return render_template(
         "menu/menu.html",
