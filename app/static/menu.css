@@ -2,6 +2,12 @@
 html {
   scroll-behavior: smooth;
 }
+body {
+    font-family: "Playfair Display", serif;
+    background-color: #211108;
+    overflow-x: hidden;
+}
+
 .menu-page{
     display: flex;
     align-items: flex-start; /* Keeps sidebar at the top */
@@ -65,7 +71,7 @@ html {
 }
 
 .product-card{
-    background: rgba(255, 255, 255, 0.05);
+    background: #36130d;
     padding: 20px;
     border-radius: 12px;
     display: flex;
