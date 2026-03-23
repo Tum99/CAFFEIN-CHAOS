@@ -323,7 +323,6 @@ header{
   display: flex;
   flex-direction: column;       
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
@@ -340,14 +339,18 @@ header{
 
 .buyers-content {
   text-align: center;
-  color: #F5EBE0; /* Light cream for readability */
+  color: #F5EBE0; 
   flex: 1;                     
   display: flex;
   flex-direction: column;       
-  align-items: flex-end;
+  align-items: center;
+  gap: 8rem;
   width: 50%;
-  
-  z-index: 1;
+  margin-top: 5rem;
+}
+
+.buyers-content p{
+  font-size: 4rem;
 }
 
 .buyer-section-heading {
@@ -356,7 +359,60 @@ header{
   
 }
 
+.growers-section{
+  height: 70vh;
+  align-items: center;
+  display: flex;
+}
 
+.growers-content{
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  width: 50%;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.growers-content h2{
+  font-size: 5rem;
+  font-family: "Rye", serif;
+}
+
+.growers-content p{
+  font-size: 4rem;
+}
+
+.values-section{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.values-content{
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  width: 50%;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.values-content h2{
+  font-size: 5rem;
+  font-family: "Rye", serif;
+}
+
+.values-list{
+  font-size: 2rem;
+  text-align: left;
+}
 
 .about-section{
   height: 180vh;
