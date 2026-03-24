@@ -53,7 +53,7 @@ def register():
         flash("Account created successfully. Please login.", "success")
         return redirect(url_for("auth.login"))
 
-    return render_template("auth/register.html")
+    return render_template("auth/auth.html")
 
 
 @auth.route("/logout")

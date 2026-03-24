@@ -1,0 +1,74 @@
+/* 1. Base Container */
+.auth-container {
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    background: #898484;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+    margin: auto;
+}
+
+/* 2. The Forms Positioning */
+.form-wrapper {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+    width: 50%;
+}
+
+.signup-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.login-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* 3. The Overlay (Image) */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay-image {
+    background-image: url('/static/images/beans6.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- THE ANIMATION STATES --- */
+
+/* Move Image to the Left */
+.auth-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/* Move Login Form to the Right and show it */
+.auth-container.right-panel-active .login-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* Move Signup Form to the Right and hide it */
+.auth-container.right-panel-active .signup-container {
+    transform: translateX(100%);
+    opacity: 0;
+}
