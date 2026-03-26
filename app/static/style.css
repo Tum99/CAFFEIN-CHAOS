@@ -10,6 +10,7 @@ html {
     --gold: #BB9457;
     --cream: #F5EBE0;
     --dark-brown: #25130B;
+    --light: #ced2c1;
 }
 
 
@@ -23,7 +24,7 @@ html {
 /* GLOBAL */
 body {
     font-family: "Playfair Display", serif;
-    background-color: var(--espresso);
+    background-color: #ced2c1;
     color: var(--cream);
     overflow-x: hidden;
 }
@@ -66,55 +67,43 @@ body {
 
 .section {
   min-height: 100vh;
-  /* padding: 6rem 4rem; */
-  /* display: flex;
-  flex-direction: column; */
-  /* justify-content: center; */
+}
+
+.logo2{
+  display: flex;
+  height: 100px;
+  
+}
+
+.logo2 img{
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 /* HERO SECTION */
 .hero {
-    height: 87vh;
+    height: 80vh;
     width: 100%;
     display: flex;
     align-items: center;
     overflow: hidden;
+    background-color: #d5c89f;
 }
 
-.hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero-image {
+  position: relative;
+  top: 5rem;
+  left: 2rem;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  filter: brightness(0.9);
 }
 
-.hero-bg img{
-  width: 55%;
-  height: 100%;
-  /* object-fit: cover; */
-  filter: brightness(0.7) sepia(0.2);
-}
-/* Shadowy overlay */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 1;
-  background:rgba(0, 0, 0, 0);
-  z-index: 1;
+.hero-image img{
+  box-shadow: 5px 5px 5px rgb(167, 154, 154);
 }
 
-/* Shadow overlay ONLY over background */
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
-}
 
 /* Content on top */
 .hero-content {
@@ -122,18 +111,6 @@ body {
   height: 70%;
 }
 
-.hero_images{
-  width: 700px;
-  max-width: 100%;
-  height: 600px;
-  position: relative;
-  margin: auto; 
-  bottom: 11rem;
-}  
-
-.hero_images img{
-  width: 100%;
-}
 
 .hero-text {
   flex: 1;                     
@@ -150,7 +127,7 @@ body {
     margin-bottom: 2rem;
     margin-right: 2rem;
     font-family: "Rye", serif;
-    color: #ddd9d9;
+    color: #02200d;
     width: 100%;
     letter-spacing: 3px;
     text-align: right;
