@@ -6,7 +6,6 @@ html {
 }
 
 :root {
-    --espresso: #1A0A05;
     --gold: #BB9457;
     --cream: #F5EBE0;
     --dark-brown: #25130B;
@@ -24,9 +23,8 @@ html {
 /* GLOBAL */
 body {
     font-family: "Playfair Display", serif;
-    background-color: #ced2c1;
+    background-color: #d0d6bd;
     color: var(--cream);
-    overflow-x: hidden;
 }
 
 /* BUTTONS */
@@ -38,22 +36,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.btn-primary {
-    background-color: #6f4e37; /* coffee brown */
-    color: #fff;
-}
 
-.btn-primary:hover {
-    background-color: #5a3e2b;
-}
 
-.btn-secondary{
-  background-color: #BB9457;
-}
 
-.btn-secondary:hover {
-  background-color: #80663b;
-}
 
 .btn.outline {
     border: 2px solid #6f4e37;
@@ -65,14 +50,14 @@ body {
     color: #fff;
 }
 
-.section {
-  min-height: 100vh;
+section {
+  /* min-height: 80vh; */
+  background-color: #d5c89f;
 }
 
 .logo2{
   display: flex;
-  height: 100px;
-  
+  height: 110px;
 }
 
 .logo2 img{
@@ -242,12 +227,6 @@ header{
     gap: 5rem;
     
 }
-.navlinks .nav-image{
-  width: 300px;
-  max-width: 100%;
-  height: 300px;
-  display: flex; 
-}
 
 .navlinks a {
     text-decoration: none;
@@ -296,23 +275,11 @@ header{
 .buyers-section {
   position: relative; /* Essential: Acts as the anchor for the image */
   width: 100%;
-  height: 100vh; /* Adjust height as needed (e.g., 600px) */
+  height: 90vh; 
   display: flex;
-  flex-direction: column;       
-  align-items: center;
   overflow: hidden;
 }
 
-.buyers-bg {
-  position: absolute; /* Takes image out of the normal document flow */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures no stretching, fills every corner */
-  z-index: -1;
-  filter: brightness(0.5) contrast(1.1);
-}
 
 .buyers-content {
   text-align: center;
@@ -320,81 +287,117 @@ header{
   flex: 1;                     
   display: flex;
   flex-direction: column;       
-  align-items: center;
   gap: 8rem;
-  width: 50%;
-  margin-top: 5rem;
+  width: 45%;
+  height: 100%;
+  background-color: #102f1c;
 }
 
 .buyers-content p{
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 .buyer-section-heading {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-family: "Rye", serif;
+  background-color: #281b0c;
+  height: 250px;
+  top: 0rem;
+  display: flex;
+  border-radius: 0px 0px 15px 15px;
+  width: 60%;
+  margin: 0 auto;
   
 }
 
-.growers-section{
-  height: 70vh;
-  align-items: center;
-  display: flex;
+.buyer-section-heading h2 {
+  margin-top: 150px;
+  padding: 0 40px 5px;
 }
 
+.btn-primary {
+    background-color: #6f4e37; 
+    color: #fff;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    background-color: #5a3e2b;
+}
+
+
 .growers-content{
-  align-items: center;
-  justify-content: center;
   gap: 8rem;
   display: flex;
   flex-direction: column;
-  flex: 2;
+  flex: 1;
   width: 50%;
   text-align: center;
-  margin-top: 5rem;
+  height: 100%;
+  background-color: #281b0c ;
 }
 
-.growers-content h2{
-  font-size: 5rem;
+.grower-section-heading {
+  font-size: 1.8rem;
   font-family: "Rye", serif;
+  background-color: #102f1c;
+  height: 250px;
+  top: 0rem;
+  display: flex;
+  border-radius: 0px 0px 15px 15px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.grower-section-heading h2 {
+  margin-top: 150px;
+  padding: 0 40px 5px;
 }
 
 .growers-content p{
-  font-size: 4rem;
+  font-size: 2rem;
+}
+
+.btn-secondary{
+   background-color: #6f4e37; 
+    color: #fff;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.btn-secondary:hover {
+  background-color: #80663b;
 }
 
 .values-section{
-  height: 100vh;
+  height: 60vh;
   display: flex;
   align-items: center;
 }
 
 .values-content{
-  align-items: center;
-  justify-content: center;
   gap: 8rem;
   display: flex;
   flex-direction: column;
-  flex: 2;
-  width: 50%;
   text-align: center;
   margin-top: 5rem;
 }
 
-.values-content h2{
-  font-size: 5rem;
+.values-heading{
+  font-size: 3rem;
   font-family: "Rye", serif;
+  color: #25130B;
 }
 
-.values-list{
-  font-size: 2rem;
-  text-align: left;
+.commitments {
+  display: flex;
+  gap: 3rem;
+  margin: auto;
 }
 
 .about-section{
-  height: 180vh;
-  background: linear-gradient(rgba(26, 10, 5, 0.7), rgba(26, 10, 5, 0.7)), 
-              url('/static/images/coffee-harvest.jpg') center/cover no-repeat;
+  height: 200vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -402,33 +405,28 @@ header{
   padding: 2rem 2rem;
   outline: 4px solid #BB9457;
   outline-offset: -30px;
-  border-radius: 8px;
   border: 1px solid rgba(187, 148, 87, 0.2);
 }
 
 .about-heading {
     color: var(--gold);
     font-family: 'Playfair Display', serif;
-    font-size: 5rem;
+    font-size: 3rem;
     
 }
 
 .container {
-    width: 100%;
-    margin: 0 auto;
+  min-height: 50vh;
+  display: flex;
+  padding: 0;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+.story-section img{
+  min-height: 20rem;
+  display: flex;
+  width: 50rem;
 }
 
-/* Alternating Grid for Desktop */
-.alt-grid {
-    direction: ltr;
-}
 
 .section-title {
     font-family: 'Playfair Display', serif;
@@ -438,10 +436,31 @@ header{
     line-height: 1.2;
 }
 
-.story-p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: rgba(245, 235, 224, 0.9);
+
+.container .story-p{
+  width: 100%;
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: black;
+}
+
+.light-accent .story-p {
+  text-align: left;
+}
+
+.dark-accent .story-text {
+  text-align: right;
+  right: 0;
+}
+
+.text-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 .rustic-border {
@@ -451,8 +470,7 @@ header{
     filter: sepia(20%) contrast(1.1); /* Adds the vintage look */
 }
 
-.text-center { text-align: center; }
-.centered-p { max-width: 800px; margin: 0 auto; }
+
 
 
 
