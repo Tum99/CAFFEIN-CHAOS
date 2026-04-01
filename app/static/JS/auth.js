@@ -1,19 +1,34 @@
-// Selecting the links instead of the submit buttons
+// 1. Select the main outer container (the one with the 'auth-container' class)
+const authContainer = document.querySelector('.auth-container'); 
+const overlayBtn = document.getElementById('overlayBtn');
 const loginLink = document.querySelector(".signup-container a");
 const registerLink = document.querySelector(".login-container a");
-const authContainer = document.getElementById('auth-container');
-const overlayBtn = document.getElementById('overlayBtn')
 
+// Use ONE constant for the class name to avoid typos
+const activeClass = "right__panel__active";
+
+// 2. The Main Toggle Button
 overlayBtn.addEventListener('click', () => {
-    authContainer.classList.toggle('right__panel__active')
-})
+    // Add the class to the PARENT, not the overlay itself
+    authContainer.classList.toggle(activeClass);
 
+    // Update button text based on the PARENT state
+    if (authContainer.classList.contains(activeClass)) {
+        overlayBtn.innerText = 'LOG IN';
+    } else {
+        overlayBtn.innerText = 'REGISTER';
+    }
+});
+
+// 3. The Links (if you still want them to work)
 loginLink.addEventListener('click', (e) => {
-    e.preventDefault(); // Stops the page from refreshing/redirecting
-    authContainer.classList.add("right-panel-active");
+    e.preventDefault();
+    authContainer.classList.add(activeClass);
+    overlayBtn.innerText = 'Log In'; // Sync the ghost button text
 });
 
 registerLink.addEventListener('click', (e) => {
-    e.preventDefault(); // Stops the page from refreshing/redirecting
-    authContainer.classList.remove("right-panel-active");
+    e.preventDefault();
+    authContainer.classList.remove(activeClass);
+    overlayBtn.innerText = 'Register here'; // Sync the ghost button text
 });
