@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Gelasio:ital,wght@0,400..700;1,400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Rye&display=swap');
 
 :root {
@@ -9,7 +10,7 @@
 
 *{
     padding: 0;
-    margin: 0;
+    margin: 0; 
 }
 
 body {
@@ -17,15 +18,19 @@ body {
 }
 
 .auth-container {
-    height: 87vh;
     position: relative;
-    background-color: var(--primary-color);
-    overflow: hidden;
+    width: 100%; /* Or a percentage like 70% */
+    max-width: 100%;
+    min-height: 90vh;
+    margin: auto; /* This centers the box on your page */
+    background-color: #fff;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25);
+    overflow: hidden; /* This is the "window" lock */
 }
 
 .form-wrapper {
     position: absolute;
-    width: 55%;
+    width: 50%;
     height: 100%;
     padding: 2rem;
     transition: 0.6s ease-in-out;
@@ -33,11 +38,13 @@ body {
 }
 
 .signup-container {
+    left: 0;
     opacity: 0;
     z-index: 1;
 }
 
 .login-container {
+    left: 0;
     z-index: 2;
 }
 
@@ -48,7 +55,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-self: center;
+    
 }
 
 form h1 {
@@ -117,27 +124,28 @@ input {
 .overlay-container {
     position: absolute;
     top: 0;
-    left: 56%;
-    height: 100%;
+    left: 50%; /* Start at the halfway point */
     width: 50%;
+    height: 100%;
     overflow: hidden;
     transition: transform 0.6s ease-in-out;
-    z-index: 10;
+    z-index: 100;
 }
 
 .overlay-wrapper {
-    background-image: url('/static/images/beans6.jpg');
-    background-position: center center;
-    background-size: cover;
+    background-image: url('/static/images/beans9.jpg');
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
     position: relative;
-    color: #f0f0f0;
-    left: -150%;
+    left: -100%; /* Move it back so it aligns with the container */
     height: 100%;
-    width: 250%;
+    width: 200%; /* Twice the width to cover both sides */
+    transform: translateX(0);
     transition: transform 0.6s ease-in-out;
-    right: 0;
 }
+
 
 .overlay-panel {
     position: absolute;
@@ -160,7 +168,7 @@ input {
 
 .overlay-right {
     left: 60%;
-    transform: translateX(-10);
+    transform: translateX(-10%);
 }
 
 .overlay-panel h1 {
@@ -172,7 +180,7 @@ input {
     max-width: 350px;
     margin: 0 auto;
     line-height: 2rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .overlay-panel button {
@@ -183,24 +191,26 @@ input {
     font-size: 1.2rem;
     color: #f0f0f0;
     border-radius: 2rem;
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 
 #overlayBtn {
     cursor: pointer;
     position: absolute;
     left: 50%;
-    top: 445px;
+    top: 570px;
     transform: translateX(-50%);
-    width: 10rem;
-    height: 2rem;
+    width: 13rem;
+    height: 3rem;
     border: 1px solid #f0f0f0;
     background: #c3b3a2;
-    border-radius: 1rem;
+    border-radius: 2rem;
+    padding: 0.75rem 4rem;
+    font-size: 1rem;
 }
 
 .right__panel__active .overlay-container {
-    transform: translateX(-120%);
+    transform: translateX(-100%);
 }
 
 .right__panel__active .overlay-wrapper {
@@ -221,7 +231,7 @@ input {
 }
 
 .right__panel__active .signup-container {
-    transform: translateX(80%);
+    transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: show 0.6s;
@@ -239,6 +249,3 @@ input {
         z-index: 5;
     }
 }
-
-
-
