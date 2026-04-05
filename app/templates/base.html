@@ -9,9 +9,28 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
     rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
 </head>
 <body>
-   <nav class="navbar">
+
+    <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon"><img src="/static/images/Logo2.jpeg" alt="company-logo"></div>
+      <div class="nav-logo-text">Caffeine<br><span>& Chaos</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="{{ url_for('menu.main_menu') }}">Menu</a></li>
+      <li><a href="{{ url_for('products.list_products') }}">Products & Services</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="{{ url_for('auth.login') }}" class="btn-ghost">Login</a>
+      <a href="{{ url_for('auth.register') }}" class="btn-filled">Sign Up</a>
+    </div>
+  </nav>
+
+   <!-- <nav class="navbar">
     <header>
         <div class="logo2">
             <img src="/static/images/Logo2.jpeg" alt="company-logo">
@@ -56,8 +75,8 @@
               </div>
               {% endfor %}
           </div>
-          {% endif %}
-      {% endwith %}
+          {% endif %} -->
+      <!-- {% endwith %} -->
 
 
       {% block content %}{% endblock %}
