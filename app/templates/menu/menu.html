@@ -4,68 +4,95 @@
 {% block content %}
 
 <div class="menu-page">
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-    <nav class="menu-sidebar">
+    <aside class="menu-sidebar">
         <h2>Our Menu</h2>
 
-        <a href="#" class="category-link active" data-category="all">
-            All
-        </a>
-
-        {% for category in categories %}
-            <button
-               class="category-link"
-               data-category="{{ category.id }}">
-                {{ category.name }}
-            </button>
-        {% endfor %}
-    </nav>
-
-
-    <div class="menu-content">
-
-        <div class="menu-grid" id="products-container">
-
-            {% for product in products %}
-                <div class="product-card"
-                     data-category="{{ product.category_id }}">
-
-                    <div class="product-image">
-                        {% if product.images %}
-                            <img src="{{ url_for('static', filename='images/Product-images/' + product.images[0].image_path) }}" 
-                                alt="{{ product.name }}">
-                        {% else %}
-                            <img src="{{ url_for('static', filename='images/cup2.jpg') }}" alt="Default">
-                        {% endif %}
-                    </div>
-
-                    <div class="product-info">
-                        <h3>{{ product.name }}</h3>
-
-                        <p class="product-description">
-                            {{ product.description }}
-                        </p>
-
-                        <div class="product-footer">
-                            <span class="price">
-                                Ksh {{ product.price }}
-                            </span>
-
-                            <button class="add-to-cart-btn"
-                                    onclick="addToCart({{ product.id }})">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            {% endfor %}
-
+        <div class="sidebar-heading">Browse Menu</div>
+        <div class="sidebar-search">
+            <span class="sidebar-search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search items..." autocomplete="off"/>
         </div>
 
-    </div>
+        <div class="sidebar-divider"></div>
 
-</div>
+        {% for category in categories %}  
+            <a href="#{{ category | lower | replace(' ', '-') }}"
+                class="cat-link {% if loop.first %}active{% endif %}"
+                data-cat="{{ category | lower | replace(' ', '-') }}">
+                <span class="cat-link-name">{{ category.name }}</span>
+                <span class="cat-count">{{ products_data[category.name] | length if category in products_data else 0 }}</span>
+            </a>
+        {% endfor %}
+
+        <!-- Mini cart -->
+        <div class="sidebar-order">
+            <div class="sidebar-order-label">Your Order</div>
+            <div class="sidebar-order-total">KES <span id="cartTotal">0</span></div>
+            <div class="sidebar-order-items"><span id="cartCount">0</span> items selected</div>
+            <a href="#" class="sidebar-checkout">Checkout →</a>
+        </div>
+    </aside>
+
+
+    
+    <main class="main-content" id="mainContent">
+        <div class="menu-page-hero">
+            <div>
+                <div class="menu-page-eyebrow">Caffeine & Chaos</div>
+                <h1 class="menu-page-title">Our <em>Menu</em></h1>
+            </div>
+            <div class="menu-page-meta">
+                <div class="menu-page-meta-num">72</div>
+                <div class="menu-page-meta-label">Items across 13 categories</div>
+            </div>
+        </div>
+
+        {% for category in categories %}     
+        <section class="cat-section" id="{{ category | lower | replace(' ', '-') }}">
+            <div class="cat-header">
+                <div class="cat-title-wrap">
+                    <h2 class="cat-title">{{ category.name }}</h2>
+                </div>
+                <span class="cat-item-count">
+                    {{ products_data[category.name] | length if category in products_data else 0 }} items
+                </span>
+            </div>
+
+            <div class="item-grid">
+                {% if category in products_data %}
+                    {% for item in products_data[category] %}
+                        <div class="item-card">
+                            <div class="item-image">
+                                <div class="item-image-placeholder">☕</div>
+                                {% if product.images %}
+                                <img src="{{ url_for('static', filename='images/Product-images/' + product.images[0].image_path) }}" 
+                                    alt="{{ product.name }}">
+                                {% else %}
+                                <img src="{{ url_for('static', filename='images/cup2.jpg') }}" alt="Default">
+                                {% endif %}
+                                <div class="item-add">+</div>
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">{{ product.name }}</div>
+                                <div class="item-description">{{ product.description }}</div>
+                                <div class="item-price">KES {{ product.price }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                 {% else %}
+                    <p style="color: var(--muted); font-size: 0.85rem;">Coming soon.</p>
+                {% endif %}
+            </div>
+        </section>
+        {% endfor %}
+    </main>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+    
+
 
 {% endblock %}
 

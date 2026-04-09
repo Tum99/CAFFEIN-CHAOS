@@ -19,8 +19,8 @@
       <div class="nav-logo-text">Caffeine<br><span>& Chaos</span></div>
     </a>
     <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
+      <li><a href="{{ url_for('main.home') }}">Home</a></li>
+      <li><a href="{{ url_for('main.about') }}">About Us</a></li>
       <li><a href="{{ url_for('menu.main_menu') }}">Menu</a></li>
       <li><a href="{{ url_for('products.list_products') }}">Products & Services</a></li>
     </ul>
@@ -29,54 +29,6 @@
       <a href="{{ url_for('auth.register') }}" class="btn-filled">Sign Up</a>
     </div>
   </nav>
-
-   <!-- <nav class="navbar">
-    <header>
-        <div class="logo2">
-            <img src="/static/images/Logo2.jpeg" alt="company-logo">
-        </div>
-    </header>
-    <div class="nav-container">
-        
-      <ul class="navlinks">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#aboutUs">About</a></li>
-        <li><a href="{{ url_for('menu.main_menu') }}">Menu</a></li>
-        <li><a href="{{ url_for('products.list_products') }}">Products</a></li>
-        <li><a href="{{ url_for('services.list_services') }}">Services</a></li>
-      
-        {% if current_user.is_authenticated %}
-            {% if current_user.role == 'buyer' %}
-                <a href="{{ url_for('buyer.dashboard') }}">Buyer Dashboard</a>
-            {% elif current_user.role == 'seller' %}
-                <a href="{{ url_for('seller.dashboard') }}">Seller Dashboard</a>
-            {% endif %}
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-        
-          
-          {% else %}
-              <a href="{{ url_for('auth.login') }}">Login</a>
-              <a href="{{ url_for('auth.register') }}">Register</a>
-          {% endif %}
-      </ul>
-    </div>
-    <a href="{{ url_for('main.home') }}" class="logo">
-        Caffein<span>&</span>Chaos
-    </a>
-  </nav>
-  <main class="container">
-
-      {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-          <div class="flash-container">
-              {% for category, message in messages %}
-              <div class="flash-message flash-{{ category }}">
-                  {{ message }}
-              </div>
-              {% endfor %}
-          </div>
-          {% endif %} -->
-      <!-- {% endwith %} -->
 
 
       {% block content %}{% endblock %}
