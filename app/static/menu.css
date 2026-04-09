@@ -12,7 +12,7 @@
     --muted:    #7A5C44;
     --olive:    #4A5C2A;
     --white:    #FDFAF5;
-    --sidebar-w: 280px;
+    --sidebar-w: 320px;
 }
 
 html {
@@ -63,19 +63,20 @@ body::before {
     ══════════════════════════════ */
 .menu-page {
     display: flex;
-    padding-top: 68px; /* navbar height */
+    padding: 120px 20px; /* navbar height */
     min-height: 100vh;
 }
 
 /* ══════════════════════════════
        SIDEBAR
-    ══════════════════════════════ */
-.sidebar {
+   ══════════════════════════════ */
+.menu-sidebar {
     width: var(--sidebar-w);
     flex-shrink: 0;
+    position: -webkit-sticky;
     position: sticky;
-    top: 68px;
-    height: calc(100vh - 68px);
+    top: 100px;
+    height: fit-content;
     overflow-y: auto;
     background: var(--roast);
     border-right: 1px solid rgba(200,135,58,0.1);
@@ -283,7 +284,7 @@ body::before {
 
 /* ── CATEGORY SECTION ── */
 .cat-section {
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
     scroll-margin-top: 100px;
 }
 
@@ -325,7 +326,7 @@ body::before {
 /* ── ITEM GRID ── */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1px;
 }
 
@@ -335,12 +336,14 @@ body::before {
     position: relative;
     overflow: hidden;
     transition: background 0.3s;
+    padding: 6px;
+    margin-left: 10px;
 }
 .item-card:hover { background: var(--bark); }
 
-.item-imgage {
+.item-image {
     position: relative;
-    height: 180px;
+    height: 250px;
     overflow: hidden;
     background: var(--bark);
 }
@@ -355,7 +358,7 @@ body::before {
 .item-card:hover .item-img-wrap img { transform: scale(1.07); }
 
 /* placeholder when no image */
-.item-img-placeholder {
+.item-image-placeholder {
     width: 100%; height: 100%;
     display: flex;
     align-items: center;
@@ -439,111 +442,3 @@ body::before {
     .main-content { padding: 2rem 1.5rem 5rem; }
 }
 
-.menu-page{
-    display: flex;
-    align-items: flex-start; /* Keeps sidebar at the top */
-    gap: 30px;
-    padding: 20px;
-}
-
-.menu-sidebar{
-    display: flex;
-    flex-direction: column; /* This makes them stack vertically (block) */
-    width: 200px;
-    min-width: 200px;
-    gap: 10px;
-}
-.menu-sidebar h2 {
-    font-family: 'Playfair Display', serif;
-    color: #f4ece8;
-    margin-bottom: 20px;
-}
-
-.menu-sidebar button{
-    text-align: left;
-    padding: 10px;
-    background: #333;
-    color: white;
-    border: 1px solid #444;
-    cursor: pointer;
-}
-
-.category-link {
-    display: block; /* Ensures the <a> tag acts like a block button */
-    width: 100%;
-    text-decoration: none;
-    text-align: left;
-    padding: 12px 15px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ddd;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-family: 'Nunito Sans', sans-serif;
-    transition: all 0.2s ease;
-}
-
-.category-link:hover, .category-link.active {
-    background: #c49b63; /* A nice coffee gold/brown */
-    color: #fff;
-    border-color: #c49b63;
-}
-
-.menu-content{
-    flex: 1;
-    width: 0;
-}
-
-.menu-grid{
-    display: grid;
-    /* This creates 3 or 4 columns depending on screen width */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    flex-grow: 1;
-}
-
-.product-card{
-    background: #36130d;
-    padding: 20px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.product-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Pushes the footer to the bottom */
-}
-
-.product-footer {
-    margin-top: auto; /* Forces price/button to the bottom */
-    padding-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.product-image {
-    width: 100%;       /* Spans the full width of the card */
-    height: 250px;     /* Force a specific height here */
-    overflow: hidden;  /* Prevents any 'leakage' */
-    border-radius: 12px 12px 0 0; /* Rounds the top corners only */
-}
-
-.product-image img{
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.3s ease;
-    border-radius: 5px;
-}

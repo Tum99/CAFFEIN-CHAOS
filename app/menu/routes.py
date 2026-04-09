@@ -9,11 +9,9 @@ menu = Blueprint('menu', __name__)
 def main_menu():
     categories = Category.query.order_by(Category.display_order.asc()).all()
     products = Product.query.all()
-    products_data = Product.query.all()
     return render_template(
         "menu/menu.html",
         categories=categories,
-        products_data=products_data,
         products=products
     )
     
