@@ -19,11 +19,11 @@
         <div class="sidebar-divider"></div>
 
         {% for category in categories %}  
-            <a href="#{{ category | lower | replace(' ', '-') }}"
+            <a href="#{{ category.name | lower | replace(' ', '-') }}"
                 class="cat-link {% if loop.first %}active{% endif %}"
-                data-cat="{{ category | lower | replace(' ', '-') }}">
+                data-cat="{{ category.name | lower | replace(' ', '-') }}">
                 <span class="cat-link-name">{{ category.name }}</span>
-                <span class="cat-count">{{ products_data[category.name] | length if category in products_data else 0 }}</span>
+                <span class="cat-count">{{ category.products | length }}</span>
             </a>
         {% endfor %}
 
@@ -51,29 +51,32 @@
         </div>
 
         {% for category in categories %}     
-        <section class="cat-section" id="{{ category | lower | replace(' ', '-') }}">
+        <section class="cat-section" id="{{ category.name | lower | replace(' ', '-') }}">
             <div class="cat-header">
                 <div class="cat-title-wrap">
                     <h2 class="cat-title">{{ category.name }}</h2>
                 </div>
                 <span class="cat-item-count">
-                    {{ products_data[category.name] | length if category in products_data else 0 }} items
+                    {{ category.products | length }} products
                 </span>
             </div>
 
             <div class="item-grid">
-                {% if category in products_data %}
-                    {% for item in products_data[category] %}
+                {% if category in categories %}
+                    {% for product in category.products %}
                         <div class="item-card">
                             <div class="item-image">
-                                <div class="item-image-placeholder">☕</div>
+
                                 {% if product.images %}
-                                <img src="{{ url_for('static', filename='images/Product-images/' + product.images[0].image_path) }}" 
+                                    <img src="{{ url_for('static', filename='images/Product-images/' + product.images[0].image_path) }}" 
                                     alt="{{ product.name }}">
                                 {% else %}
-                                <img src="{{ url_for('static', filename='images/cup2.jpg') }}" alt="Default">
+                                    <img src="{{ url_for('static', filename='images/cup2.jpg') }}" alt="Default">
                                 {% endif %}
+
+                                <div class="item-img-overlay"></div>
                                 <div class="item-add">+</div>
+
                             </div>
                             <div class="item-info">
                                 <div class="item-name">{{ product.name }}</div>
@@ -82,7 +85,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                 {% else %}
+                    {% else %}
                     <p style="color: var(--muted); font-size: 0.85rem;">Coming soon.</p>
                 {% endif %}
             </div>

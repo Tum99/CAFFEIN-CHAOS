@@ -7,8 +7,9 @@ products = Blueprint('products', __name__)
 
 @products.route('/products/')
 def list_products():
+    print("--- THE PRODUCTS ROUTE IS RUNNING ---")
     all_products = Product.query.all()
-    return render_template('products/list.html', products=all_products)
+    return render_template('products/product_list.html', products=all_products)
 
 
 @products.route('/products/<int:id>')
