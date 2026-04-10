@@ -125,8 +125,23 @@ class Product(db.Model):
     category_id = db.Column(
         db.Integer,
         db.ForeignKey("categories.id"),
-        nullable=False
+        nullable=True
     )
+
+     # NEW — distinguishes what kind of product this is
+    product_type = db.Column(
+        db.String(30),
+        nullable=False,
+        default="menu"
+        # options:
+        # "menu"    → items on the cafe menu (coffee drinks, desserts etc.)
+        # "merch"   → branded merchandise (tumbler, wood stand etc.)
+        # "apparel" → clothing (tees, jackets, aprons)
+        # "farm"    → raw coffee from growers (beans, lots, batches)
+    )
+
+    # NEW — only relevant for farm products
+    is_available = db.Column(db.Boolean, default=True)
 
     images = db.relationship(
         "ProductImage",
@@ -158,6 +173,134 @@ class ProductImage(db.Model):
 
     def __repr__(self):
         return f"<ProductImage {self.id} for Product {self.product_id}>"
+
+
+class FarmProfile(db.Model):
+    """
+    Extra details for users who are coffee growers.
+    One grower (User) has one FarmProfile.
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user.id"),
+        nullable=False,
+        unique=True
+    )
+    farm_name = db.Column(db.String(150), nullable=False)
+    location = db.Column(db.String(150))
+    county = db.Column(db.String(100))
+    farm_size_acres = db.Column(db.Float)
+    altitude_masl = db.Column(db.Integer)         # metres above sea level
+    certifications = db.Column(db.String(255))    # e.g. "Organic, Fair Trade"
+    bio = db.Column(db.Text)
+    profile_image = db.Column(db.String(255))     # path to farm photo
+    is_verified = db.Column(db.Boolean, default=False)
+    joined_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # farm's coffee listings (filtered from Product table)
+    @property
+    def farm_products(self):
+        return Product.query.filter_by(
+            seller_id=self.user_id,
+            product_type="farm"
+        ).all()
+
+    def __repr__(self):
+        return f"<FarmProfile {self.farm_name}>"
+
+
+class FarmProductListing(db.Model):
+    """
+    When a grower lists a specific coffee lot/batch for sale.
+    Links to the Product table but adds farm-specific trading details.
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(
+        db.Integer,
+        db.ForeignKey("product.id"),
+        nullable=False
+    )
+    farm_id = db.Column(
+        db.Integer,
+        db.ForeignKey("farm_profile.id"),
+        nullable=False
+    )
+
+    # coffee-specific details
+    varietal = db.Column(db.String(100))          # e.g. Batian, SL28, Ruiru 11
+    process = db.Column(db.String(50))            # Washed, Natural, Honey
+    roast_level = db.Column(db.String(30))        # Light, Medium, Dark
+    harvest_date = db.Column(db.Date)
+    quantity_kg = db.Column(db.Float)             # total kg available
+    minimum_order_kg = db.Column(db.Float, default=1.0)
+    price_per_kg = db.Column(db.Float, nullable=False)
+    tasting_notes = db.Column(db.String(255))     # e.g. "Citrus, Molasses, Berry"
+    status = db.Column(
+        db.String(20),
+        default="available"
+        # "available", "reserved", "sold"
+    )
+    listed_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # relationships
+    product = db.relationship("Product", backref="farm_listing", uselist=False)
+    farm = db.relationship("FarmProfile", backref="listings")
+
+    def __repr__(self):
+        return f"<FarmProductListing {self.id} — {self.varietal}>"
+
+
+class GrowerBuyerTransaction(db.Model):
+    """
+    Records a completed or in-progress deal between a grower and a buyer.
+    Separate from the cafe's regular Order model.
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(
+        db.Integer,
+        db.ForeignKey("farm_product_listing.id"),
+        nullable=False
+    )
+    buyer_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user.id"),
+        nullable=False
+    )
+    grower_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user.id"),
+        nullable=False
+    )
+    quantity_kg = db.Column(db.Float, nullable=False)
+    agreed_price_per_kg = db.Column(db.Float, nullable=False)
+    total_amount = db.Column(db.Float, nullable=False)
+    status = db.Column(
+        db.String(20),
+        default="pending"
+        # "pending", "confirmed", "paid", "shipped", "completed", "cancelled"
+    )
+    mpesa_reference = db.Column(db.String(100))   # M-Pesa transaction code
+    notes = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # relationships
+    listing = db.relationship("FarmProductListing", backref="transactions")
+    buyer = db.relationship(
+        "User",
+        foreign_keys=[buyer_id],
+        backref="purchases"
+    )
+    grower = db.relationship(
+        "User",
+        foreign_keys=[grower_id],
+        backref="sales"
+    )
+
+    def __repr__(self):
+        return f"<Transaction {self.id} — {self.status}>"
+
 
 
 class CartItem(db.Model):

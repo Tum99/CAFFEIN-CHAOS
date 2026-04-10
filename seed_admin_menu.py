@@ -165,10 +165,251 @@ for cat_name, products in products_data.items():
                     price=p["price"],
                     stock=1,
                     description=p["description"],
-                    category_id=category.id
+                    category_id=category.id,
+                    product_type="menu",
+                    is_available=True
                     )
                 db.session.add(product)
 db.session.commit()
 print("Products added")
 
-print("Seeding complete ✅")
+# APPAREL PRODUCTS
+
+apparel_products = [
+    {
+        "name": "Take a Step Tee — Brown",
+        "price": 2500,
+        "description": "100% cotton oversized tee. 'Take a Step' footprint print on back. C&C logo on chest. Available S–XXL.",
+        "stock": 50
+    },
+    {
+        "name": "Take a Step Tee — Olive Green",
+        "price": 2500,
+        "description": "Same signature design in forest green. Cream footprint print. A nod to the farm, worn in the city.",
+        "stock": 50
+    },
+    {
+        "name": "Take a Step Varsity Jacket",
+        "price": 7500,
+        "description": "Brown body, cream sleeves. CHAOS on left arm, CAFFEINE on right. Footprint graphic on back. Limited run.",
+        "stock": 20
+    },
+    {
+        "name": "Caffeine & Chaos Apron",
+        "price": 3200,
+        "description": "Canvas cross-back apron with leather accents. C&C logo on chest pocket. 'Take a Step' on front panel.",
+        "stock": 30
+    },
+    {
+        "name": "Timba-XO Collab Apron",
+        "price": 3500,
+        "description": "Limited edition Timba-XO x Caffeine & Chaos collaboration apron. Canvas with leather accents.",
+        "stock": 15
+    }
+]
+ 
+for p in apparel_products:
+    existing = Product.query.filter_by(
+        name=p["name"],
+        product_type="apparel"
+    ).first()
+    if not existing:
+        product = Product(
+            seller_id=admin_user.id,
+            name=p["name"],
+            price=p["price"],
+            stock=p["stock"],
+            description=p["description"],
+            category_id=None,
+            product_type="apparel",
+            is_available=True
+        )
+        db.session.add(product)
+ 
+db.session.commit()
+print("✅ Apparel products added")
+
+
+ 
+#MERCH PRODUCTS
+merch_products = [
+{
+    "name": "C&C Signature Tumbler",
+    "price": 1800,
+    "description": "Double-walled stainless tumbler. Keeps drinks cold 24hrs, hot 12hrs. Green with cream C&C branding.",
+    "stock": 40
+},
+{
+    "name": "Branded Wood Slice Stand",
+    "price": 950,
+    "description": "Hand-cut natural wood slice with C&C logo burned in. As seen in our product shoots. Set of 2.",
+    "stock": 25
+},
+{
+    "name": "C&C Branded Cup — Green",
+    "price": 600,
+    "description": "Takeaway cup with the Caffeine & Chaos logo. Green with cream branding. Pack of 10.",
+    "stock": 100
+},
+{
+    "name": "C&C Enamel Mug",
+    "price": 1200,
+    "description": "Vintage-style enamel mug with C&C logo. Perfect for outdoor brewing sessions.",
+    "stock": 35
+}
+]
+
+for p in merch_products:
+    existing = Product.query.filter_by(
+        name=p["name"],
+        product_type="merch"
+    ).first()
+if not existing:
+    product = Product(
+        seller_id=admin_user.id,
+        name=p["name"],
+        price=p["price"],
+        stock=p["stock"],
+        description=p["description"],
+        category_id=None,
+        product_type="merch",
+        is_available=True
+    )
+    db.session.add(product)
+
+db.session.commit()
+print("✅ Merch products added")
+
+
+# FARM PROFILE  (for the demo grower)
+# ══════════════════════════════════════════════════════
+farm = FarmProfile.query.filter_by(user_id=grower_user.id).first()
+if not farm:
+    farm = FarmProfile(
+        user_id=grower_user.id,
+        farm_name="Jepng'etich Farm",
+        location="Ziwa, Uasingishu County",
+        county="Uasingishu",
+        farm_size_acres=12.5,
+        altitude_masl=1850,
+        certifications="Organic",
+        bio=(
+            "Family-run coffee farm in the highlands of Uasingishu County. "
+            "We grow Batian and SL28 varieties at 1,850m above sea level. "
+            "Our coffee is known for its premium citrus profile with a molasses finish."
+        ),
+        profile_image="images/farm/jepngetich-farm.jpg",
+        is_verified=True
+    )
+    db.session.add(farm)
+    db.session.commit()
+    print("✅ Farm profile created")
+else:
+    print("ℹ️  Farm profile already exists")
+
+
+
+#FARM PRODUCTS + LISTINGS  (product_type = "farm")
+#     These are raw coffee beans sold by the grower
+# ══════════════════════════════════════════════════════
+farm_products_data = [
+    {
+        "product": {
+            "name": "Arabica Batian — 250g",
+            "price": 850,
+            "description": "Medium roast, medium grind. Batian varietal. Notes of citrus with a molasses finish.",
+            "stock": 200
+        },
+        "listing": {
+            "varietal": "Batian",
+            "process": "Washed",
+            "roast_level": "Medium",
+            "harvest_date": date(2025, 10, 15),
+            "quantity_kg": 50.0,
+            "minimum_order_kg": 0.25,
+            "price_per_kg": 3400,
+            "tasting_notes": "Citrus, Molasses, Dark Berry",
+            "status": "available"
+        }
+    },
+    {
+        "product": {
+            "name": "Arabica Batian — 1kg",
+            "price": 2800,
+            "description": "Full kilogram of our signature Batian varietal. Premium citrus with molasses. For the serious coffee lover.",
+            "stock": 100
+        },
+        "listing": {
+            "varietal": "Batian",
+            "process": "Washed",
+            "roast_level": "Medium",
+            "harvest_date": date(2025, 10, 15),
+            "quantity_kg": 100.0,
+            "minimum_order_kg": 1.0,
+            "price_per_kg": 2800,
+            "tasting_notes": "Citrus, Molasses, Dark Berry",
+            "status": "available"
+        }
+    },
+    {
+        "product": {
+            "name": "SL28 Natural Process — 250g",
+            "price": 950,
+            "description": "Natural processed SL28. Fruity and wine-like with a heavy body. Uasingishu highlands.",
+            "stock": 80
+        },
+        "listing": {
+            "varietal": "SL28",
+            "process": "Natural",
+            "roast_level": "Light",
+            "harvest_date": date(2025, 11, 5),
+            "quantity_kg": 20.0,
+            "minimum_order_kg": 0.25,
+            "price_per_kg": 3800,
+            "tasting_notes": "Blueberry, Wine, Honey, Tropical Fruit",
+            "status": "available"
+        }
+    },
+    {
+        "product": {
+            "name": "Ruiru 11 — 500g",
+            "price": 1400,
+            "description": "Disease-resistant Ruiru 11 variety. Bold, full-bodied with chocolate and nut notes.",
+            "stock": 60
+        },
+        "listing": {
+            "varietal": "Ruiru 11",
+            "process": "Washed",
+            "roast_level": "Dark",
+            "harvest_date": date(2025, 9, 20),
+            "quantity_kg": 30.0,
+            "minimum_order_kg": 0.5,
+            "price_per_kg": 2800,
+            "tasting_notes": "Dark Chocolate, Roasted Nuts, Brown Sugar",
+            "status": "available"
+        }
+    }
+]
+ 
+for entry in farm_products_data:
+    p = entry["product"]
+    l = entry["listing"]
+ 
+    # create the Product
+    existing = Product.query.filter_by(
+        name=p["name"],
+        product_type="farm"
+    ).first()
+ 
+    if not existing:
+        product = Product(
+            seller_id=grower_user.id,
+            name=p["name"],
+            price=p["price"],
+            stock=p["stock"],
+            description=p["description"],
+            category_id=None,
+            product_type="farm",
+            is_available=True
+        )
+        db.session.add(product)
