@@ -3,4 +3,73 @@
     <h1 style="color: red; background: yellow; position: relative; z-index: 9999;">
         CAN YOU SEE ME NOW?
     </h1>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══════════════════════
+     PAGE HERO
+══════════════════════ -->
+<div class="page-hero">
+  <div class="page-hero-left">
+    <div class="page-eyebrow">Caffeine & Chaos</div>
+    <h1 class="page-title">Products &<br><em>Services</em></h1>
+  </div>
+  <div class="page-hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num">18</div>
+      <div class="hero-stat-lbl">Products</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-lbl">Services</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     TAB BAR
+══════════════════════ -->
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="products">
+    Products <span class="tab-count">18</span>
+  </button>
+  <button class="tab-btn" data-tab="services">
+    Services <span class="tab-count">6</span>
+  </button>
+</div>
+
+<!-- ══════════════════════
+     MAIN CONTENT
+══════════════════════ -->
+<div class="ps-wrapper">
+    <!-- ══ PRODUCTS SECTION ══ -->
+  <div class="ps-section products-section" id="tab-products">
+    <div class="section-head-row">
+      <div>
+        <div class="section-eyebrow">What We Sell</div>
+        <h2 class="section-title">Our <em>Products</em></h2>
+        <p class="section-desc">From premium Kenyan coffee beans to branded apparel — every product is a piece of the Caffeine & Chaos story.</p>
+      </div>
+    </div>
+  </div>
+
+   <!-- Filter bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="coffee">Coffee</button>
+      <button class="filter-btn" data-filter="apparel">Apparel</button>
+      <button class="filter-btn" data-filter="gear">Barista Gear</button>
+      <button class="filter-btn" data-filter="merch">Merch</button>
+    </div>
+
+     <!-- Products Grid -->
+    <div class="products-grid">
+</div>
+
+
+
+
+
+
+
 {% endblock %}
