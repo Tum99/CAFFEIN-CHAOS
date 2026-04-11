@@ -1,29 +1,133 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1 style="color: red; background: yellow; position: relative; z-index: 9999;">
-        CAN YOU SEE ME NOW?
-    </h1>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ══════════════════════
-     PAGE HERO
-══════════════════════ -->
+<!-- ══════════════════ PAGE HERO ══════════════════ -->
 <div class="page-hero">
-  <div class="page-hero-left">
-    <div class="page-eyebrow">Caffeine & Chaos</div>
-    <h1 class="page-title">Products &<br><em>Services</em></h1>
+  <div>
+    <div class="hero-eyebrow">Caffeine & Chaos</div>
+    <h1 class="hero-title">Take a <em>Step.</em><br>Shop the brand.</h1>
+    <p class="hero-desc">Value packs, gift hampers, apparel and merch. Every product is a piece of the Caffeine & Chaos story. Payments via M-Pesa.</p>
   </div>
-  <div class="page-hero-right">
-    <div class="hero-stat">
-      <div class="hero-stat-num">18</div>
-      <div class="hero-stat-lbl">Products</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">6</div>
-      <div class="hero-stat-lbl">Services</div>
+  <div class="hero-right">
+    <div class="hero-tagline">
+      <strong>The brand's motto</strong>
+      "You had choices.<br>You chose bold."
     </div>
   </div>
+</div>
+
+
+<!-- ══════════════════ CATEGORY NAV ══════════════════ -->
+<div class="cat-nav">
+  <button class="cat-nav-btn active" data-section="value-packs">Value Packs</button>
+  <div class="cat-nav-divider"></div>
+  <button class="cat-nav-btn" data-section="gift-hampers">Gift Hampers</button>
+  <div class="cat-nav-divider"></div>
+  <button class="cat-nav-btn" data-section="apparel">Apparel</button>
+  <div class="cat-nav-divider"></div>
+  <button class="cat-nav-btn" data-section="merch">Merch</button>
+  <div class="cat-nav-divider"></div>
+  <button class="cat-nav-btn" data-section="coffee">Coffee Bags</button>
+</div>
+
+
+<!-- ══════════════════ MAIN CONTENT ══════════════════ -->
+<div class="page-wrap">
+
+   <!-- ══ VALUE PACKS ══ -->
+  <section id="value-packs">
+    <div class="sec-head">
+      <div>
+        <div class="sec-eyebrow">Bundles & Packs</div>
+        <h2 class="sec-title">Value <em>Packs</em></h2>
+      </div>
+      <p class="sec-desc">Curated bundles at unbeatable prices. More product, more value, more chaos.</p>
+    </div>
+
+     <!-- TWO HERO PACKS -->
+    <div class="packs-hero-wrap" style="position:relative; margin-bottom: 1.5px;">
+      <div class="packs-hero">
+        
+        <!-- BOLD STARTER PACK -->
+        <div class="pack-hero-card bold-pack">
+          <div class="pack-bg-num">01</div>
+          <div class="pack-img-area">
+            <!-- Replace with: <img src="{{ url_for('static', filename='images/pack-bold-starter.jpg') }}" alt="Bold Starter Pack"/> -->
+            📦
+            <div class="pack-img-area-overlay"></div>
+          </div>
+          <div class="pack-badges">
+            <span class="pack-badge value">★ Best Value</span>
+          </div>
+          <div class="pack-content">
+            <div class="pack-label">The Bold Starter Pack</div>
+            <div class="pack-name">3kg Coffee + Tee<br>+ Keychain + <em>Cap</em></div>
+            <div class="pack-includes">
+              <span class="pack-item-pill">☕ 3kg Arabica</span>
+              <span class="pack-item-pill">👕 C&C T-Shirt</span>
+              <span class="pack-item-pill">🔑 Keychain</span>
+              <span class="pack-item-pill">🧢 C&C Cap</span>
+            </div>
+            <div class="pack-footer">
+              <div class="pack-price"><span>KES </span>7,500</div>
+              <button class="pack-cta" onclick="addToCart('Bold Starter Pack', 7500, '📦')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+         <!-- ELITE STEP PACK -->
+        <div class="pack-hero-card elite-pack">
+          <div class="pack-bg-num" style="color:rgba(122,182,72,0.04)">02</div>
+          <div class="pack-img-area">
+            <!-- Replace with: <img src="{{ url_for('static', filename='images/pack-elite-step.jpg') }}" alt="Elite Step Pack"/> -->
+            👟
+            <div class="pack-img-area-overlay"></div>
+          </div>
+          <div class="pack-badges">
+            <span class="pack-badge elite">⚡ Elite</span>
+          </div>
+          <div class="pack-content">
+            <div class="pack-label" style="color:var(--green)">The Elite Step</div>
+            <div class="pack-name">3kg Coffee +<br><em style="color:var(--green)">Sneakers</em></div>
+            <div class="pack-includes">
+              <span class="pack-item-pill" style="border-color:rgba(122,182,72,0.2)">☕ 3kg Arabica</span>
+              <span class="pack-item-pill" style="border-color:rgba(122,182,72,0.2)">👟 C&C Sneakers</span>
+            </div>
+            <div class="pack-footer" style="border-top-color:rgba(122,182,72,0.12)">
+              <div class="pack-price" style="color:var(--green)"><span>KES </span>7,500</div>
+              <button class="pack-cta" style="background:var(--green)" onclick="addToCart('Elite Step Pack', 7500, '👟')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- OR divider -->
+      <div class="pack-or-divider">OR</div>
+    </div>
+
+    <!-- MORE PACKS GRID -->
+    <div class="packs-grid">
+      <div class="pack-card-img">
+          <div class="pack-card-img-ph">☕👕</div>
+          <!-- <img src="{{ url_for('static', filename='images/pack-starter-s.jpg') }}" alt=""/> -->
+          <div class="pack-card-img-overlay"></div>
+          <span class="pack-card-tag value">Value Pack</span>
+      </div>
+      <div class="pack-card-body">
+        <div class="pack-card-cat">Starter</div>
+        <div class="pack-card-name">1kg Coffee + T-Shirt</div>
+        <div class="pack-card-items">
+          <span class="pack-item-tag">☕ 1kg Arabica</span>
+          <span class="pack-item-tag">👕 C&C Tee</span>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
 </div>
 
 <!-- ══════════════════════
