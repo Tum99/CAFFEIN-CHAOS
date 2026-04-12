@@ -57,3 +57,426 @@ body::before {
     z-index: 9998;
     transform: translate(-50%,-50%);
 }
+
+.page-hero {
+    padding: 9rem 4rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: end; gap: 4rem;
+    border-bottom: 1px solid rgba(200,135,58,0.1);
+    position: relative; overflow: hidden;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute; top: -10%; right: 0;
+    width: 50%; height: 120%;
+    background: radial-gradient(ellipse at right center, rgba(200,135,58,0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-eyebrow {
+    font-size: 0.63rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--crema); margin-bottom: 0.9rem;
+    display: flex; align-items: center; gap: 0.8rem;
+}
+
+.hero-eyebrow::before { 
+    content: ''; 
+    display: block; 
+    width: 24px; 
+    height: 1px; 
+    background: var(--crema); 
+}
+
+.hero-title em { 
+    font-style: italic; 
+    color: var(--crema); 
+}
+
+.hero-desc {
+    font-size: 0.9rem; color: rgba(245,236,215,0.5); line-height: 1.85;
+    max-width: 420px; margin-top: 1.5rem;
+}
+
+.hero-right { text-align: right; }
+.hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-style: italic; font-weight: 300;
+    color: rgba(200,135,58,0.4); line-height: 1.4;
+}
+.hero-tagline strong { 
+    display: block; 
+    font-style: normal; 
+    font-weight: 300; 
+    color: rgba(245,236,215,0.25); 
+    font-size: 0.75rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    margin-bottom: 0.5rem; 
+    font-family: 'Jost', sans-serif; 
+}
+
+ /* ══════════════════ CATEGORY NAV ══════════════════ */
+.cat-nav {
+    position: sticky; top: 68px; z-index: 100;
+    background: rgba(10,6,4,0.96); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(200,135,58,0.1);
+    padding: 0 4rem;
+    display: flex; gap: 0; align-items: center;
+}
+
+.cat-nav-btn {
+    padding: 1.1rem 2rem; background: transparent; border: none;
+    border-bottom: 2px solid transparent;
+    font-family: 'Jost', sans-serif; font-size: 0.73rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(245,236,215,0.4); cursor: none;
+    transition: color 0.3s, border-color 0.3s;
+    position: relative; top: 1px;
+}
+
+.cat-nav-btn:hover { color: var(--cream); }
+.cat-nav-btn.active { color: var(--crema); border-bottom-color: var(--crema); }
+.cat-nav-divider { width: 1px; height: 20px; background: rgba(200,135,58,0.1); margin: 0 0.5rem; }
+ 
+
+/* ══════════════════ WRAPPER ══════════════════ */
+.page-wrap { 
+    max-width: 1400px; 
+    margin: 0 auto; 
+    padding: 0 4rem 8rem; 
+}
+
+/* ══════════════════ SECTION HEADERS ══════════════════ */
+.sec-head {
+    padding: 5rem 0 3rem;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 1px solid rgba(200,135,58,0.08);
+    margin-bottom: 3rem;
+}
+
+.sec-eyebrow {
+    font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--crema); margin-bottom: 0.7rem;
+    display: flex; align-items: center; gap: 0.7rem;
+}
+
+.sec-eyebrow::before { content: ''; display: block; width: 18px; height: 1px; background: var(--crema); }
+.sec-title {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; color: var(--white); line-height: 1;
+}
+.sec-title em { font-style: italic; color: var(--crema); }
+.sec-desc { font-size: 0.82rem; color: rgba(245,236,215,0.4); line-height: 1.8; max-width: 340px; text-align: right; }
+ 
+
+/* ══════════════════════════════════════════════
+       VALUE PACKS — HERO CARDS
+    ══════════════════════════════════════════════ */
+.packs-hero {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; margin-bottom: 1.5px;
+}
+
+.pack-hero-card {
+    position: relative; overflow: hidden;
+    background: var(--roast); cursor: none;
+    min-height: 580px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+}
+
+/* background atmosphere */
+.pack-hero-card.bold-pack { background: linear-gradient(145deg, #2E1A0E 0%, #1C0F08 50%, #0A0604 100%); }
+.pack-hero-card.elite-pack { background: linear-gradient(145deg, #1A2E10 0%, #0D1A08 50%, #0A0604 100%); }
+/* large decorative number */
+.pack-bg-num {
+    position: absolute; top: -2rem; right: -1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem; font-weight: 300; line-height: 1;
+    color: rgba(200,135,58,0.04); pointer-events: none;
+    user-select: none;
+}
+.elite-pack .pack-bg-num { color: rgba(122,182,72,0.04); }
+ 
+/* image area */
+.pack-img-area {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 40%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem; opacity: 0.12;
+    overflow: hidden;
+}
+.pack-img-area img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    opacity: 0.5;
+}
+.pack-img-area-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, var(--roast) 100%);
+}
+
+ /* badges */
+.pack-badges {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    display: flex; flex-direction: column; gap: 0.5rem; z-index: 2;
+}
+
+ .pack-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.28rem 0.7rem; font-weight: 600;
+}
+
+.pack-badge.value { background: var(--crema); color: var(--espresso); }
+.pack-badge.new   { background: var(--green); color: #fff; }
+.pack-badge.elite { background: rgba(122,182,72,0.9); color: #fff; }
+
+ /* OR divider between two hero cards */
+.pack-or-divider {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 50px; height: 50px;
+    background: var(--espresso);
+    border: 1px solid rgba(200,135,58,0.25);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--crema);
+}
+
+.packs-hero-wrap { position: relative; }
+ 
+.pack-content {
+    position: relative; z-index: 2;
+    padding: 2rem 2.5rem 2.5rem;
+}
+.pack-label {
+    font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--crema); margin-bottom: 0.6rem;
+}
+.elite-pack .pack-label { color: var(--green); }
+.pack-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300; color: var(--white);
+    line-height: 1.1; margin-bottom: 0.8rem;
+}
+.pack-name em { font-style: italic; color: var(--crema); }
+.elite-pack .pack-name em { color: var(--green); }
+
+.pack-includes {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.5rem;
+}
+.pack-item-pill {
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid rgba(200,135,58,0.2);
+    color: rgba(245,236,215,0.6);
+    display: flex; align-items: center; gap: 0.3rem;
+}
+.elite-pack .pack-item-pill { border-color: rgba(122,182,72,0.2); color: rgba(245,236,215,0.6); }
+
+.pack-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(200,135,58,0.12);
+}
+.elite-pack .pack-footer { border-top-color: rgba(122,182,72,0.12); }
+.pack-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300; color: var(--crema);
+}
+.elite-pack .pack-price { color: var(--green); }
+.pack-price span { font-family: 'Jost', sans-serif; font-size: 0.7rem; color: rgba(200,135,58,0.5); }
+.pack-cta {
+    padding: 0.75rem 2rem; background: var(--crema); color: var(--espresso);
+    font-family: 'Jost', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+    border: none; cursor: none; transition: background 0.3s, transform 0.2s;
+}
+.pack-cta:hover { background: var(--gold); transform: translateY(-2px); }
+.elite-pack .pack-cta { background: var(--green); }
+.elite-pack .pack-cta:hover { background: #8DC85A; }
+
+/* hover effects */
+.pack-hero-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(200,135,58,0.03);
+    opacity: 0; transition: opacity 0.4s;
+}
+.pack-hero-card:hover::before { opacity: 1; }
+
+ /* ══════════════════════════════════════════════
+       MORE PACKS — SMALLER GRID
+    ══════════════════════════════════════════════ */
+.packs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+}
+.pack-card {
+    background: var(--roast); cursor: none;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+}
+.pack-card:hover { background: var(--bark); }
+
+.pack-card-img {
+    height: 240px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+}
+.pack-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+
+.pack-card-img {
+    height: 240px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+}
+.pack-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+
+.pack-card:hover .pack-card-img img { transform: scale(1.05); }
+.pack-card-img-ph { font-size: 3.5rem; opacity: 0.12; }
+.pack-card-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,6,4,0.8) 0%, transparent 55%);
+}
+.pack-card-tag {
+    position: absolute; top: 0.8rem; left: 0.8rem;
+    font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.22rem 0.6rem; font-weight: 600; z-index: 2;
+}
+.pack-card-tag.value   { background: var(--crema); color: var(--espresso); }
+.pack-card-tag.hamper  { background: #9B4D8A; color: #fff; }
+.pack-card-tag.limited { background: #E06C75; color: #fff; }
+
+.pack-card-body { padding: 1.4rem 1.6rem; }
+.pack-card-cat {
+    font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.4rem;
+}
+
+.pack-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 400; color: var(--white);
+    line-height: 1.2; margin-bottom: 0.8rem;
+}
+.pack-card-items {
+    display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.2rem;
+}
+
+.pack-item-tag {
+    font-size: 0.58rem; letter-spacing: 0.08em;
+    padding: 0.18rem 0.5rem;
+    border: 1px solid rgba(200,135,58,0.15);
+    color: rgba(245,236,215,0.5);
+}
+.pack-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1rem; border-top: 1px solid rgba(200,135,58,0.08);
+}
+
+.pack-card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--crema);
+}
+.pack-card-price span { font-family: 'Jost', sans-serif; font-size: 0.65rem; color: rgba(200,135,58,0.5); }
+.pack-add {
+    width: 36px; height: 36px; background: transparent;
+    border: 1px solid rgba(200,135,58,0.3); color: var(--crema);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; cursor: none;
+    transition: background 0.25s, color 0.25s;
+}
+.pack-add:hover { background: var(--crema); color: var(--espresso); }
+
+
+ /* ══════════════════════════════════════════════
+       GIFT HAMPERS SECTION
+    ══════════════════════════════════════════════ */
+.hampers-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1.5px;
+}
+
+.hamper-card {
+    background: var(--roast); cursor: none;
+    position: relative; overflow: hidden;
+}
+
+.hamper-card.featured { grid-row: span 2; }
+.hamper-img {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #2A1A30 0%, #1A1020 50%, #0A0604 100%);
+}
+.hamper-card.featured .hamper-img { height: 420px; }
+.hamper-card:not(.featured) .hamper-img { height: 240px; }
+.hamper-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.hamper-card:hover .hamper-img img { transform: scale(1.04); }
+.hamper-img-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; opacity: 0.1; }
+.hamper-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,6,4,0.85) 0%, transparent 50%);
+}
+
+/* hamper badge */
+.hamper-ribbon {
+    position: absolute; top: 1rem; right: 1rem; z-index: 2;
+    background: #9B4D8A; color: #fff;
+    font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.28rem 0.7rem; font-weight: 600;
+}
+.hamper-verified {
+    position: absolute; top: 1rem; left: 1rem; z-index: 2;
+    background: rgba(10,6,4,0.7); backdrop-filter: blur(6px);
+    color: rgba(245,236,215,0.6); font-size: 0.55rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.25rem 0.6rem; border: 1px solid rgba(255,255,255,0.08);
+}
+
+.hamper-body { padding: 1.6rem; }
+.hamper-cat {
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #9B4D8A; margin-bottom: 0.4rem;
+}
+.hamper-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; color: var(--white);
+    line-height: 1.2; margin-bottom: 0.8rem;
+}
+.hamper-name em { font-style: italic; color: var(--crema); }
+.hamper-card.featured .hamper-name { font-size: 1.9rem; }
+.hamper-contents {
+    font-size: 0.78rem; color: rgba(245,236,215,0.45);
+    line-height: 1.7; margin-bottom: 1.2rem;
+}
+.hamper-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1rem; border-top: 1px solid rgba(155,77,138,0.15);
+}
+.hamper-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--crema);
+}
+.hamper-price span { font-family: 'Jost', sans-serif; font-size: 0.65rem; color: rgba(200,135,58,0.5); }
+.hamper-btn {
+    padding: 0.6rem 1.4rem; background: transparent;
+    border: 1px solid rgba(155,77,138,0.4); color: #C070B0;
+    font-family: 'Jost', sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: none; transition: background 0.25s, color 0.25s;
+}
+.hamper-btn:hover { background: #9B4D8A; color: #fff; border-color: #9B4D8A; }
+ 
+
+ 
