@@ -46,20 +46,22 @@
       <div class="divider-text">or</div>
       <div class="divider-line"></div>
     </div>
- 
-    <div class="field">
-      <label>Email address</label>
-      <input type="email" placeholder="you@example.com"/>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" placeholder="••••••••"/>
-    </div>
- 
-    <div class="forgot"><a href="#">Forgot password?</a></div>
- 
-    <a href="{{ url_for('seller.dashboard') }}"><button class="submit-btn" onclick="simulateLogin()">Login to Dashboard →</button></a>
- 
+
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        <div class="field">
+            <label>Email address</label>
+            <input name="email" type="email" placeholder="you@example.com" required/>
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input name="password" type="password" placeholder="••••••••" required/>
+        </div>
+    
+        <div class="forgot"><a href="#">Forgot password?</a></div>
+    
+        <button type="submit" class="submit-btn" onclick="simulateLogin()">Login to Dashboard →</button>
+    </form>
+
     <div class="redirect-info">
       <div class="redirect-info-title">How redirecting works</div>
       <div class="redirect-rows">

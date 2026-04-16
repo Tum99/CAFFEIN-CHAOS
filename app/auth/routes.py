@@ -1,6 +1,6 @@
 # app/auth/routes.py
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from app.models import User
 from app import db, bcrypt
 
@@ -9,6 +9,9 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect_by_role(current_user)
+
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -18,18 +21,24 @@ def login():
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
             flash("Login successful!", "success")
-
-            # Redirect based on role
-            if user.role == "admin":
-                return redirect(url_for("admin.dashboard"))
-            if user.role == "buyer":
-                return redirect(url_for("buyer.dashboard"))
-            else:
-                return redirect(url_for("seller.dashboard"))
-
-        flash("Invalid email or password", "danger")
+        else:
+            flash("Invalid email or password", "danger")
 
     return render_template("auth/login.html", body_class='page-login')
+
+# Redirect based on role
+def redirect_by_role(user):
+
+    if user.role == "admin":
+        return redirect(url_for("admin.dashboard"))
+    elif user.role == "buyer":
+        return redirect(url_for("buyer.dashboard"))
+    elif user.role == "seller":
+        return redirect(url_for("seller.dashboard"))
+    else:
+        return redirect(url_for("main.home"))
+
+
 
 
 @auth.route("/register", methods=["GET", "POST"])

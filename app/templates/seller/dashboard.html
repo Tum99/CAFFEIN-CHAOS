@@ -1,96 +1,411 @@
 {% extends "base.html" %}
 
-{% block title %}Buyer Dashboard | Caffein & Chaos{% endblock %}
+{% block title %}Seller Dashboard | Caffein & Chaos{% endblock %}
 
 {% block content %}
+<div class="cursor-seller" id="cursor"></div>
+<div class="cursor-seller-ring" id="cursorRing"></div>
 
-<h1>☕ Seller Dashboard</h1>
-<p>Welcome back, {{ current_user.email }}</p>
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-left">
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-icon"><img src="/static/images/Logo2.jpeg" alt="company-logo"></div>
+            <div class="nav-logo-text">Caffeine<br><span>& Chaos</span></div>
+        </a>
+        <div class="nav-site-links">
+            <a href="{{ url_for('main.home') }}">Home</a>
+            <a href="{{ url_for('menu.main_menu') }}">Menu</a>
+            <a href="{{ url_for('products.list_products') }}">Products</a>
+            <a href="#">Marketplace</a>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-notif">🔔<div class="nav-notif-dot"></div></div>
+        <div class="nav-user">
+            <div class="nav-avatar">JF</div>
+            <div><div class="nav-user-name">Julyia Jepng'etich</div></div>
+            <span class="nav-role-badge">Grower</span>
+        </div>
+    </div>
+</nav>
 
-<hr>
+<div class="dash-layout">
 
-<!-- PROFILE SUMMARY -->
-<section>
-    <h2>📌 Profile</h2>
-    {% if current_user.seller_profile %}
-        <p><strong>Location:</strong> {{ current_user.seller_profile.location }}</p>
-        <p><strong>Bio:</strong> {{ current_user.seller_profile.bio }}</p>
-    {% else %}
-        <p>You have not completed your seller profile.</p>
-        <a href="#">Complete Profile</a>
-    {% endif %}
-</section>
+    <!-- SIDEBAR -->
+    <aside class="dash-sidebar">
+        <div class="sidebar-section-label">Overview</div>
+        <a href="#" class="sidebar-link active" onclick="showSection('overview')">
+            <span class="sidebar-icon">🏠</span>
+            <span class="sidebar-link-text">Dashboard</span>
+        </a>
 
-<hr>
+        <div class="sidebar-section-label">My Farm</div>
+        <a href="#" class="sidebar-link" onclick="showSection('listings')">
+            <span class="sidebar-icon">☕</span>
+            <span class="sidebar-link-text">My Listings</span>
+            <span class="sidebar-badge">4</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="showSection('new-listing')">
+            <span class="sidebar-icon">＋</span>
+            <span class="sidebar-link-text">Add New Listing</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="showSection('farm-profile')">
+            <span class="sidebar-icon">🌿</span>
+            <span class="sidebar-link-text">Farm Profile</span>
+        </a>
 
-<!-- PRODUCTS -->
-<section>
-    <h2>🛒 My Products</h2>
+        <div class="sidebar-section-label">Business</div>
+        <a href="#" class="sidebar-link" onclick="showSection('orders')">
+            <span class="sidebar-icon">📋</span>
+            <span class="sidebar-link-text">Orders Received</span>
+            <span class="sidebar-badge orange">2</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="showSection('earnings')">
+            <span class="sidebar-icon">💰</span>
+            <span class="sidebar-link-text">Earnings</span>
+        </a>
 
-    {% if products %}
-        <ul>
-            {% for product in products %}
-                <li>
-                    <strong>{{ product.name }}</strong> – KES {{ product.price }} <br>
-                    {{ product.description }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No products listed yet.</p>
-        <a href="#">Add Product</a>
-    {% endif %}
-</section>
+        <div class="sidebar-section-label">Communication</div>
+        <a href="#" class="sidebar-link" onclick="showSection('messages')">
+            <span class="sidebar-icon">💬</span>
+            <span class="sidebar-link-text">Messages</span>
+            <span class="sidebar-badge red">3</span>
+        </a>
 
-<hr>
+        <div class="sidebar-section-label">Account</div>
+        <a href="#" class="sidebar-link" onclick="showSection('settings')">
+            <span class="sidebar-icon">⚙️</span>
+            <span class="sidebar-link-text">Account Settings</span>
+        </a>
 
-<!-- SERVICES -->
-<section>
-    <h2>🔧 My Services</h2>
+        <div class="sidebar-divider"></div>
+        <button class="sidebar-logout">← Logout</button>
 
-    {% if services %}
-        <ul>
-            {% for service in services %}
-                <li>
-                    <strong>{{ service.name }}</strong> – {{ service.category }} <br>
-                    KES {{ service.price }} <br>
-                    {{ service.description }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No services listed yet.</p>
-        <a href="#">Add Service</a>
-    {% endif %}
-</section>
+    </aside>
 
-<hr>
+    <main class="dash-main">
+        <!-- ── OVERVIEW ── -->
+        <div class="content-section active" id="sec-overview">
+            <div class="dash-header">
+                <div>
+                    <div class="dash-greeting">Good morning, Grower</div>
+                    <div class="dash-title">Julyia's <em>Farm</em> Dashboard</div>
+                </div>
+                <div class="dash-date">Wednesday, 15 April 2026</div>
+            </div>
 
-<!-- ORDER REQUEST BIDS -->
-<section>
-    <h2>📨 Incoming Bids</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Earnings</div>
+                    <div class="stat-value">KES 142,000</div>
+                    <div class="stat-trend">↑ 18% this month</div>
+                    <div class="stat-icon">💰</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Listings</div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-sub">230 kg total stock</div>
+                    <div class="stat-icon">☕</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Orders Received</div>
+                    <div class="stat-value">17</div>
+                    <div class="stat-sub">2 awaiting confirmation</div>
+                    <div class="stat-icon">📋</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Messages</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-sub">Unread from buyers</div>
+                    <div class="stat-icon">💬</div>
+                </div>
+            </div>
 
-    {% if bids %}
-        <ul>
-            {% for bid in bids %}
-                <li>
-                    <strong>{{ bid.request.title }}</strong><br>
-                    Offer: KES {{ bid.offer_price }}<br>
-                    Message: {{ bid.message }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No bids yet.</p>
-    {% endif %}
-</section>
+            <!-- earnings + recent orders -->
+            <div class="earnings-grid">
+                <div class="chart-area">
+                    <div class="chart-title">Monthly Earnings (KES)</div>
+                    <div class="bar-chart">
+                        <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">Nov</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">Dec</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:35%"></div><div class="bar-label">Jan</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:65%"></div><div class="bar-label">Feb</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">Mar</div></div>
+                        <div class="bar-wrap"><div class="bar current" style="height:80%"></div><div class="bar-label">Apr</div></div>
+                    </div>
+                </div>
+                <div class="earnings-breakdown">
+                    <div class="chart-title">Earnings Breakdown</div>
+                    <div class="earning-row"><span class="earning-label">Batian 1kg sales</span><span class="earning-val">KES 84,000</span></div>
+                    <div class="earning-row"><span class="earning-label">SL28 Natural sales</span><span class="earning-val">KES 38,000</span></div>
+                    <div class="earning-row"><span class="earning-label">Ruiru 11 sales</span><span class="earning-val">KES 20,000</span></div>
+                    <div class="earning-row"><span class="earning-label">Platform commission (5%)</span><span class="earning-val" style="color:#E06C75">−KES 7,100</span></div>
+                    <div class="earning-row" style="border-top: 1px solid rgba(122,182,72,0.15); padding-top:0.8rem"><span class="earning-label" style="color:var(--cream)">Net Earnings</span>
+                    <span class="earning-val" style="font-size:1.4rem">KES 134,900</span></div>
+                </div>
+            </div>
 
-<hr>
+            <!-- recent orders preview -->
+            <div class="panel">
+                <div class="panel-head"><div class="panel-title">Recent Orders</div><button class="panel-action" onclick="showSection('orders')">View All →</button></div>
+                <div class="panel-body">
+                    <table class="orders-table">
+                        <thead><tr><th>Order</th><th>Buyer</th><th>Product</th><th>Qty</th><th>Total</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>#ORD-088</td><td>Faith N.</td><td>Batian 1kg</td><td>5kg</td><td>KES 14,000</td><td><span class="order-status status-pending">Pending</span></td></tr>
+                            <tr><td>#ORD-085</td><td>James K.</td><td>SL28 Natural</td><td>2kg</td><td>KES 7,600</td><td><span class="order-status status-confirmed">Confirmed</span></td></tr>
+                            <tr><td>#ORD-081</td><td>Amina W.</td><td>Batian 1kg</td><td>10kg</td><td>KES 28,000</td><td><span class="order-status status-completed">Completed</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-<!-- MESSAGES -->
-<section>
-    <h2>💬 Messages</h2>
-    <a href="{{ url_for('seller.messages') }}">View Messages</a>
-</section>
+        </div>
+
+
+        <!-- ── MY LISTINGS ── -->
+        <div class="content-section" id="sec-listings">
+            <div class="dash-header"><div><div class="dash-greeting">My Farm</div><div class="dash-title">My <em>Listings</em></div></div><button 
+            class="panel-action" onclick="showSection('new-listing')" style="font-size:0.78rem;background:var(--green);color:var(--espresso);padding:0.6rem 1.4rem;border:none;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;cursor:none">+ New Listing</button></div>
+            <div class="listings-grid">
+                <div class="listing-card">
+                    <div class="listing-card-img">☕</div>
+                    <div class="listing-varietal">Batian • Washed</div>
+                    <div class="listing-name">Arabica Batian — 1kg</div>
+                    <div class="listing-details"><span class="listing-pill">Medium Roast</span><span class="listing-pill">Washed</span><span class="listing-pill">Oct 2025</span></div>
+                    <div class="listing-footer"><div><div class="listing-price">KES 2,800/kg</div><div class="listing-stock">100 kg remaining</div></div><span class="listing-status status-active">Active</span></div>
+                    <div class="listing-actions"><button class="listing-btn">Edit</button><button class="listing-btn primary">View Orders</button></div>
+                </div>
+                <div class="listing-card">
+                    <div class="listing-card-img">🫘</div>
+                    <div class="listing-varietal">SL28 • Natural</div>
+                    <div class="listing-name">SL28 Natural Process</div>
+                    <div class="listing-details"><span class="listing-pill">Light Roast</span><span class="listing-pill">Natural</span><span class="listing-pill">Nov 2025</span></div>
+                    <div class="listing-footer"><div><div class="listing-price">KES 3,800/kg</div><div class="listing-stock">20 kg remaining</div></div><span class="listing-status status-active">Active</span></div>
+                    <div class="listing-actions"><button class="listing-btn">Edit</button><button class="listing-btn primary">View Orders</button></div>
+                </div>
+                <div class="listing-card">
+                    <div class="listing-card-img">☕</div>
+                    <div class="listing-varietal">Ruiru 11 • Washed</div>
+                    <div class="listing-name">Ruiru 11 — 500g</div>
+                    <div class="listing-details"><span class="listing-pill">Dark Roast</span><span class="listing-pill">Washed</span><span class="listing-pill">Sep 2025</span></div>
+                    <div class="listing-footer"><div><div class="listing-price">KES 2,800/kg</div><div class="listing-stock">30 kg remaining</div></div><span class="listing-status status-active">Active</span></div>
+                    <div class="listing-actions"><button class="listing-btn">Edit</button><button class="listing-btn primary">View Orders</button></div>
+                </div>
+                <div class="listing-card">
+                    <div class="listing-card-img">☕</div>
+                    <div class="listing-varietal">Batian • Washed</div>
+                    <div class="listing-name">Arabica Batian — 250g</div>
+                    <div class="listing-details"><span class="listing-pill">Medium Roast</span><span class="listing-pill">Washed</span></div>
+                    <div class="listing-footer"><div><div class="listing-price">KES 3,400/kg</div><div class="listing-stock">0 kg remaining</div></div><span class="listing-status status-sold">Sold Out</span></div>
+                    <div class="listing-actions"><button class="listing-btn">Restock</button><button class="listing-btn">Edit</button></div>
+                </div>
+            </div>
+
+        </div>
+
+         <!-- ── NEW LISTING ── -->
+        <div class="content-section" id="sec-new-listing">
+            <div class="dash-header"><div><div class="dash-greeting">My Farm</div><div class="dash-title">Add New <em>Listing</em></div></div></div>
+            <div class="new-listing-form">
+                <div class="form-panel">
+                    <div class="form-panel-title">Product Details</div>
+                    <div class="form-field"><label>Product Name</label><input type="text" placeholder="e.g. Arabica Batian — 500g"/></div>
+                    <div class="form-field"><label>Price per kg (KES)</label><input type="number" placeholder="e.g. 2800"/></div>
+                    <div class="form-field"><label>Total stock available (kg)</label><input type="number" placeholder="e.g. 50"/></div>
+                    <div class="form-field"><label>Minimum order (kg)</label><input type="number" placeholder="e.g. 1"/></div>
+                    <div class="form-field"><label>Description</label><textarea placeholder="Describe your coffee..."></textarea></div>
+                </div>
+                <div class="form-panel">
+                    <div class="form-panel-title">Coffee Specifications</div>
+                    <div class="form-field"><label>Varietal</label><select><option>Batian</option><option>SL28</option><option>SL34</option><option>Ruiru 11</option><option>K7</option></select></div>
+                    <div class="form-field"><label>Process</label><select><option>Washed</option><option>Natural</option><option>Honey</option></select></div>
+                    <div class="form-field"><label>Roast Level</label><select><option>Light</option><option>Medium</option><option>Dark</option></select></div>
+                    <div class="form-field"><label>Harvest Date</label><input type="date"/></div>
+                    <div class="form-field"><label>Tasting Notes (comma separated)</label><input type="text" placeholder="e.g. Citrus, Molasses, Berry"/></div>
+                    <button class="form-submit">Publish Listing →</button>
+                </div>
+            </div>
+
+        </div>
+
+
+         <!-- ── FARM PROFILE ── -->
+        <div class="content-section" id="sec-farm-profile">
+            <div class="dash-header"><div><div class="dash-greeting">My Farm</div><div class="dash-title">Farm <em>Profile</em></div></div></div>
+            <div class="farm-profile-grid">
+                <div class="farm-profile-card">
+                    <div class="farm-img-area">🌿</div>
+                    <div class="farm-verified">✓ Verified Farm</div>
+                    <div class="farm-name">Jepng'etich Farm</div>
+                    <div class="farm-location">📍 Ziwa, Uasingishu County</div>
+                    <div class="farm-specs">
+                        <div><div class="farm-spec-label">Farm Size</div><div class="farm-spec-value">12.5 acres</div></div>
+                        <div><div class="farm-spec-label">Altitude</div><div class="farm-spec-value">1,850 masl</div></div>
+                        <div><div class="farm-spec-label">Certifications</div><div class="farm-spec-value">Organic</div></div>
+                        <div><div class="farm-spec-label">Member Since</div><div class="farm-spec-value">2025</div></div>
+                    </div>
+                </div>
+                <div class="farm-edit-form">
+                    <div class="farm-edit-title">Edit Farm Details</div>
+                    <div class="form-field"><label>Farm Name</label><input type="text" value="Jepng'etich Farm"/></div>
+                    <div class="form-field"><label>Location</label><input type="text" value="Ziwa, Uasingishu County"/></div>
+                    <div class="form-field"><label>County</label><input type="text" value="Uasingishu"/></div>
+                    <div class="form-field"><label>Farm Size (acres)</label><input type="number" value="12.5"/></div>
+                    <div class="form-field"><label>Altitude (masl)</label><input type="number" value="1850"/></div>
+                    <div class="form-field"><label>Certifications</label><input type="text" value="Organic"/></div>
+                    <div class="form-field"><label>Bio</label><textarea>Family-run coffee farm in the highlands of Uasingishu County...</textarea></div>
+                    <button class="form-submit">Update Profile →</button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ── ORDERS RECEIVED ── -->
+        <div class="content-section" id="sec-orders">
+            <div class="dash-header"><div><div class="dash-greeting">Business</div><div class="dash-title">Orders <em>Received</em></div></div></div>
+            <div class="panel">
+                <div class="panel-head"><div class="panel-title">All Orders</div></div>
+                <div class="panel-body">
+                    <table class="orders-table">
+                        <thead><tr><th>Order ID</th><th>Buyer</th><th>Product</th><th>Qty</th><th>Total</th><th>M-Pesa Ref</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>#ORD-088</td><td>Faith N.</td><td>Batian 1kg</td><td>5kg</td><td>KES 14,000</td><td>—</td><td><span class="order-status status-pending">Pending</span></td></tr>
+                            <tr><td>#ORD-087</td><td>Brian O.</td><td>Ruiru 11</td><td>3kg</td><td>KES 8,400</td><td>—</td><td><span class="order-status status-pending">Pending</span></td></tr>
+                            <tr><td>#ORD-085</td><td>James K.</td><td>SL28 Natural</td><td>2kg</td><td>KES 7,600</td><td>QA78HJ2K</td><td><span class="order-status status-confirmed">Confirmed</span></td></tr>
+                            <tr><td>#ORD-081</td><td>Amina W.</td><td>Batian 1kg</td><td>10kg</td><td>KES 28,000</td><td>PL23MX9R</td><td><span class="order-status status-completed">Completed</span></td></tr>
+                            <tr><td>#ORD-076</td><td>Peter M.</td><td>Batian 250g</td><td>4kg</td><td>KES 11,200</td><td>NB56QW4T</td><td><span class="order-status status-completed">Completed</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ── EARNINGS ── -->
+        <div class="content-section" id="sec-earnings">
+            <div class="dash-header"><div><div class="dash-greeting">Business</div><div class="dash-title">My <em>Earnings</em></div></div></div>
+            <div class="stats-grid" style="margin-bottom:1.5px">
+                <div class="stat-card"><div class="stat-label">This Month</div><div class="stat-value">KES 49,600</div><div class="stat-trend">↑ 18% vs last month</div></div>
+                <div class="stat-card"><div class="stat-label">Total All Time</div><div class="stat-value">KES 142,000</div><div class="stat-sub">Since joining</div></div>
+                <div class="stat-card"><div class="stat-label">Total All Time</div><div class="stat-value">KES 142,000</div><div class="stat-sub">Since joining</div></div>
+                <div class="stat-card"><div class="stat-label">Pending Payout</div><div class="stat-value">KES 22,400</div><div class="stat-sub">Orders pending payment</div></div>
+                <div class="stat-card"><div class="stat-label">Platform Fee (5%)</div><div class="stat-value">KES 7,100</div><div class="stat-sub">Commission to C&C</div></div>
+            </div>
+            <div class="earnings-grid">
+                <div class="chart-area">
+                    <div class="chart-title">Monthly Earnings (KES)</div>
+                    <div class="bar-chart">
+                        <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">Nov</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">Dec</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:35%"></div><div class="bar-label">Jan</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:65%"></div><div class="bar-label">Feb</div></div>
+                        <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">Mar</div></div>
+                        <div class="bar-wrap"><div class="bar current" style="height:80%"></div><div class="bar-label">Apr</div></div>
+                    </div>
+                </div>
+                <div class="earnings-breakdown">
+                    <div class="chart-title">By Product</div>
+                    <div class="earning-row"><span class="earning-label">Batian 1kg</span><span class="earning-val">KES 84,000</span></div>
+                    <div class="earning-row"><span class="earning-label">SL28 Natural</span><span class="earning-val">KES 38,000</span></div>
+                    <div class="earning-row"><span class="earning-label">Ruiru 11</span><span class="earning-val">KES 20,000</span></div>
+                    <div class="earning-row"><span class="earning-label">Commission (5%)</span><span class="earning-val" style="color:#E06C75">−KES 7,100</span></div>
+                    <div class="earning-row"><span class="earning-label" style="color:var(--cream)">Net Total</span><span class="earning-val" style="font-size:1.4rem">KES 134,900</span></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ── MESSAGES ── -->
+        <div class="content-section" id="sec-messages">
+            <div class="dash-header"><div><div class="dash-greeting">Communication</div><div class="dash-title">My <em>Messages</em></div></div></div>
+            <div class="panel">
+                <div class="panel-head"><div class="panel-title">Inbox</div></div>
+                <div class="panel-body" style="padding:0">
+                    <div class="message-layout">
+                        <div class="message-threads">
+                            <div class="thread-item active-thread">
+                                <div class="thread-avatar">FN</div>
+                                <div class="thread-info"><div class="thread-name">Faith Njeri (Buyer)</div><div class="thread-preview">How do I proceed with M-Pesa?</div></div>
+                                <div class="thread-meta"><div class="thread-time">2m</div><div class="thread-unread">1</div></div>
+                            </div>
+                            <div class="thread-item">
+                                <div class="thread-avatar">JK</div>
+                                <div class="thread-info"><div class="thread-name">James Kamau (Buyer)</div><div class="thread-preview">Can I get 10kg of SL28?</div></div>
+                                <div class="thread-meta"><div class="thread-time">45m</div><div class="thread-unread">2</div></div>
+                            </div>
+                            <div class="thread-item">
+                                <div class="thread-avatar green">CC</div>
+                                <div class="thread-info"><div class="thread-name">C&C Support</div><div class="thread-preview">Your listing has been approved</div></div>
+                                <div class="thread-meta"><div class="thread-time">1d</div></div>
+                            </div>
+                        </div>
+                        <div class="message-chat">
+                            <div class="chat-head">
+                                <div class="chat-head-avatar">FN</div>
+                                <div><div class="chat-head-name">Faith Njeri</div><div class="chat-head-status">● Online</div></div>
+                            </div>
+                            <div class="chat-messages">
+                                <div class="msg received"><div class="msg-bubble">Hello! I'd like to order 5kg of the Batian 1kg lot. Is the lot still available?</div><div class="msg-time">10:18am</div></div>
+                                <div class="msg sent"><div class="msg-bubble">Yes, the 5kg lot is available. We can do KES 2,800/kg. Harvest was October 2025 — very fresh batch.</div><div class="msg-time">10:20am</div></div>
+                                <div class="msg received"><div class="msg-bubble">That works for me. How do I proceed with the M-Pesa payment?</div><div class="msg-time">10:22am</div></div>
+                                <div class="msg sent"><div class="msg-bubble">Click "Order Now" on the listing and the M-Pesa STK push will come to your number automatically. Let me know if you need help!</div><div class="msg-time">10:24am</div></div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input class="chat-input" placeholder="Reply to Faith..."/>
+                                <button class="chat-send">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ── SETTINGS ── -->
+        <div class="content-section" id="sec-settings">
+            <div class="dash-header"><div><div class="dash-greeting">Account</div><div class="dash-title">Account <em>Settings</em></div></div></div>
+            <div class="settings-grid">
+                <div class="settings-panel">
+                    <div class="settings-panel-title">Personal Information</div>
+                    <div class="settings-field"><label>First Name</label><input type="text" value="Julyia"/></div>
+                    <div class="settings-field"><label>Last Name</label><input type="text" value="Jepng'etich"/></div>
+                    <div class="settings-field"><label>Email</label><input type="email" value="julyia@jepngetichfarm.co.ke"/></div>
+                    <div class="settings-field"><label>Phone (M-Pesa)</label><input type="tel" value="0722 000 001"/></div>
+                    <button class="settings-save">Save Changes</button>
+                </div>
+                <div class="settings-panel">
+                    <div class="settings-panel-title">Payout Settings</div>
+                    <div class="settings-field"><label>M-Pesa Number for Payouts</label><input type="tel" value="0722 000 001"/></div>
+                    <div class="settings-field"><label>Payout Frequency</label><select><option>Weekly</option><option>Monthly</option><option>On request</option></select></div>
+                    <button class="settings-save">Save Payout Settings</button>
+                </div>
+                <div class="settings-panel">
+                    <div class="settings-panel-title">Change Password</div>
+                    <div class="settings-field"><label>Current Password</label><input type="password" placeholder="••••••••"/></div>
+                    <div class="settings-field"><label>New Password</label><input type="password" placeholder="Min. 8 characters"/></div>
+                    <div class="settings-field"><label>Confirm New Password</label><input type="password" placeholder="••••••••"/></div>
+                    <button class="settings-save">Update Password</button>
+                </div>
+                <div class="settings-panel">
+                    <div class="settings-panel-title">Notifications</div>
+                    <div class="settings-field"><label>New Order Alerts</label><select><option>SMS + Email</option><option>SMS only</option><option>Email only</option></select></div>
+                    <div class="settings-field"><label>Payment Received</label><select><option>SMS + Email</option><option>SMS only</option></select></div>
+                    <div class="settings-field"><label>New Messages</label><select><option>On</option><option>Off</option></select></div>
+                    <button class="settings-save">Save Preferences</button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
 
 {% endblock %}
