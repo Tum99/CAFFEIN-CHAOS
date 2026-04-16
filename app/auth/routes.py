@@ -29,7 +29,7 @@ def login():
 
         flash("Invalid email or password", "danger")
 
-    return render_template("auth/login.html")
+    return render_template("auth/login.html", body_class='page-login')
 
 
 @auth.route("/register", methods=["GET", "POST"])
