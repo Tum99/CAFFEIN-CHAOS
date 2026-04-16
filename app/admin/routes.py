@@ -8,7 +8,7 @@ from app.models import Category, Product
 admin = Blueprint('admin', __name__)
 
 @admin.route('/admin')
-# @login_required
+@login_required
 def dashboard():
     if current_user.role != "admin":
         return "Unauthorized", 403
