@@ -3,8 +3,8 @@
 <head>
     <title>{% block title %}Caffein & Chaos{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='products_services.css') }}">
     <link
     href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
@@ -12,7 +12,7 @@
     />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
 </head>
-<body>
+<body class="{{ body_class | default('') }}">
 
     <nav id="navbar">
     <a href="#" class="nav-logo">
@@ -25,8 +25,7 @@
       <li><a href="{{ url_for('products.list_products') }}">Products</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="{{ url_for('auth.login') }}" class="btn-ghost">Login</a>
-      <a href="{{ url_for('auth.register') }}" class="btn-filled">Sign Up</a>
+      <a href="{{ url_for('auth.login') }}" class="btn-filled">Login</a>
     </div>
   </nav>
 

@@ -12,6 +12,7 @@ def main_menu():
     return render_template(
         "menu/menu.html",
         categories=categories,
-        products=products
+        products=products,
+        body_class='page-menu'
     )
     
