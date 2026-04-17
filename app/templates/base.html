@@ -22,9 +22,22 @@
       <div class="nav-logo-text">Caffeine<br><span>& Chaos</span></div>
     </a>
     <ul class="nav-links">
-      <li><a href="{{ url_for('main.home') }}">Home</a></li>
-      <li><a href="{{ url_for('menu.main_menu') }}">Menu</a></li>
-      <li><a href="{{ url_for('products.list_products') }}">Products</a></li>
+      <li><a href="{{ url_for('main.home') }}"
+        class="{{ 'active' if active_page == 'home' }}">Home</a></li>
+
+      <li><a href="{{ url_for('menu.main_menu') }}"
+        class="{{ 'active' if active_page == 'menu' }}">Menu</a></li>
+
+      <li><a href="{{ url_for('products.list_products') }}"
+        class="{{ 'active' if active_page == 'products' }}">Products</a></li>
+      {% if current_user.is_authenticated %}
+        <li>
+          <a href="{{ url_for('marketplace') }}"
+            class="{{ 'active' if active_page == 'marketplace' }}">
+            Marketplace
+          </a>
+        </li>
+      {% endif %}
     </ul>
     <div class="nav-cta">
       <a href="{{ url_for('auth.login') }}" class="btn-filled">Login</a>
