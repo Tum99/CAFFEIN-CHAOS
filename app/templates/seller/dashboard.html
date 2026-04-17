@@ -7,11 +7,11 @@
 <div class="cursor-seller-ring" id="cursorRing"></div>
 
 <!-- NAVBAR -->
-<nav>
+<nav class="seller-nav">
     <div class="nav-left">
         <a href="#" class="nav-logo">
             <div class="nav-logo-icon"><img src="/static/images/Logo2.jpeg" alt="company-logo"></div>
-            <div class="nav-logo-text">Caffeine<br><span>& Chaos</span></div>
+            <div class="nav-logo-text">Caffeine<br><span class="seller-span">& Chaos</span></div>
         </a>
         <div class="nav-site-links">
             <a href="{{ url_for('main.home') }}">Home</a>
@@ -35,46 +35,46 @@
     <!-- SIDEBAR -->
     <aside class="dash-sidebar">
         <div class="sidebar-section-label">Overview</div>
-        <a href="#" class="sidebar-link active" onclick="showSection('overview')">
+        <a href="#" class="sidebar-link active" onclick="showSection('overview', event)">
             <span class="sidebar-icon">🏠</span>
             <span class="sidebar-link-text">Dashboard</span>
         </a>
 
         <div class="sidebar-section-label">My Farm</div>
-        <a href="#" class="sidebar-link" onclick="showSection('listings')">
+        <a href="#" class="sidebar-link" onclick="showSection('listings', event)">
             <span class="sidebar-icon">☕</span>
             <span class="sidebar-link-text">My Listings</span>
             <span class="sidebar-badge">4</span>
         </a>
-        <a href="#" class="sidebar-link" onclick="showSection('new-listing')">
+        <a href="#" class="sidebar-link" onclick="showSection('new-listing', event)">
             <span class="sidebar-icon">＋</span>
             <span class="sidebar-link-text">Add New Listing</span>
         </a>
-        <a href="#" class="sidebar-link" onclick="showSection('farm-profile')">
+        <a href="#" class="sidebar-link" onclick="showSection('farm-profile', event)">
             <span class="sidebar-icon">🌿</span>
             <span class="sidebar-link-text">Farm Profile</span>
         </a>
 
         <div class="sidebar-section-label">Business</div>
-        <a href="#" class="sidebar-link" onclick="showSection('orders')">
+        <a href="#" class="sidebar-link" onclick="showSection('orders', event)">
             <span class="sidebar-icon">📋</span>
             <span class="sidebar-link-text">Orders Received</span>
             <span class="sidebar-badge orange">2</span>
         </a>
-        <a href="#" class="sidebar-link" onclick="showSection('earnings')">
+        <a href="#" class="sidebar-link" onclick="showSection('earnings', event)">
             <span class="sidebar-icon">💰</span>
             <span class="sidebar-link-text">Earnings</span>
         </a>
 
         <div class="sidebar-section-label">Communication</div>
-        <a href="#" class="sidebar-link" onclick="showSection('messages')">
+        <a href="#" class="sidebar-link" onclick="showSection('messages', event)">
             <span class="sidebar-icon">💬</span>
             <span class="sidebar-link-text">Messages</span>
             <span class="sidebar-badge red">3</span>
         </a>
 
         <div class="sidebar-section-label">Account</div>
-        <a href="#" class="sidebar-link" onclick="showSection('settings')">
+        <a href="#" class="sidebar-link" onclick="showSection('settings', event)">
             <span class="sidebar-icon">⚙️</span>
             <span class="sidebar-link-text">Account Settings</span>
         </a>
@@ -409,4 +409,8 @@
 
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/seller_dashboard.js') }}"></script>
 {% endblock %}
