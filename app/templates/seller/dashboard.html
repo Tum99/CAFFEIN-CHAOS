@@ -6,29 +6,9 @@
 <div class="cursor-seller" id="cursor"></div>
 <div class="cursor-seller-ring" id="cursorRing"></div>
 
-<!-- NAVBAR -->
-<nav class="seller-nav">
-    <div class="nav-left">
-        <a href="#" class="nav-logo">
-            <div class="nav-logo-icon"><img src="/static/images/Logo2.jpeg" alt="company-logo"></div>
-            <div class="nav-logo-text">Caffeine<br><span class="seller-span">& Chaos</span></div>
-        </a>
-        <div class="nav-site-links">
-            <a href="{{ url_for('main.home') }}">Home</a>
-            <a href="{{ url_for('menu.main_menu') }}">Menu</a>
-            <a href="{{ url_for('products.list_products') }}">Products</a>
-            <a href="#">Marketplace</a>
-        </div>
-    </div>
-    <div class="nav-right">
-        <div class="nav-notif">🔔<div class="nav-notif-dot"></div></div>
-        <div class="nav-user">
-            <div class="nav-avatar">JF</div>
-            <div><div class="nav-user-name">Julyia Jepng'etich</div></div>
-            <span class="nav-role-badge">Grower</span>
-        </div>
-    </div>
-</nav>
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='seller_dashboard.css') }}"/>
+{% endblock %}
 
 <div class="dash-layout">
 
@@ -80,7 +60,7 @@
         </a>
 
         <div class="sidebar-divider"></div>
-        <button class="sidebar-logout">← Logout</button>
+        <button class="sidebar-logout" onclick="openLogout()">← Logout</button>
 
     </aside>
 
