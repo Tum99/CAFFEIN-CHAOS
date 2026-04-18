@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 
@@ -65,8 +65,12 @@ def create_app():
     def test_products():
         return "Products route is alive"
 
+    @app.context_processor
+    def inject_user():
+        return dict(current_user=current_user)
 
-    return app
+
+return app
 
 
 # Flask-Login user loader
