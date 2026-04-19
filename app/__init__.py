@@ -70,7 +70,7 @@ def create_app():
         return dict(current_user=current_user)
 
 
-return app
+    return app
 
 
 # Flask-Login user loader
