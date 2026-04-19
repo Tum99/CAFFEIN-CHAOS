@@ -31,23 +31,64 @@
       <li><a href="{{ url_for('products.list_products') }}"
         class="{{ 'active' if active_page == 'products' }}">Products</a></li>
       {% if current_user.is_authenticated %}
-        <li>
+      <li>
+        {% if current_user.role == 'seller' %}
           <a href="{{ url_for('seller.dashboard') }}"
             class="{{ 'active' if active_page == 'marketplace' }}">
-            Marketplace
+            Marketplace (Seller)
           </a>
-        </li>
-      {% endif %}
+        {% elif current_user.role == 'buyer' %}
+          <a href="{{ url_for('buyer.dashboard') }}"
+            class="{{ 'active' if active_page == 'marketplace' }}">
+            Marketplace (Buyer)
+          </a>
+        {% endif %}
+      </li>
+    <li>
+      <button class="btn-ghost" onclick="openLogout()">Logout</button>
+    </li>
+    {% endif %}
     </ul>
-    <div class="nav-cta">
-      <a href="{{ url_for('auth.login') }}" class="btn-filled">Login</a>
-    </div>
+    
+    {% if not current_user.is_authenticated %}
+      <div class="nav-cta">
+        <a href="{{ url_for('auth.login') }}" class="btn-filled">Login</a>
+      </div>
+    {% endif %}
   </nav>
 
+    <!-- ── LOGOUT CONFIRMATION OVERLAY ── -->
+  <div class="logout-overlay" id="logoutOverlay">
+    <div class="logout-box">
 
-      {% block content %}{% endblock %}
-      {% block scripts %}{% endblock %}
+      <div class="logout-icon">☕</div>
 
-  </main>
+      <div class="logout-title">Leaving so soon?</div>
+      <div class="logout-subtitle">
+        You'll be signed out of your account.<br>
+        Your session will be ended.
+      </div>
+
+      <div class="logout-actions">
+        <button class="logout-cancel" onclick="closeLogout()">
+          Stay Logged In
+        </button>
+        <a href="{{ url_for('auth.logout') }}" class="logout-confirm">
+          Yes, Log Out
+        </a>
+      </div>
+
+      <div class="logout-user">
+        Signed in as <strong>{{ current_user.email }}</strong>
+        <span class="logout-role">{{ current_user.role | capitalize }}</span>
+      </div>
+
+    </div>
+  </div>
+    {% block content %}{% endblock %}
+    {% block scripts %}
+      <script src="{{ url_for('static', filename='js/logout_base.js') }}"></script>
+    {% endblock %}
+  
 </body>
 </html>

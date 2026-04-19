@@ -613,6 +613,126 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
 }
 .product-card:hover .product-add { opacity: 1; }
 
+/* ── LOGOUT OVERLAY ── */
+.logout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(10, 6, 4, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.logout-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.logout-box {
+  background: var(--roast);
+  border: 1px solid rgba(200, 135, 58, 0.18);
+  padding: 3rem 3.5rem;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  transform: translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.logout-overlay.open .logout-box {
+  transform: translateY(0);
+}
+
+.logout-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.5;
+}
+
+.logout-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+
+.logout-subtitle {
+  font-size: 0.82rem;
+  color: rgba(245, 236, 215, 0.45);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.logout-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.logout-cancel {
+  padding: 0.75rem 1.8rem;
+  background: transparent;
+  border: 1px solid rgba(200, 135, 58, 0.25);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.logout-cancel:hover {
+  border-color: var(--crema);
+  color: var(--crema);
+}
+
+.logout-confirm {
+  padding: 0.75rem 1.8rem;
+  background: #E06C75;
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: none;
+  transition: background 0.3s;
+  display: inline-block;
+}
+
+.logout-confirm:hover {
+  background: #C85560;
+}
+
+.logout-user {
+  font-size: 0.72rem;
+  color: rgba(245, 236, 215, 0.25);
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(200, 135, 58, 0.08);
+}
+
+.logout-role {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(200, 135, 58, 0.15);
+  color: var(--crema);
+  padding: 0.1rem 0.45rem;
+}
+
 
 /* ── FOOTER ── */
 footer { background: #050302; padding: 5rem 4rem 2.5rem; border-top: 1px solid rgba(200,135,58,0.1); }

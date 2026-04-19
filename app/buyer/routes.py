@@ -20,8 +20,7 @@ def profile():
 @login_required
 @buyer_required
 def dashboard():
-    orders = Order.query.filter_by(buyer_id=current_user.id).all()
-    return render_template('buyer/dashboard.html', orders=orders)
+    return render_template('buyer/dashboard.html')
 
 @buyer.route('/post_order')
 @login_required

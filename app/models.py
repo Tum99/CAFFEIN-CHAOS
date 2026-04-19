@@ -6,7 +6,10 @@ from app import db
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
+    first_name = db.Column(db.String(50))
+    last_name = db.Column(db.String(50))
     password = db.Column(db.String(200), nullable=False)
+    phone = db.Column(db.Integer, unique=True, nullable=False)
     # buyer / seller / admin
     role = db.Column(db.String(20), nullable=False)
 
