@@ -1,0 +1,267 @@
+{% extends "base.html" %} {% block title %}Seller Dashboard | Caffein & Chaos{%
+endblock %} {% block content %}
+<div class="cursor-seller" id="cursor"></div>
+<div class="cursor-seller-ring" id="cursorRing"></div>
+
+{% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='new_seller.css') }}"
+/>
+{% endblock %}
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="dash-layout">
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="dash-sidebar">
+    <!-- Setup progress -->
+    <div style="padding: 1.5rem 1.5rem 0">
+      <div class="sidebar-progress">
+        <div class="sidebar-progress-label">
+          Setup Progress
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section-label">Overview</div>
+    <a
+      href="#"
+      class="sidebar-link active"
+      onclick="showSection('overview', event)"
+    >
+      <span class="sidebar-icon">🏠</span>
+      <span class="sidebar-link-text">Dashboard</span>
+    </a>
+
+    <div class="sidebar-section-label">My Farm</div>
+    <a
+      href="#"
+      class="sidebar-link"
+      onclick="showSection('farm-profile', event)"
+    >
+      <span class="sidebar-icon">🌿</span>
+      <span class="sidebar-link-text">Farm Profile</span>
+      <span class="sidebar-badge" id="farmBadge" style="display: none">✓</span>
+    </a>
+    <a href="#" class="sidebar-link locked" id="listingsLink">
+      <span class="sidebar-icon">☕</span>
+      <span class="sidebar-link-text">My Listings</span>
+      <span class="sidebar-lock">🔒</span>
+    </a>
+    <a href="#" class="sidebar-link locked" id="newListingLink">
+      <span class="sidebar-icon">＋</span>
+      <span class="sidebar-link-text">Add Listing</span>
+      <span class="sidebar-lock">🔒</span>
+    </a>
+
+    <div class="sidebar-section-label">Business</div>
+    <a href="#" class="sidebar-link locked" id="ordersLink">
+      <span class="sidebar-icon">📋</span>
+      <span class="sidebar-link-text">Orders Received</span>
+      <span class="sidebar-lock">🔒</span>
+    </a>
+    <a href="#" class="sidebar-link locked" id="earningsLink">
+      <span class="sidebar-icon">💰</span>
+      <span class="sidebar-link-text">Earnings</span>
+      <span class="sidebar-lock">🔒</span>
+    </a>
+
+    <div class="sidebar-section-label">Communication</div>
+    <a href="#" class="sidebar-link" onclick="showSection('messages', event)">
+      <span class="sidebar-icon">💬</span>
+      <span class="sidebar-link-text">Messages</span>
+    </a>
+
+    <div class="sidebar-section-label">Account</div>
+    <a href="#" class="sidebar-link" onclick="showSection('settings', event)">
+      <span class="sidebar-icon">⚙️</span>
+      <span class="sidebar-link-text">Account Settings</span>
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <button class="sidebar-logout" onclick="openLogout()">← Logout</button>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="dash-main">
+    <!-- ══════════════ OVERVIEW ══════════════ -->
+    <div id="sec-overview">
+      <!-- Welcome hero -->
+      <div class="welcome-hero">
+        <div class="welcome-eyebrow">Welcome to Caffeine & Chaos</div>
+        <h1 class="welcome-title">
+          Hello, <em>Sarah.</em><br />Let's get your farm set up.
+        </h1>
+        <p class="welcome-desc">
+          You're just a few steps away from listing your coffee and connecting
+          with buyers across Kenya. Complete your farm profile to unlock your
+          full dashboard.
+        </p>
+        <div class="welcome-actions">
+          <button
+            class="btn-green-lg"
+            onclick="showSection('farm-profile', null)"
+          >
+            Set Up My Farm Profile →
+          </button>
+          <a href="#" class="btn-outline-lg">Browse the Marketplace</a>
+        </div>
+        <div class="welcome-hero-num">0</div>
+      </div>
+
+      <!-- Zero stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Earnings</div>
+          <div class="stat-value">KES 0</div>
+          <div class="stat-hint">Complete setup to start earning</div>
+          <div class="stat-icon">💰</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Listings</div>
+          <div class="stat-value">0</div>
+          <div class="stat-hint">Add your first coffee lot</div>
+          <div class="stat-icon">☕</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Orders Received</div>
+          <div class="stat-value">0</div>
+          <div class="stat-hint">Orders appear after listing</div>
+          <div class="stat-icon">📋</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Buyers Connected</div>
+          <div class="stat-value">0</div>
+          <div class="stat-hint">Start messaging to connect</div>
+          <div class="stat-icon">🤝</div>
+        </div>
+      </div>
+
+      <!-- Tips strip -->
+      <div class="tips-strip">
+        <div class="tips-label">💡 Tips</div>
+        <div class="tips-list">
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            Add your altitude — buyers pay more for high-altitude coffee
+          </div>
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            Include tasting notes to attract specialty buyers
+          </div>
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            Upload a farm photo to build buyer trust
+          </div>
+          <div class="tip-item">
+            <div class="tip-dot"></div>
+            Verified farms get 3× more enquiries
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup steps -->
+      <div class="setup-section">
+        <div class="setup-header">
+          <div class="setup-header-left">
+            <div class="setup-eyebrow">Getting Started</div>
+            <div class="setup-title">Your <em>Setup</em> Checklist</div>
+          </div>
+        </div>
+        <div class="setup-progress-text">
+          <strong id="stepsCount">0</strong> of 3 steps complete
+        </div>
+      </div>
+
+      <div class="setup-steps">
+        <!-- STEP 1 — Farm Profile -->
+        <div class="setup-step active-step" id="step1">
+          <div class="step-check">✓</div>
+          <div class="step-num">01</div>
+          <span class="step-status next" id="step1Status">→ Start Here</span>
+          <span class="step-icon">🌿</span>
+          <div class="step-name">Create Farm Profile</div>
+          <div class="step-desc">
+            Tell buyers about your farm — location, altitude, certifications,
+            and your story. This is what builds trust.
+          </div>
+          <button
+            class="step-cta green"
+            onclick="showSection('farm-profile', null)"
+            id="step1Btn"
+          >
+            Set Up Profile →
+          </button>
+        </div>
+
+        <!-- STEP 2 — First Listing -->
+        <div class="setup-step locked-step" id="step2">
+          <div class="step-check">✓</div>
+          <div class="step-num">02</div>
+          <span class="step-status locked" id="step2Status">🔒 Locked</span>
+          <span class="step-icon">☕</span>
+          <div class="step-name">Add Your First Listing</div>
+          <div class="step-desc">
+            List a coffee lot with varietal, process, roast level, quantity
+            available, and price per kg.
+          </div>
+          <button class="step-cta locked-btn" id="step2Btn">
+            Complete Step 1 First
+          </button>
+        </div>
+
+        <!-- STEP 3 — Go Live -->
+        <div class="setup-step locked-step" id="step3">
+          <div class="step-check">✓</div>
+          <div class="step-num">03</div>
+          <span class="step-status locked" id="step3Status">🔒 Locked</span>
+          <span class="step-icon">🚀</span>
+          <div class="step-name">Go Live on Marketplace</div>
+          <div class="step-desc">
+            Your listing is published on the C&C marketplace. Buyers can find
+            you, message you, and place orders.
+          </div>
+          <button class="step-cta locked-btn" id="step3Btn">
+            Complete Steps 1 & 2
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Zero state panels -->
+      <div class="zero-grid">
+        <div class="zero-panel dashed">
+          <div class="zero-panel-icon">☕</div>
+          <div class="zero-panel-title">No listings yet</div>
+          <div class="zero-panel-desc">Your coffee lots will appear here once you complete your farm profile and add a listing.</div>
+          <div class="zero-panel-hint">Complete Step 1 to unlock →</div>
+        </div>
+        <div class="zero-panel dashed">
+          <div class="zero-panel-icon">📋</div>
+          <div class="zero-panel-title">No orders yet</div>
+          <div class="zero-panel-desc">Orders from buyers will appear here once your first listing is live on the marketplace.</div>
+          <div class="zero-panel-hint">Complete Step 2 to unlock →</div>
+        </div>
+      </div>
+
+    </div> <!-- end overview -->
+
+
+
+
+
+
+
+
+
+
+  </main>
+</div>
+
+{% endblock %}
