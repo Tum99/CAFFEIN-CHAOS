@@ -15,7 +15,19 @@
     <!-- SIDEBAR -->
     <aside class="dash-sidebar">
         <div class="sidebar-section-label">Overview</div>
-        <a href="#" class="sidebar-link active" onclick="showSection('overview', event)">
+
+        {% if is_new_seller %}
+        <div class="sidebar-progress-wrap">
+        <div class="sidebar-progress-label">
+            Setup Progress <span>0%</span>
+        </div>
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" style="width:0%"></div>
+        </div>
+        </div>
+        {% endif %}
+
+        <a href="{{ url_for('seller.dashboard') }}" class="sidebar-link active">
             <span class="sidebar-icon">🏠</span>
             <span class="sidebar-link-text">Dashboard</span>
         </a>
