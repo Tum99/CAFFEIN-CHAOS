@@ -253,15 +253,153 @@ endblock %} {% block content %}
     </div> <!-- end overview -->
 
 
+    <!-- ══════════════ FARM PROFILE SETUP ══════════════ -->
+    <div id="sec-farm-profile" style="display:none;">
 
+        <div style="margin-bottom:2rem;">
+            <div class="setup-eyebrow">Step 1 of 3</div>
+            <div class="welcome-title" style="font-size:2rem; margin-bottom:0.5rem;">
+            Set Up Your <em>Farm Profile</em>
+            </div>
+            <p style="font-size:0.85rem; color:rgba(245,236,215,0.45); line-height:1.8; max-width:520px;">
+            This is what buyers see when they discover your coffee. Take a few minutes to fill it in properly — it directly affects how many enquiries you get.
+            </p>
+        </div>
 
+        <div class="farm-form-grid">
+            <div class="form-section">
+                <div class="form-section-title">Farm Details</div>
+                <div class="form-field">
+                    <label>Farm Name *</label>
+                    <input type="text" placeholder="e.g. Kinyua Family Farm"/>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>County *</label>
+                        <select>
+                            <option value="">Select county</option>
+                            <option>Uasingishu</option>
+                            <option>Kirinyaga</option>
+                            <option>Nyeri</option>
+                            <option>Murang'a</option>
+                            <option>Meru</option>
+                            <option>Embu</option>
+                            <option>Kiambu</option>
+                            <option>Nandi</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>Town / Area *</label>
+                        <input type="text" placeholder="e.g. Ziwa"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Farm Size (acres)</label>
+                        <input type="number" placeholder="e.g. 12.5"/>
+                    </div>
+                    <div class="form-field">
+                        <label>Altitude (masl)</label>
+                        <input type="number" placeholder="e.g. 1850"/>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>Certifications</label>
+                    <input type="text" placeholder="e.g. Organic, Fair Trade (optional)"/>
+                </div>
+                <div class="form-field">
+                    <label>Your Story / Bio</label>
+                    <textarea placeholder="Tell buyers about your farm, how long you've been growing, what makes your coffee special..."></textarea>
+                </div>
+            </div>
 
+            <div class="form-section">
+                <div class="form-section-title">Contact & Verification</div>
+                <div class="form-field">
+                    <label>Phone Number *</label>
+                    <input type="tel" placeholder="07XX XXX XXX"/>
+                </div>
+                <div class="form-field">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" placeholder="Same as above or different"/>
+                </div>
+                <div class="form-field">
+                    <label>Farm Photo</label>
+                    <input type="file" accept="image/*" style="font-size:0.78rem; color:rgba(245,236,215,0.4);"/>
+                </div>
 
+                <div style="margin-top:1.5rem; padding:1.2rem; background:rgba(122,182,72,0.06); border:1px solid rgba(122,182,72,0.12);">
+                    <div style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--green); margin-bottom:0.6rem;">Verification</div>
+                    <p style="font-size:0.75rem; color:rgba(245,236,215,0.4); line-height:1.7; margin-bottom:0.8rem;">
+                    Verified farms show a ✓ badge on the marketplace and get significantly more buyer trust. Our team will review your profile within 24–48 hours after submission.
+                    </p>
+                    <div style="font-size:0.68rem; color:rgba(122,182,72,0.5);">✓ Submitted automatically on save</div>
 
+            </div>
 
+            <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(122,182,72,0.08);">
+                <button class="form-submit" onclick="completeFarmProfile()">
+                Save Farm Profile →
+                </button>
+                <a href="#" class="form-skip" onclick="showSection('overview', null)">Skip for now</a>
+                <p style="font-size:0.68rem; color:rgba(245,236,215,0.2); margin-top:0.8rem; line-height:1.6;">
+                You can edit this at any time from your dashboard.
+                </p>
+            </div>
+        </div>
 
+    </div>
+
+    <!-- ══════════════ MESSAGES (empty) ══════════════ -->
+    <div id="sec-messages" style="display:none;">
+        <div style="margin-bottom:2rem;">
+            <div class="setup-eyebrow">Communication</div>
+            <div class="welcome-title" style="font-size:2rem;">My <em>Messages</em></div>
+        </div>
+        <div style="background:var(--roast); border:1px dashed rgba(122,182,72,0.12); display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:400px; text-align:center; padding:3rem;">
+            <div style="font-size:3.5rem; opacity:0.1; margin-bottom:1.5rem;">💬</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:rgba(245,236,215,0.4); margin-bottom:0.6rem;">No messages yet</div>
+            <div style="font-size:0.78rem; color:rgba(245,236,215,0.25); line-height:1.7; max-width:300px;">
+            Once buyers discover your listings and reach out, their messages will appear here.
+            </div>
+            <div style="margin-top:1.5rem; font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(122,182,72,0.3);">
+            Complete your profile to get discovered →
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════ SETTINGS ══════════════ -->
+    <div id="sec-settings" style="display:none;">
+        <div style="margin-bottom:2rem;">
+            <div class="setup-eyebrow">Account</div>
+            <div class="welcome-title" style="font-size:2rem;">Account <em>Settings</em></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5px;">
+            <div class="form-section">
+                <div class="form-section-title">Personal Information</div>
+                <div class="form-field"><label>First Name</label><input type="text" value="Sarah"/></div>
+                <div class="form-field"><label>Last Name</label><input type="text" value="Kinyua"/></div>
+                <div class="form-field"><label>Email</label><input type="email" value="sarah@freshfarm.co.ke"/></div>
+                <div class="form-field"><label>Phone (M-Pesa)</label><input type="tel" value="0733 000 001"/></div>
+                <button class="form-submit">Save Changes</button>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Change Password</div>
+                <div class="form-field"><label>Current Password</label><input type="password" placeholder="••••••••"/></div>
+                <div class="form-field"><label>New Password</label><input type="password" placeholder="Min. 8 characters"/></div>
+                <div class="form-field"><label>Confirm Password</label><input type="password" placeholder="••••••••"/></div>
+                <button class="form-submit">Update Password</button>
+            </div>
+        </div>
+    </div>
 
   </main>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/new_seller.js') }}"></script>
+<script src="{{ url_for('static', filename='js/logout_base.js') }}"></script>
 {% endblock %}

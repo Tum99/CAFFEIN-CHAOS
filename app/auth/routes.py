@@ -2,7 +2,7 @@
 import re
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
-from app.models import User
+from app.models import User, FarmProfile
 from app import db, bcrypt
 
 auth = Blueprint("auth", __name__)
@@ -36,6 +36,10 @@ def redirect_by_role(user):
     elif user.role == "buyer":
         return redirect(url_for("buyer.dashboard"))
     elif user.role == "seller":
+        # Check if seller has a farm profile yet
+        farm = FarmProfile.query.filter_by(user_id=user.id).first()
+        if not farm:
+            return redirect(url_for('seller.seller_setup'))
         return redirect(url_for("seller.dashboard"))
     else:
         return redirect(url_for("main.home"))
