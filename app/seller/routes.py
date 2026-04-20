@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from app.models import SellerProfile, DirectMessage
+from app.models import SellerProfile, DirectMessage, FarmProfile, Product, FarmProductListing
 from app.utils.decorators import seller_required
 
 seller = Blueprint('seller', __name__, url_prefix='/seller')
@@ -15,11 +15,25 @@ def profile():
         seller=current_user.seller_profile
     )
 
-@seller.route('/dashboard')
+@seller.route('/dashboard/seller')
 @login_required
 @seller_required
 def dashboard():
-    return render_template('seller/dashboard.html')
+    # Check if this seller has a farm profile yet and any listings
+    farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+    listings = Product.query.filter_by(
+        seller_id=current_user.id,
+        product_type='farm'
+    ).all() if farm else []
+
+    return render_template('seller/dashboard.html',
+        active_page='dashboard',
+        body_class='page-dashboard',
+        farm=farm,
+        listings=listings,
+        is_new_seller=farm is None,  # ← True if brand new
+        has_listings=len(listings) > 0
+        )
 
 @seller.route('/<int:seller_id>')
 @login_required
