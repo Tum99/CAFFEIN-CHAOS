@@ -104,12 +104,12 @@ endblock %} {% block content %}
           full dashboard.
         </p>
         <div class="welcome-actions">
-          <button
+          <a
             class="btn-green-lg"
-            onclick="showSection('farm-profile', null)"
+            onclick="showSection('farm-profile', event)"
           >
             Set Up My Farm Profile →
-          </button>
+          </a>
           <a href="#" class="btn-outline-lg">Browse the Marketplace</a>
         </div>
         <div class="welcome-hero-num">0</div>
@@ -211,7 +211,7 @@ endblock %} {% block content %}
             List a coffee lot with varietal, process, roast level, quantity
             available, and price per kg.
           </div>
-          <button class="step-cta locked-btn" id="step2Btn">
+          <button class="step-cta locked-btn" id="step2Btn" onclick="showSection('')">
             Complete Step 1 First
           </button>
         </div>
@@ -346,6 +346,31 @@ endblock %} {% block content %}
                 <p style="font-size:0.68rem; color:rgba(245,236,215,0.2); margin-top:0.8rem; line-height:1.6;">
                 You can edit this at any time from your dashboard.
                 </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── NEW LISTING ── -->
+    <div class="content-section" id="sec-new-listing" style="display: none;">
+        <div class="dash-header"><div><div class="dash-greeting">My Farm</div><div class="dash-title">Add New <em>Listing</em></div></div></div>
+        <div class="new-listing-form">
+            <div class="form-panel">
+                <div class="form-panel-title">Product Details</div>
+                <div class="form-field"><label>Product Name</label><input type="text" placeholder="e.g. Arabica Batian — 500g"/></div>
+                <div class="form-field"><label>Price per kg (KES)</label><input type="number" placeholder="e.g. 2800"/></div>
+                <div class="form-field"><label>Total stock available (kg)</label><input type="number" placeholder="e.g. 50"/></div>
+                <div class="form-field"><label>Minimum order (kg)</label><input type="number" placeholder="e.g. 1"/></div>
+                <div class="form-field"><label>Description</label><textarea placeholder="Describe your coffee..."></textarea></div>
+            </div>
+            <div class="form-panel">
+                <div class="form-panel-title">Coffee Specifications</div>
+                <div class="form-field"><label>Varietal</label><select><option>Batian</option><option>SL28</option><option>SL34</option><option>Ruiru 11</option><option>K7</option></select></div>
+                <div class="form-field"><label>Process</label><select><option>Washed</option><option>Natural</option><option>Honey</option></select></div>
+                <div class="form-field"><label>Roast Level</label><select><option>Light</option><option>Medium</option><option>Dark</option></select></div>
+                <div class="form-field"><label>Harvest Date</label><input type="date"/></div>
+                <div class="form-field"><label>Tasting Notes (comma separated)</label><input type="text" placeholder="e.g. Citrus, Molasses, Berry"/></div>
+                <button class="form-submit">Publish Listing →</button>
             </div>
         </div>
 
