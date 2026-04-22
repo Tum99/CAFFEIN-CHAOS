@@ -1,18 +1,19 @@
-from flask import Blueprint, render_template, request
+from flask import flash, Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import SellerProfile, DirectMessage, FarmProfile, Product, FarmProductListing
+from app.models import SellerProfile, DirectMessage, FarmProfile, Product, FarmProductListing, GrowerBuyerTransaction
 from app.utils.decorators import seller_required
+from app import db
 
 seller = Blueprint('seller', __name__, url_prefix='/seller')
 
 
-@seller.route('setup/seller')
+@seller.route('/setup', methods=['GET', 'POST'])
 @login_required
 @seller_required
 def seller_setup():
     farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
     if farm:
-        return redirect(url_for('seller_dashboard'))
+        return redirect(url_for('seller.dashboard'))
 
     if request.method == 'POST':
         # Read form data
@@ -24,6 +25,8 @@ def seller_setup():
         certifications = request.form.get('certifications')
         bio          = request.form.get('bio')
         phone        = request.form.get('phone')
+        whatsapp_phone = request.form.get('whatsapp')
+        profile_image = request.form.get('farm_photo')
 
         # Create the FarmProfile
         farm = FarmProfile(
@@ -35,17 +38,21 @@ def seller_setup():
             altitude_masl=int(altitude) if altitude else None,
             certifications=certifications,
             bio=bio,
-            is_verified=False
+            is_verified=False,
+            is_setup_complete=True,
+            phone=phone,
+            whatsapp_phone=whatsapp_phone
         )
         db.session.add(farm)
         db.session.commit()
 
         flash('Farm profile created! Now add your first listing.', 'success')
         # After setup — go straight to the real dashboard
-        return redirect(url_for('seller.dashboard'))
+        return redirect(url_for('seller.seller_setup'))
 
     return render_template(
         'seller/new_seller.html',
+        farm=farm,
         body_class='page-setup',
         active_page='dashboard'
     )
