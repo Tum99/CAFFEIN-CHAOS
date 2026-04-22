@@ -200,6 +200,10 @@ class FarmProfile(db.Model):
     profile_image = db.Column(db.String(255))     # path to farm photo
     is_verified = db.Column(db.Boolean, default=False)
     joined_at = db.Column(db.DateTime, default=datetime.utcnow)
+    phone = db.Column(db.Integer)
+    whatsapp_phone = db.Column(db.Integer)
+    # User is done typing
+    is_setup_complete = db.Column(db.Boolean, default=False)
 
     # farm's coffee listings (filtered from Product table)
     @property

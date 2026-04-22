@@ -24,7 +24,7 @@ endblock %} {% block content %}
           <span id="progressPct">0%</span>
         </div>
         <div class="progress-bar-track">
-          <div class="progress-bar-fill" id="progressBar"></div>
+          <div class="progress-bar-fill" id="progressBar" data-db-steps="{{ 1 if farm and farm.is_setup_complete else 0 }}"></div>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@ endblock %} {% block content %}
       <div class="welcome-hero">
         <div class="welcome-eyebrow">Welcome to Caffeine & Chaos</div>
         <h1 class="welcome-title">
-          Hello, <em>Sarah.</em><br />Let's get your farm set up.
+          Hello, <em>{{ current_user.first_name }}</em><br />Let's get your farm set up.
         </h1>
         <p class="welcome-desc">
           You're just a few steps away from listing your coffee and connecting
@@ -267,16 +267,18 @@ endblock %} {% block content %}
         </div>
 
         <div class="farm-form-grid">
+          <form action="{{ url_for('seller.seller_setup') }}" method="POST" enctype="multipart/form-data">
             <div class="form-section">
                 <div class="form-section-title">Farm Details</div>
                 <div class="form-field">
                     <label>Farm Name *</label>
-                    <input type="text" placeholder="e.g. Kinyua Family Farm"/>
+                    <input type="text" name="farm_name" placeholder="e.g. Kinyua Family Farm"/>
                 </div>
+                
                 <div class="form-row">
                     <div class="form-field">
                         <label>County *</label>
-                        <select>
+                        <select name="county">
                             <option value="">Select county</option>
                             <option>Uasingishu</option>
                             <option>Kirinyaga</option>
@@ -291,26 +293,26 @@ endblock %} {% block content %}
                     </div>
                     <div class="form-field">
                         <label>Town / Area *</label>
-                        <input type="text" placeholder="e.g. Ziwa"/>
+                        <input type="text" name="location" placeholder="e.g. Ziwa"/>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-field">
                         <label>Farm Size (acres)</label>
-                        <input type="number" placeholder="e.g. 12.5"/>
+                        <input type="number" name="farm_size" placeholder="e.g. 12.5"/>
                     </div>
                     <div class="form-field">
                         <label>Altitude (masl)</label>
-                        <input type="number" placeholder="e.g. 1850"/>
+                        <input type="number" name="altitude" placeholder="e.g. 1850"/>
                     </div>
                 </div>
                 <div class="form-field">
                     <label>Certifications</label>
-                    <input type="text" placeholder="e.g. Organic, Fair Trade (optional)"/>
+                    <input type="text" name="certifications" placeholder="e.g. Organic, Fair Trade (optional)"/>
                 </div>
                 <div class="form-field">
                     <label>Your Story / Bio</label>
-                    <textarea placeholder="Tell buyers about your farm, how long you've been growing, what makes your coffee special..."></textarea>
+                    <textarea name="bio" placeholder="Tell buyers about your farm, how long you've been growing, what makes your coffee special..."></textarea>
                 </div>
             </div>
 
@@ -318,15 +320,15 @@ endblock %} {% block content %}
                 <div class="form-section-title">Contact & Verification</div>
                 <div class="form-field">
                     <label>Phone Number *</label>
-                    <input type="tel" placeholder="07XX XXX XXX"/>
+                    <input type="tel" name="phone" placeholder="07XX XXX XXX"/>
                 </div>
                 <div class="form-field">
                     <label>WhatsApp Number</label>
-                    <input type="tel" placeholder="Same as above or different"/>
+                    <input type="tel" name="whatsapp" placeholder="Same as above or different"/>
                 </div>
                 <div class="form-field">
                     <label>Farm Photo</label>
-                    <input type="file" accept="image/*" style="font-size:0.78rem; color:rgba(245,236,215,0.4);"/>
+                    <input type="file" name="farm_photo" accept="image/*" style="font-size:0.78rem; color:rgba(245,236,215,0.4);"/>
                 </div>
 
                 <div style="margin-top:1.5rem; padding:1.2rem; background:rgba(122,182,72,0.06); border:1px solid rgba(122,182,72,0.12);">
@@ -335,11 +337,11 @@ endblock %} {% block content %}
                     Verified farms show a ✓ badge on the marketplace and get significantly more buyer trust. Our team will review your profile within 24–48 hours after submission.
                     </p>
                     <div style="font-size:0.68rem; color:rgba(122,182,72,0.5);">✓ Submitted automatically on save</div>
-
+                </div>
             </div>
 
             <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(122,182,72,0.08);">
-                <button class="form-submit" onclick="completeFarmProfile()">
+                <button type="submit" class="form-submit">
                 Save Farm Profile →
                 </button>
                 <a href="#" class="form-skip" onclick="showSection('overview', null)">Skip for now</a>
@@ -347,7 +349,10 @@ endblock %} {% block content %}
                 You can edit this at any time from your dashboard.
                 </p>
             </div>
+
+          </form> 
         </div>
+      
 
     </div>
 

@@ -265,8 +265,14 @@ body::before {
 .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); }
 .panel-sub { font-size: 0.72rem; color: rgba(245,236,215,0.35); margin-top: 0.2rem; }
 .panel-body { padding: 2rem 1.8rem; }
-.farm-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; }
-.form-section { background: var(--bark); padding: 1.8rem; }
+.farm-form-grid form{ display: grid; gap: 1.5px; grid-template-columns: 1fr 1fr;}
+.form-section { background: var(--bark); padding: 1.8rem; flex: 1; }
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .farm-form-grid form {
+        grid-template-columns: 1fr;
+    }
+}
 .form-section-title { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green); margin-bottom: 1.2rem; }
 .form-field { margin-bottom: 1rem; }
 .form-field label { display: block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,236,215,0.35); margin-bottom: 0.4rem; }
