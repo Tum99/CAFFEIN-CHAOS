@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
-
+from flask_wtf.csrf import CSRFProtect
 
 
 import pymysql
@@ -29,6 +29,8 @@ def create_app():
     app.config.from_object("config.Config")
 
     app.config['SECRET_KEY'] = 'your-secret-key'
+
+    csrf = CSRFProtect(app)
 
     # Initialize extensions with app
     db.init_app(app)

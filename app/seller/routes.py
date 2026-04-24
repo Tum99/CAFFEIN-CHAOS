@@ -1,7 +1,8 @@
-from flask import flash, Blueprint, render_template, request, redirect
+from flask import flash, Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import SellerProfile, DirectMessage, FarmProfile, Product, FarmProductListing, GrowerBuyerTransaction
 from app.utils.decorators import seller_required
+from datetime import datetime
 from app import db
 
 seller = Blueprint('seller', __name__, url_prefix='/seller')
@@ -12,8 +13,14 @@ seller = Blueprint('seller', __name__, url_prefix='/seller')
 @seller_required
 def seller_setup():
     farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
-    if farm:
-        return redirect(url_for('seller.dashboard'))
+    if farm and farm.is_setup_complete:
+        pass
+
+    listings = Product.query.filter_by(seller_id=current_user.id).all()
+
+    steps = 0
+    if farm: steps += 1
+    if listings: steps += 1
 
     if request.method == 'POST':
         # Read form data
@@ -28,23 +35,24 @@ def seller_setup():
         whatsapp_phone = request.form.get('whatsapp')
         profile_image = request.form.get('farm_photo')
 
-        # Create the FarmProfile
-        farm = FarmProfile(
-            user_id=current_user.id,
-            farm_name=farm_name,
-            county=county,
-            location=location,
-            farm_size_acres=float(farm_size) if farm_size else None,
-            altitude_masl=int(altitude) if altitude else None,
-            certifications=certifications,
-            bio=bio,
-            is_verified=False,
-            is_setup_complete=True,
-            phone=phone,
-            whatsapp_phone=whatsapp_phone
-        )
-        db.session.add(farm)
-        db.session.commit()
+        if not farm:
+            # Create the FarmProfile
+            farm = FarmProfile(
+                user_id=current_user.id,
+                farm_name=farm_name,
+                county=county,
+                location=location,
+                farm_size_acres=float(farm_size) if farm_size else None,
+                altitude_masl=int(altitude) if altitude else None,
+                certifications=certifications,
+                bio=bio,
+                is_verified=False,
+                is_setup_complete=False,
+                phone=phone,
+                whatsapp_phone=whatsapp_phone
+            )
+            db.session.add(farm)
+            db.session.commit()
 
         flash('Farm profile created! Now add your first listing.', 'success')
         # After setup — go straight to the real dashboard
@@ -54,38 +62,55 @@ def seller_setup():
         'seller/new_seller.html',
         farm=farm,
         body_class='page-setup',
-        active_page='dashboard'
+        active_page='dashboard',
+        listings=listings,
+        total_steps=steps 
     )
 
 
 
-@seller.route('/dashboard/seller')
+@seller.route('/dashboard')
 @login_required
 @seller_required
 def dashboard():
     # Check if this seller has a farm profile yet and any listings
     farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+
+    if not farm or not farm.is_setup_complete:
+        return redirect(url_for('seller.seller_setup'))
+
+    elif farm:
+        orders = GrowerBuyerTransaction.query.filter_by(grower_id=current_user.id).all()
+    else:
+        orders = []
+
+    # 1. Get all completed/paid transactions
+    completed_orders = [o for o in orders if o.status in ['paid', 'completed']]
+
+    # 2. Calculate earnings per product
+    product_earnings = {}
+    for order in completed_orders:
+        name = order.product.name
+        product_earnings[name] = product_earnings.get(name, 0) + order.total_amount
+
+    # 3. Calculate Commission (5%)
+    total_gross = sum(product_earnings.values())
+    commission = total_gross * 0.05
+    net_earnings = total_gross - commission
+
     listings = Product.query.filter_by(
         seller_id=current_user.id,
         product_type='farm'
-    ).all() if farm else []
-    orders   = []
-    earnings = 0
+    ).all()
 
-    if farm:
-        listings = Product.query.filter_by(
-            seller_id=current_user.id,
-            product_type='farm'
-        ).all()
+    orders = GrowerBuyerTransaction.query.filter_by(
+        grower_id=current_user.id
+    ).order_by(GrowerBuyerTransaction.created_at.desc()).all()
 
-        orders = GrowerBuyerTransaction.query.filter_by(
-            grower_id=current_user.id
-        ).order_by(GrowerBuyerTransaction.created_at.desc()).all()
-
-        earnings = sum(
-            t.total_amount for t in orders
-            if t.status in ['paid', 'completed']
-        )
+    earnings = sum(
+        t.total_amount for t in orders
+        if t.status in ['paid', 'completed']
+    )
 
     return render_template('seller/dashboard.html',
         active_page='dashboard',
@@ -94,7 +119,10 @@ def dashboard():
         listings=listings,
         orders=orders,
         earnings=earnings,
-        is_new_seller=farm is None,  # ← True if brand new
+        total_gross=total_gross,
+        commission=commission,
+        net_earnings=net_earnings,
+        is_new_seller=(farm is None),  # ← True if brand new
         has_listings=len(listings) > 0,
         has_orders=len(orders) > 0
         )
@@ -122,3 +150,58 @@ def messages():
         'seller/messages.html',
         messages=messages
     )
+
+
+@seller.route('/add-listing', methods=['POST'])
+@login_required
+@seller_required
+def add_listing():
+    # 1. Fetch the Farm Profile first (we need farm.id)
+    farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+    if not farm:
+        flash("Please complete your Farm Profile first!", "error")
+        return redirect(url_for('seller.seller_setup'))
+
+    # 2. Create the General Product Entry
+    # This matches your 'class Product' model
+    master_product = Product(
+        seller_id=current_user.id,
+        name=request.form.get('name'),
+        description=request.form.get('description'),
+        price=float(request.form.get('price', 0)),
+        stock=int(request.form.get('stock', 0)),
+        product_type='farm'
+    )
+    
+    db.session.add(master_product)
+    db.session.flush()  # This 'pushes' the product to get an ID without committing yet
+
+    # Grab data from the 'name' attributes in HTML
+    product_name = request.form.get('name')
+    price = request.form.get('price')
+    stock = request.form.get('stock')
+    
+    # 3. Create the Detailed Farm Listing
+    # This matches your 'class FarmProductListing' model
+    farm_listing = FarmProductListing(
+        product_id=master_product.id, # Link it to the Product we just made
+        farm_id=farm.id,
+        varietal=request.form.get('varietal'),
+        process=request.form.get('process'),
+        roast_level=request.form.get('roast'),
+        quantity_kg=float(request.form.get('stock', 0)),
+        price_per_kg=float(request.form.get('price', 0)),
+        tasting_notes=request.form.get('notes'),
+        minimum_order_kg=float(request.form.get('min_order', 1.0))
+    )
+
+    # Handle the Harvest Date (string to date object)
+    harvest_date_str = request.form.get('harvest_date')
+    if harvest_date_str:
+        farm_listing.harvest_date = datetime.strptime(harvest_date_str, '%Y-%m-%d').date()
+    
+    db.session.add(farm_listing)
+    db.session.commit()
+
+    flash('Listing published! Step 2 complete.', 'success')
+    return redirect(url_for('seller.seller_setup'))
