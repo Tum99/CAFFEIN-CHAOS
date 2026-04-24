@@ -5,17 +5,84 @@ document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; if
 (function loop() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; if(ring) ring.style.left = rx + 'px'; if(ring) ring.style.top = ry + 'px'; requestAnimationFrame(loop); })();
 
 /* ══════════════ SECTION SWITCHING ══════════════ */
-const sections = ['overview', 'farm-profile', 'messages', 'settings', 'new-listing'];
+// 1. Define your available sections (Ensure these match your HTML IDs: sec-overview, etc.)
+const sections = ['overview', 'farm-profile', 'messages', 'settings', 'new-listing', 'listings', 'orders', 'earnings'];
 
+/**
+ * Main function to toggle dashboard views
+ * @param {string} name - The name of the section to show
+ * @param {Event} e - Optional event object to handle defaults
+ */
 function showSection(name, e) {
     if (e) e.preventDefault();
+
+    // Toggle Content Sections
     sections.forEach(s => {
         const el = document.getElementById(`sec-${s}`);
-        if (el) el.style.display = s === name ? 'block' : 'none';
+        if (el) {
+            el.style.display = (s === name) ? 'block' : 'none';
+        }
     });
-    document.querySelectorAll('.sidebar-link:not(.locked)').forEach(l => l.classList.remove('active'));
-    if (e && e.currentTarget) e.currentTarget.classList.add('active');
+
+    // Handle Sidebar Active States
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.classList.remove('active');
+        
+        // If this link's onclick contains the section name, highlight it
+        // This works even if you triggered the function from a button in the main content
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(`'${name}'`)) {
+            link.classList.add('active');
+        }
+    });
+
+    // Optional: Smooth scroll back to top of the dashboard main area
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/**
+ * Updates the Date and Greeting based on local time
+ */
+function updateDashboardHeader() {
+    const dateElement = document.getElementById('currentDate');
+    const greetingElement = document.querySelector('.dash-greeting');
+    
+    if (!dateElement || !greetingElement) return;
+
+    const now = new Date();
+    const hours = now.getHours();
+
+    // 1. Dynamic Greeting
+    let greeting = "Good evening";
+    if (hours < 12) {
+        greeting = "Good morning";
+    } else if (hours < 18) {
+        greeting = "Good afternoon";
+    }
+    
+    // Preserves the username if Flask already rendered it
+    const parts = greetingElement.innerText.split(',');
+    const userName = parts.length > 1 ? parts[1].trim() : "";
+    greetingElement.innerText = `${greeting}, ${userName}`;
+
+    // 2. Accurate Date (Format: Wednesday, 23 April 2026)
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    dateElement.textContent = now.toLocaleDateString('en-GB', options);
+}
+
+// 3. Initialize on Page Load
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboardHeader();
+    
+    // Optional: Update time every minute to keep the greeting accurate
+    setInterval(updateDashboardHeader, 60000);
+
+    // Initial check: if the URL has a hash, show that section
+    // e.g. caffeinandchaos.com/setup#new-listing
+    const hash = window.location.hash.replace('#', '');
+    if (sections.includes(hash)) {
+        showSection(hash);
+    }
+});
 
 /* ══════════════ PROGRESS TRACKING ══════════════ */
 // This reads the "1" or "0" we added to the HTML data-attribute
@@ -81,6 +148,49 @@ function applyStep1CompletionUI() {
             if(id === 'newListingLink') el.setAttribute('onclick', "showSection('new-listing', event)");
         }
     });
+}
+
+function applyStep2CompletionUI() {
+    // 1. Mark step 1 visually done
+    const s1 = document.getElementById('step1');
+    if (s1) {
+        s1.classList.remove('active-step');
+        s1.classList.add('completed');
+        document.getElementById('step1Status').className = 'step-status done';
+        document.getElementById('step1Status').textContent = '✓ Done';
+        document.getElementById('step1Btn').className = 'step-cta done-btn';
+        document.getElementById('step1Btn').textContent = '✓ Profile Saved';
+        document.getElementById('step1Btn').setAttribute('onclick', "showSection('farm-profile', event)");
+    }
+
+    // 2. Mark step 2 visually done
+    const s2 = document.getElementById('step2');
+    if (s2) {
+        s2.classList.remove('active-step');
+        s2.classList.add('completed');
+        document.getElementById('step2Status').className = 'step-status done';
+        document.getElementById('step2Status').textContent = '✓ Done';
+        document.getElementById('step2Btn').className = 'step-cta done-btn';
+        document.getElementById('step2Btn').textContent = '✓ Profile Saved';
+        document.getElementById('step2Btn').setAttribute('onclick', "showSection('new-listing', event)");
+    }
+
+    // 3. Unlock step 3
+    const s3 = document.getElementById('step3');
+    if (s3) {
+        s3.classList.remove('locked-step');
+        s3.classList.add('active-step');
+        document.getElementById('step3Status').className = 'step-status next';
+        document.getElementById('step3Status').textContent = '→ Up Next';
+        s3Btn.className = 'step-cta green';
+        s3Btn.textContent = 'Go live now →';
+        // Now clicking this button goes to the marketplace section
+        s3Btn.setAttribute('onclick', "showSection('new-marketplace', event)");
+
+    }
+
+
+
 }
 
 /* ══════════════ LOGOUT OVERLAY ══════════════ */

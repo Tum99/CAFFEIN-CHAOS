@@ -188,6 +188,75 @@ body::before {
     font-size: 0.75rem; color: var(--espresso); font-weight: 700;
 }
 .setup-step.completed .step-check { display: flex; }
+
+/* Horizontal Progress Pills */
+.summary-steps {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+.step-pill {
+    flex: 1;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(122,182,72,0.2);
+    text-align: center;
+    border-radius: 4px;
+    color: var(--tan);
+    font-size: 0.9rem;
+}
+.step-pill.done {
+    background: rgba(122,182,72,0.1);
+    border-color: var(--green);
+    color: var(--green);
+}
+.step-pill.active {
+    border: 2px solid var(--green);
+    font-weight: bold;
+}
+
+/* The Big Green Action Card */
+.summary-action-card {
+    background: rgba(122,182,72,0.05);
+    border: 1px solid var(--green);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 8px;
+    margin-bottom: 3rem;
+}
+.btn-success-large {
+    background: var(--green);
+    color: var(--espresso);
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.btn-success-large:hover {
+    transform: scale(1.05);
+}
+
+
+.summary-action-card.ready-state {
+    border: 2px solid var(--tan); /* A highlight color */
+    background: rgba(210, 180, 140, 0.05);
+}
+
+.btn-launch {
+    background: #7ab648; /* Your brand green */
+    color: white;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(122, 182, 72, 0.3);
+}
  
 /* ══ ZERO STATE PANELS ══ */
 .zero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; margin-bottom: 1.5px; }
