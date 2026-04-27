@@ -156,11 +156,18 @@ function applyStep2CompletionUI() {
     if (s1) {
         s1.classList.remove('active-step');
         s1.classList.add('completed');
-        document.getElementById('step1Status').className = 'step-status done';
-        document.getElementById('step1Status').textContent = '✓ Done';
-        document.getElementById('step1Btn').className = 'step-cta done-btn';
-        document.getElementById('step1Btn').textContent = '✓ Profile Saved';
-        document.getElementById('step1Btn').setAttribute('onclick', "showSection('farm-profile', event)");
+        const s1Status = document.getElementById('step1Status');
+        const s1Btn = document.getElementById('step1Btn');
+        
+        if(s1Status) {
+            s1Status.className = 'step-status done';
+            s1Status.textContent = '✓ Done';
+        }
+        if(s1Btn) {
+            s1Btn.className = 'step-cta done-btn';
+            s1Btn.textContent = '✓ Profile Saved';
+            s1Btn.setAttribute('onclick', "showSection('farm-profile', event)");
+        }
     }
 
     // 2. Mark step 2 visually done
@@ -168,30 +175,48 @@ function applyStep2CompletionUI() {
     if (s2) {
         s2.classList.remove('active-step');
         s2.classList.add('completed');
-        document.getElementById('step2Status').className = 'step-status done';
-        document.getElementById('step2Status').textContent = '✓ Done';
-        document.getElementById('step2Btn').className = 'step-cta done-btn';
-        document.getElementById('step2Btn').textContent = '✓ Profile Saved';
-        document.getElementById('step2Btn').setAttribute('onclick', "showSection('new-listing', event)");
+        const s2Status = document.getElementById('step2Status');
+        const s2Btn = document.getElementById('step2Btn');
+
+        if(s2Status) {
+            s2Status.className = 'step-status done';
+            s2Status.textContent = '✓ Done';
+        }
+        if(s2Btn) {
+            s2Btn.className = 'step-cta done-btn';
+            s2Btn.textContent = '✓ Listing Added';
+            s2Btn.setAttribute('onclick', "showSection('new-listing', event)");
+        }
     }
 
     // 3. Unlock step 3
     const s3 = document.getElementById('step3');
-    if (s3) {
+    const s3Btn = document.getElementById('step3Btn'); // FIXED: Defined the variable
+    
+    if (s3 && s3Btn) {
         s3.classList.remove('locked-step');
         s3.classList.add('active-step');
-        document.getElementById('step3Status').className = 'step-status next';
-        document.getElementById('step3Status').textContent = '→ Up Next';
+        const s3Status = document.getElementById('step3Status');
+        
+        if(s3Status) {
+            s3Status.className = 'step-status next';
+            s3Status.textContent = '→ Up Next';
+        }
+        
         s3Btn.className = 'step-cta green';
         s3Btn.textContent = 'Go live now →';
-        // Now clicking this button goes to the marketplace section
         s3Btn.setAttribute('onclick', "showSection('new-marketplace', event)");
-
     }
-
-
-
 }
+
+// 4. Trigger logic after redirect
+document.addEventListener('DOMContentLoaded', () => {
+    // We check a hidden element or a JS variable rendered by Flask
+    const step2IsDone = document.body.dataset.step2Done === 'true'; 
+    if (step2IsDone) {
+        applyStep2CompletionUI();
+    }
+});
 
 /* ══════════════ LOGOUT OVERLAY ══════════════ */
 function openLogout() { document.getElementById('logoutOverlay').classList.add('open'); }

@@ -16,11 +16,13 @@ def seller_setup():
     if farm and farm.is_setup_complete:
         pass
 
-    listings = Product.query.filter_by(seller_id=current_user.id).all()
+    my_listings = []
+    if farm:
+        my_listings = FarmProductListing.query.filter_by(farm_id=farm.id).all()
 
     steps = 0
     if farm: steps += 1
-    if listings: steps += 1
+    if len(my_listings) > 0: steps += 1
 
     if request.method == 'POST':
         # Read form data
@@ -63,7 +65,7 @@ def seller_setup():
         farm=farm,
         body_class='page-setup',
         active_page='dashboard',
-        listings=listings,
+        listings=my_listings,
         total_steps=steps 
     )
 
@@ -205,3 +207,26 @@ def add_listing():
 
     flash('Listing published! Step 2 complete.', 'success')
     return redirect(url_for('seller.seller_setup'))
+
+
+@seller.route('/listings')
+@login_required
+@seller_required
+def listings():
+    farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+    my_listings = FarmProductListing.query.filter_by(farm_id=farm.id)\
+                  .order_by(FarmProductListing.listed_at.desc()).all()
+
+    # --- ADD THIS LOGIC ---
+    # Calculate steps for the progress bar in new_seller.html
+    steps_done = 0
+    if farm:
+        steps_done += 1 # Step 1: Farm Profile
+    if len(my_listings) > 0:
+        steps_done += 2 # Step 2: First Listing (adds to the total)
+        # Note: adjust this logic based on how you want to count 3 steps total
+    
+    return render_template('seller/new_seller.html', 
+                           farm=farm, 
+                           listings=my_listings,
+                           total_steps=steps_done) # <--- Pass total_steps here!

@@ -170,11 +170,11 @@
       <div class="field-row">
         <div class="field">
           <label>First name</label>
-          <input type="text" name="first_name" placeholder="Faith" required/>
+          <input type="text" name="first_name" placeholder="First Name" required/>
         </div>
         <div class="field">
           <label>Last name</label>
-          <input type="text" name="last_name" placeholder="Njeri" required/>
+          <input type="text" name="last_name" placeholder="Last Name" required/>
         </div>
       </div>
       <div class="field">
@@ -229,7 +229,7 @@
 
     <div class="form-footer">
       Already have an account?
-      <a href="url_for('auth.login')" onclick="switchTab('login')">Login</a>
+      <a href="{{ url_for('auth.login') }}" onclick="switchTab('login')">Login</a>
     </div>
     <!-- </div> -->
 
