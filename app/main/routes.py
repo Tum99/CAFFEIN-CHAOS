@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from app.auth.routes import redirect_by_role
+from app.models import FarmProductListing, FarmProfile
 
 main = Blueprint('main', __name__)
 
@@ -36,4 +37,4 @@ def marketplace():
         FarmProfile.is_setup_complete == True
     ).all()
     
-    return render_template('marketplace.html', listings=live_listings)
+    return render_template('marketplace/marketplace.html', listings=live_listings)
