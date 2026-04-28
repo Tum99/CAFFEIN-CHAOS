@@ -1,9 +1,11 @@
-from flask import flash, Blueprint, render_template, request, redirect, url_for
+from flask import flash, Blueprint, render_template, request, redirect, url_for, current_app
 from flask_login import login_required, current_user
 from app.models import SellerProfile, DirectMessage, FarmProfile, Product, FarmProductListing, GrowerBuyerTransaction
 from app.utils.decorators import seller_required
 from datetime import datetime
 from app import db
+from werkzeug.utils import secure_filename
+import os
 
 seller = Blueprint('seller', __name__, url_prefix='/seller')
 
@@ -35,7 +37,7 @@ def seller_setup():
         bio          = request.form.get('bio')
         phone        = request.form.get('phone')
         whatsapp_phone = request.form.get('whatsapp')
-        profile_image = request.form.get('farm_photo')
+        farm_image = request.files.get('farm_photo')
 
         if not farm:
             # Create the FarmProfile
@@ -51,14 +53,24 @@ def seller_setup():
                 is_verified=False,
                 is_setup_complete=False,
                 phone=phone,
-                whatsapp_phone=whatsapp_phone
+                whatsapp_phone=whatsapp_phone,
+                farm_image=farm_image
             )
             db.session.add(farm)
-            db.session.commit()
+
+        file = request.files.get('farm_photo')
+        if file:
+            #We create a unique name for the file so it doesn't overwrite 
+            # someone else's "farm.jpg". We include the user ID for safety.
+            filename = secure_filename(f"farm_{current_user.id}_{file.filename}")
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            farm.farm_image = filename
+
+        db.session.commit()
 
         flash('Farm profile created! Now add your first listing.', 'success')
         # After setup — go straight to the real dashboard
-        return redirect(url_for('seller.seller_setup'))
+        return redirect(url_for('seller.seller_setup', section='sec-farm-profile'))
 
     return render_template(
         'seller/new_seller.html',
@@ -69,6 +81,25 @@ def seller_setup():
         total_steps=steps 
     )
 
+
+       
+
+@seller.route('/skip-onboarding', methods=['POST'])
+@login_required
+@seller_required
+def skip_onboarding():
+    farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+    if farm:
+        farm.is_setup_complete = True # This is the "Key" that unlocks the real dashboard
+        db.session.commit()
+        flash("Welcome to your dashboard! You can go live anytime from your settings.", "info")
+    
+        return redirect(url_for('seller.dashboard'))
+
+    else:
+        # Safety check: if they haven't even created a farm yet, they can't skip
+        flash("Please create your farm profile first.", "warning")
+        return redirect(url_for('seller.seller_setup'))
 
 
 @seller.route('/dashboard')
@@ -100,10 +131,9 @@ def dashboard():
     commission = total_gross * 0.05
     net_earnings = total_gross - commission
 
-    listings = Product.query.filter_by(
-        seller_id=current_user.id,
-        product_type='farm'
-    ).all()
+    listings = []
+    if farm:
+        listings = FarmProductListing.query.filter_by(farm_id=farm.id).all()
 
     orders = GrowerBuyerTransaction.query.filter_by(
         grower_id=current_user.id
@@ -230,3 +260,25 @@ def listings():
                            farm=farm, 
                            listings=my_listings,
                            total_steps=steps_done) # <--- Pass total_steps here!
+
+
+@seller.route('/toggle-live', methods=['POST'])
+@login_required
+@seller_required
+def toggle_live():
+    farm = FarmProfile.query.filter_by(user_id=current_user.id).first()
+    
+    # Check if they have listings before letting them go live
+    has_listings = FarmProductListing.query.filter_by(farm_id=farm.id).first()
+    
+    if not has_listings:
+        flash("Add at least one coffee listing before going live!", "warning")
+        return redirect(url_for('seller.dashboard'))
+
+    # Flip the boolean
+    farm.is_live = not farm.is_live
+    db.session.commit()
+    
+    status = "now live!" if farm.is_live else "now hidden from the marketplace."
+    flash(f"Your farm is {status}", "success")
+    return redirect(url_for('seller.dashboard'))

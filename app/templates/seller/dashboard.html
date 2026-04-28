@@ -48,6 +48,10 @@
         </a>
 
         <div class="sidebar-section-label">Business</div>
+        <a href="{{ url_for('main.marketplace') }}" class="sidebar-link">
+            <span class="sidebar-icon">📋</span>
+            <span class="sidebar-link-text">The Marketplace</span>
+        </a>
         <a href="#" class="sidebar-link" onclick="showSection('orders', event)">
             <span class="sidebar-icon">📋</span>
             <span class="sidebar-link-text">Orders Received</span>
@@ -204,11 +208,13 @@
                 {% if listings %}
                     {% for item in listings %}
                         <div class="listing-card">
-                            <div class="listing-card-img">☕</div>
+                            <div class="listing-card-img">
+                                <img src="{{ url_for('static', filename='images/Step.jpeg') }}" alt="">
+                            </div>
                             <div class="listing-varietal">{{ item.varietal }} • {{ item.process }}</div>
-                            <div class="listing-name">{{ item.name }}</div>
+                            <div class="listing-name">{{ item.product.name }}</div>
                             <div class="listing-details"><span class="listing-pill">{{ item.roast_level }}</span><span class="listing-pill">{{ item.harvest_date.strftime('%b %Y') if item.harvest_date else 'N/A' }}</span></div>
-                            <div class="listing-footer"><div><div class="listing-price">KES {{ "{:,.0f}".format(item.price_per_kg) }}/kg</div><div class="listing-stock">{{ item.stock_qty }} kg remaining</div></div><span class="listing-status status-active">Active</span></div>
+                            <div class="listing-footer"><div><div class="listing-price">KES {{ "{:,.0f}".format(item.price_per_kg | default(0)) }}/kg</div><div class="listing-stock">{{ item.stock_qty }} kg remaining</div></div><span class="listing-status status-active">Active</span></div>
                             <div class="listing-actions"><button class="listing-btn">Edit</button><button class="listing-btn primary">View Orders</button></div>
                         </div>
                     {% endfor %}
@@ -234,6 +240,7 @@
                     <div class="form-field"><label>Total stock available (kg)</label><input type="number" placeholder="e.g. 50"/></div>
                     <div class="form-field"><label>Minimum order (kg)</label><input type="number" placeholder="e.g. 1"/></div>
                     <div class="form-field"><label>Description</label><textarea placeholder="Describe your coffee..."></textarea></div>
+
                 </div>
                 <div class="form-panel">
                     <div class="form-panel-title">Coffee Specifications</div>
@@ -253,26 +260,46 @@
         <div class="content-section" id="sec-farm-profile">
             <div class="dash-header"><div><div class="dash-greeting">My Farm</div><div class="dash-title">Farm <em>Profile</em></div></div></div>
             <div class="farm-profile-grid">
+                <div class="farm-status-toggle">
+                    <div class="status-label">Marketplace Status</div>
+                    <form action="{{ url_for('seller.toggle_live') }}" method="POST">
+                        <button type="submit" class="status-pill {{ 'active' if farm.is_live else 'offline' }}">
+                            {{ '● LIVE ON MARKET' if farm.is_live else '○ OFFLINE' }}
+                        </button>
+                    </form>
+                </div>
                 <div class="farm-profile-card">
-                    <div class="farm-img-area">🌿</div>
-                    <div class="farm-verified">✓ Verified Farm</div>
-                    <div class="farm-name">Jepng'etich Farm</div>
-                    <div class="farm-location">📍 Ziwa, Uasingishu County</div>
+                    <div class="farm-img-area">
+                        {% if farm.farm_image %}
+                            <img src="{{ url_for('static', filename='uploads/' + farm.farm_image) }}" style="width:100%; height:100%; object-fit:cover;">
+                        {% else %}
+                            🌿 
+                        {% endif %}
+                    </div>
+                    <div class="farm-verified">
+                        {% if farm.is_verified %}
+                            ✓ Verified Farm
+                        {% else %}
+                            ⌛ Verification Pending
+                        {% endif %}
+                    </div>
+                    <div class="farm-name">{{ farm.farm_name | default('Unnamed Farm') }}</div>
+                    <div class="farm-location">📍 {{ farm.location }}, {{ farm.county }} County</div>
                     <div class="farm-specs">
-                        <div><div class="farm-spec-label">Farm Size</div><div class="farm-spec-value">12.5 acres</div></div>
-                        <div><div class="farm-spec-label">Altitude</div><div class="farm-spec-value">1,850 masl</div></div>
-                        <div><div class="farm-spec-label">Certifications</div><div class="farm-spec-value">Organic</div></div>
-                        <div><div class="farm-spec-label">Member Since</div><div class="farm-spec-value">2025</div></div>
+                        <div><div class="farm-spec-label">Farm Size</div><div class="farm-spec-value">{{ farm.farm_size_acres | default('0') }} acres</div></div>
+                        <div><div class="farm-spec-label">Altitude</div><div class="farm-spec-value">{{ farm.altitude_masl | default('0') }} masl</div></div>
+                        <div><div class="farm-spec-label">Certifications</div><div class="farm-spec-value">{{ farm.certifications | default('None') }}</div></div>
+                        <div><div class="farm-spec-label">Member Since</div><div class="farm-spec-value">{{ current_user.created_at.year if current_user.created_at else '2026' }}</div></div>
                     </div>
                 </div>
                 <div class="farm-edit-form">
                     <div class="farm-edit-title">Edit Farm Details</div>
-                    <div class="form-field"><label>Farm Name</label><input type="text" value="Jepng'etich Farm"/></div>
-                    <div class="form-field"><label>Location</label><input type="text" value="Ziwa, Uasingishu County"/></div>
-                    <div class="form-field"><label>County</label><input type="text" value="Uasingishu"/></div>
-                    <div class="form-field"><label>Farm Size (acres)</label><input type="number" value="12.5"/></div>
-                    <div class="form-field"><label>Altitude (masl)</label><input type="number" value="1850"/></div>
-                    <div class="form-field"><label>Certifications</label><input type="text" value="Organic"/></div>
+                    <div class="form-field"><label>Farm Name</label><input type="text" value="{{ farm.farm_name | default('Unnamed Farm') }}"/></div>
+                    <div class="form-field"><label>Location</label><input type="text" value="{{ farm.location }}"/></div>
+                    <div class="form-field"><label>County</label><input type="text" value="{{ farm.county }} County"/></div>
+                    <div class="form-field"><label>Farm Size (acres)</label><input type="number" value="{{ farm.farm_size_acres | default('0') }}"/></div>
+                    <div class="form-field"><label>Altitude (masl)</label><input type="number" value="{{ farm.altitude_masl | default('0') }}"/></div>
+                    <div class="form-field"><label>Certifications</label><input type="text" value="{{ farm.certifications | default('None') }}"/></div>
                     <div class="form-field"><label>Bio</label><textarea>{{ farm.bio if farm else '' }}</textarea></div>
                     <button class="form-submit">Update Profile →</button>
                 </div>

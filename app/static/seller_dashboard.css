@@ -175,6 +175,8 @@ body::before {
 .status-completed  { background: rgba(122,182,72,0.25); color: var(--green); }
  
  /* farm profile */
+.status-pill.active { color: var(--green); border: 1px solid var(--green); }
+.status-pill.offline { color: var(--tan); opacity: 0.5; border: 1px solid var(--tan); }
 .farm-profile-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1px; }
 .farm-profile-card { background: var(--bark); padding: 2rem; }
 .farm-img-area { height: 180px; background: linear-gradient(135deg, #1A3B10, #0A1A08); display: flex; align-items: center; justify-content: center; font-size: 5rem; opacity: 0.15; margin-bottom: 1.2rem; position: relative; overflow: hidden; }

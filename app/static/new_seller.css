@@ -257,6 +257,22 @@ body::before {
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(122, 182, 72, 0.3);
 }
+
+.skip-link-btn {
+    background: none;
+    border: none;
+    color: var(--tan); /* Using your C&C color palette */
+    opacity: 0.6;
+    text-decoration: underline;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif; /* Matching your rustic aesthetic */
+    letter-spacing: 0.05em;
+}
+.skip-link-btn:hover {
+    opacity: 1;
+    color: var(--green);
+}
  
 /* ══ ZERO STATE PANELS ══ */
 .zero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; margin-bottom: 1.5px; }

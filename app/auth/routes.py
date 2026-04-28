@@ -40,6 +40,7 @@ def redirect_by_role(user):
         farm = FarmProfile.query.filter_by(user_id=user.id).first()
         if not farm or not farm.is_setup_complete:
             return redirect(url_for('seller.seller_setup'))
+            
         return redirect(url_for("seller.dashboard"))
     else:
         return redirect(url_for("main.home"))

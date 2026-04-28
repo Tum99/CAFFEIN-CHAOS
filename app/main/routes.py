@@ -27,3 +27,13 @@ def events():
         'main/events.html', 
         active_page='events', 
         body_class='page-events')
+
+@main.route('/marketplace')
+def marketplace():
+    # Only show sellers who have completed setup and toggled 'Live'
+    live_listings = FarmProductListing.query.join(FarmProfile).filter(
+        FarmProfile.is_live == True,
+        FarmProfile.is_setup_complete == True
+    ).all()
+    
+    return render_template('marketplace.html', listings=live_listings)
