@@ -1,5 +1,6 @@
-{% extends "base.html" %} {% block title %}Seller Dashboard | Caffein & Chaos{%
-endblock %} {% block content %}
+{% extends "base.html" %} 
+{% block title %}Seller Dashboard | Caffein & Chaos{% endblock %} 
+{% block content %}
 <div class="cursor-seller" id="cursor"></div>
 <div class="cursor-seller-ring" id="cursorRing"></div>
 
@@ -79,6 +80,16 @@ endblock %} {% block content %}
       </a>
 
       <div class="sidebar-section-label">Business</div>
+      <!-- <a
+        href="{{ url_for('main.marketplace') }}"
+        class="sidebar-link locked"
+        id="marketplaceLink"
+        onclick="showSection('marketplace', event)"
+      >
+        <span class="sidebar-icon">☕</span>
+        <span class="sidebar-link-text">The Marketplace</span>
+        <span class="sidebar-lock">🔒</span>
+      </a> -->
       <a href="#" class="sidebar-link locked" id="ordersLink">
         <span class="sidebar-icon">📋</span>
         <span class="sidebar-link-text">Orders Received</span>
@@ -175,9 +186,20 @@ endblock %} {% block content %}
                 to buyers?
               </p>
             </div>
-            <button class="btn-launch" onclick="showSection('go-live', event)">
-              GO LIVE NOW →
-            </button>
+            <div class="step-actions" style="margin-top: 2rem; text-align: center;">
+              <button class="btn-launch" onclick="showSection('go-live', event)">
+                GO LIVE NOW →
+              </button>
+
+              <div style="margin-top: 1.5rem;">
+                  <form action="{{ url_for('seller.skip_onboarding') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <button type="submit" class="skip-link-btn">
+                          Skip for now & go to dashboard
+                      </button>
+                  </form>
+              </div>
+            </div>
           </div>
         </div>
         {% endif %}
@@ -330,6 +352,53 @@ endblock %} {% block content %}
 
       <!-- ══════════════ FARM PROFILE SETUP ══════════════ -->
       <div id="sec-farm-profile" style="display: none">
+        {% if farm %}
+            <div class="dash-header">
+                <div>
+                    <div class="dash-greeting">Step 1</div>
+                    <div class="dash-title">Farm <em>Profile</em></div>
+                </div>
+            </div>
+            <div class="farm-profile-grid">
+              <div class="farm-profile-card">
+                  <div class="farm-img-area">
+                      {% if farm.farm_image %}
+                          <img src="{{ url_for('static', filename='uploads/' + farm.farm_image) }}" style="width:100%; height:100%; object-fit:cover;">
+                      {% else %}
+                          🌿 
+                      {% endif %}
+                  </div>
+                  <div class="farm-verified">
+                      {% if farm.is_verified %}✓ Verified Farm{% else %}⌛ Verification Pending{% endif %}
+                  </div>
+                  <div class="farm-name">{{ farm.farm_name | default('Unnamed Farm') }}</div>
+                  <div class="farm-location">📍 {{ farm.location }}, {{ farm.county }} County</div>
+                  <div class="farm-specs">
+                      <div><div class="farm-spec-label">Farm Size</div><div class="farm-spec-value">{{ farm.farm_size_acres | default('0') }} acres</div></div>
+                      <div><div class="farm-spec-label">Altitude</div><div class="farm-spec-value">{{ farm.altitude_masl | default('0') }} masl</div></div>
+                      <div><div class="farm-spec-label">Certifications</div><div class="farm-spec-value">{{ farm.certifications | default('None') }}</div></div>
+                      <div><div class="farm-spec-label">Member Since</div><div class="farm-spec-value">{{ current_user.created_at.year if current_user.created_at else '2026' }}</div></div>
+                  </div>
+                  
+                  <button class="panel-action" onclick="showSection('sec-listings')" style="width:100%; margin-top:2rem; background:var(--green); color:var(--espresso); border:none; padding:1rem; cursor:pointer; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;">
+                      Continue to Step 2 →
+                  </button>
+              </div>
+            
+
+              <div class="farm-edit-form">
+                  <div class="farm-edit-title">Edit Details</div>
+                  <form action="{{ url_for('seller.seller_setup') }}" method="POST" enctype="multipart/form-data">
+                      <div class="form-field"><label>Farm Name</label><input type="text" name="farm_name" value="{{ farm.farm_name }}"/></div>
+                      <div class="form-field"><label>Location</label><input type="text" name="location" value="{{ farm.location }}"/></div>
+                      <div class="form-field"><label>Bio</label><textarea name="bio">{{ farm.bio }}</textarea></div>
+                      <button type="submit" class="form-submit" style="background:transparent; border:1px solid var(--green); color:var(--green);">Save Changes</button>
+                  </form>
+              </div>
+            </div>
+        
+        {% else %}
+
         <div style="margin-bottom: 2rem">
           <div class="setup-eyebrow">Step 1 of 3</div>
           <div
@@ -445,7 +514,6 @@ endblock %} {% block content %}
                 <input
                   type="file"
                   name="farm_photo"
-                  accept="image/*"
                   style="font-size: 0.78rem; color: rgba(245, 236, 215, 0.4)"
                 />
               </div>
@@ -516,6 +584,7 @@ endblock %} {% block content %}
             </div>
           </form>
         </div>
+       {% endif %}  
       </div>
 
       <!-- ── MY LISTINGS ── -->
@@ -754,18 +823,18 @@ endblock %} {% block content %}
           <div class="form-section">
             <div class="form-section-title">Personal Information</div>
             <div class="form-field">
-              <label>First Name</label><input type="text" value="Sarah" />
+              <label>First Name</label><input type="text" value="{{ current_user.first_name or '' }}" />
             </div>
             <div class="form-field">
-              <label>Last Name</label><input type="text" value="Kinyua" />
+              <label>Last Name</label><input type="text" value="{{ current_user.last_name or '' }}" />
             </div>
             <div class="form-field">
               <label>Email</label
-              ><input type="email" value="sarah@freshfarm.co.ke" />
+              ><input type="email" value="{{ current_user.email }}" />
             </div>
             <div class="form-field">
               <label>Phone (M-Pesa)</label
-              ><input type="tel" value="0733 000 001" />
+              ><input type="tel" value="{{ current_user.phone }}" />
             </div>
             <button class="form-submit">Save Changes</button>
           </div>
@@ -790,7 +859,8 @@ endblock %} {% block content %}
     </main>
   </div>
 </body>
-{% endblock %} {% block scripts %}
+{% endblock %} 
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/new_seller.js') }}"></script>
 <script src="{{ url_for('static', filename='js/logout_base.js') }}"></script>
 {% endblock %}

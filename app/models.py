@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.Integer, unique=True, nullable=False)
     # buyer / seller / admin
     role = db.Column(db.String(20), nullable=False)
+    profile_pic = db.Column(db.String(255), default='default_user.jpg')
 
     # Relationships
     products = db.relationship(
@@ -191,19 +192,21 @@ class FarmProfile(db.Model):
         unique=True
     )
     farm_name = db.Column(db.String(150), nullable=False)
+    farm_image = db.Column(db.String(255))
     location = db.Column(db.String(150))
     county = db.Column(db.String(100))
     farm_size_acres = db.Column(db.Float)
     altitude_masl = db.Column(db.Integer)         # metres above sea level
     certifications = db.Column(db.String(255))    # e.g. "Organic, Fair Trade"
     bio = db.Column(db.Text)
-    profile_image = db.Column(db.String(255))     # path to farm photo
     is_verified = db.Column(db.Boolean, default=False)
     joined_at = db.Column(db.DateTime, default=datetime.utcnow)
     phone = db.Column(db.Integer)
     whatsapp_phone = db.Column(db.Integer)
     # User is done typing
     is_setup_complete = db.Column(db.Boolean, default=False)
+    # If you also want to track if they are "Live" on the marketplace:
+    is_live = db.Column(db.Boolean, default=False)
 
     # farm's coffee listings (filtered from Product table)
     @property
