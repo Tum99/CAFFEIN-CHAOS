@@ -8,11 +8,11 @@
   <div>
     <div class="hero-eyebrow">Caffeine & Chaos</div>
     <h1 class="hero-title">Take a <em>Step.</em><br>Shop the brand.</h1>
-    <p class="hero-desc">Value packs, gift hampers, apparel and merch. Every product is a piece of the Caffeine & Chaos story. Payments via M-Pesa.</p>
+    <p class="hero-desc">Value packs, gift hampers, apparel and merch. Every product is a piece of the Caffeine & Chaos story.</p>
   </div>
   <div class="hero-right">
     <div class="hero-tagline">
-      <strong>The brand's motto</strong>
+      
       "You had choices.<br>You chose bold."
     </div>
   </div>
@@ -21,20 +21,96 @@
 
 <!-- ══════════════════ CATEGORY NAV ══════════════════ -->
 <div class="cat-nav">
-  <button class="cat-nav-btn active" data-section="value-packs">Value Packs</button>
+  <button class="cat-nav-btn" data-section="coffee">Coffee Bags</button>
   <div class="cat-nav-divider"></div>
-  <button class="cat-nav-btn" data-section="gift-hampers">Gift Hampers</button>
+  <button class="cat-nav-btn active" data-section="value-packs">Value Packs</button>
   <div class="cat-nav-divider"></div>
   <button class="cat-nav-btn" data-section="apparel">Apparel</button>
   <div class="cat-nav-divider"></div>
-  <button class="cat-nav-btn" data-section="merch">Merch</button>
+  <!-- <button class="cat-nav-btn" data-section="gift-hampers">Gift Hampers</button>
   <div class="cat-nav-divider"></div>
-  <button class="cat-nav-btn" data-section="coffee">Coffee Bags</button>
+  <button class="cat-nav-btn" data-section="merch">Merch</button> -->
 </div>
 
 
 <!-- ══════════════════ MAIN CONTENT ══════════════════ -->
 <div class="page-wrap">
+
+  <!-- ══ COFFEE BAGS ══ -->
+  <section id="coffee">
+    <div class="sec-head">
+      <div>
+        <div class="sec-eyebrow">Single Origin</div>
+        <h2 class="sec-title">Coffee <em>Bags</em></h2>
+      </div>
+      <p class="sec-desc">Premium Kenyan Arabica. Farm direct. Roasted to order.</p>
+    </div>
+
+    <div class="individuals-grid">
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/Bag1.jpeg') }}" alt="250g bag"/>
+          <!-- <div class="ind-img-ph">☕</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('Arabica 250g', 850, '☕')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Arabica Premium Citrus — 250g</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 850</div>
+            <!-- <button class="ind-add" onclick="addToCart('Arabica 250g', 850, '☕')">+</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/1KG_Bag.png') }}" alt="1kg bag"/>
+          <!-- <div class="ind-img-ph">☕</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('Arabica 1kg', 2500, '☕')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Arabica Premium Citrus — 1kg</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 2,500</div>
+            <!-- <button class="ind-add" onclick="addToCart('Arabica 1kg', 2500, '☕')">+</button> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="ind-card">
+        <div class="ind-img">
+          <div class="ind-img-ph">☕</div>
+          <div class="ind-img-overlay"></div>
+          <button class="ind-quick-add" onclick="addToCart('Arabica 3kg', 6500, '☕')">Quick Add</button>
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Arabica Batian — 3kg</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 6,500</div>
+            <button class="ind-add" onclick="addToCart('Arabica 3kg', 6500, '☕')">+</button>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="ind-card">
+        <div class="ind-img">
+          <div class="ind-img-ph">☕</div>
+          <div class="ind-img-overlay"></div>
+          <button class="ind-quick-add" onclick="addToCart('SL28 Natural 250g', 950, '☕')">Quick Add</button>
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">SL28 Natural — 250g</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 950</div>
+            <button class="ind-add" onclick="addToCart('SL28 250g', 950, '☕')">+</button>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+  </section>
 
    <!-- ══ VALUE PACKS ══ -->
   <section id="value-packs">
@@ -54,12 +130,12 @@
         <div class="pack-hero-card bold-pack">
           <div class="pack-bg-num">01</div>
           <div class="pack-img-area">
-            <!-- Replace with: <img src="{{ url_for('static', filename='images/pack-bold-starter.jpg') }}" alt="Bold Starter Pack"/> -->
-            📦
-            <div class="pack-img-area-overlay"></div>
+            <img src="{{ url_for('static', filename='images/Value_Pack1.png') }}" alt="Bold Starter Pack"/>
+            <!-- 📦 -->
+            <!-- <div class="pack-img-area-overlay"></div> -->
           </div>
           <div class="pack-badges">
-            <span class="pack-badge value">★ Best Value</span>
+            <span class="pack-badge value">★ Limited Edition</span>
           </div>
           <div class="pack-content">
             <div class="pack-label">The Bold Starter Pack</div>
@@ -72,7 +148,7 @@
             </div>
             <div class="pack-footer">
               <div class="pack-price"><span>KES </span>7,500</div>
-              <button class="pack-cta" onclick="addToCart('Bold Starter Pack', 7500, '📦')">Add to Cart</button>
+              <!-- <button class="pack-cta" onclick="addToCart('Bold Starter Pack', 7500, '📦')">Add to Cart</button> -->
             </div>
           </div>
         </div>
@@ -81,12 +157,12 @@
         <div class="pack-hero-card elite-pack">
           <div class="pack-bg-num" style="color:rgba(122,182,72,0.04)">02</div>
           <div class="pack-img-area">
-            <!-- Replace with: <img src="{{ url_for('static', filename='images/pack-elite-step.jpg') }}" alt="Elite Step Pack"/> -->
-            👟
+            <img src="{{ url_for('static', filename='images/Value_Pack2.png') }}" alt="Elite Step Pack"/>
+            <!-- 👟 -->
             <div class="pack-img-area-overlay"></div>
           </div>
           <div class="pack-badges">
-            <span class="pack-badge elite">⚡ Elite</span>
+            <span class="pack-badge elite">★ Limited Edition</span>
           </div>
           <div class="pack-content">
             <div class="pack-label" style="color:var(--green)">The Elite Step</div>
@@ -97,7 +173,7 @@
             </div>
             <div class="pack-footer" style="border-top-color:rgba(122,182,72,0.12)">
               <div class="pack-price" style="color:var(--green)"><span>KES </span>7,500</div>
-              <button class="pack-cta" style="background:var(--green)" onclick="addToCart('Elite Step Pack', 7500, '👟')">Add to Cart</button>
+              <!-- <button class="pack-cta" style="background:var(--green)" onclick="addToCart('Elite Step Pack', 7500, '👟')">Add to Cart</button> -->
             </div>
           </div>
         </div>
@@ -108,12 +184,12 @@
     </div>
 
     <!-- MORE PACKS GRID -->
-    <div class="packs-grid">
+    <!-- <div class="packs-grid">
         <div class="pack-card">
           <div class="pack-card-img">
-              <div class="pack-card-img-ph">☕👕</div>
+              <div class="pack-card-img-ph">☕👕</div> -->
               <!-- <img src="{{ url_for('static', filename='images/pack-starter-s.jpg') }}" alt=""/> -->
-              <div class="pack-card-img-overlay"></div>
+              <!-- <div class="pack-card-img-overlay"></div>
               <span class="pack-card-tag value">Value Pack</span>
           </div>
           <div class="pack-card-body">
@@ -171,12 +247,91 @@
         </div>
       </div>
 
+    </div> -->
+  </section>
+
+
+  <!-- ══ APPAREL ══ -->
+  <section id="apparel">
+    <div class="sec-head">
+      <div>
+        <div class="sec-eyebrow">Wear the brand</div>
+        <h2 class="sec-title"><em>Apparel</em></h2>
+      </div>
+      <p class="sec-desc">Take a Step. The collection that says you chose bold.</p>
+    </div>
+    <div class="individuals-grid">
+
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/Product3.jpeg') }}" alt="Brown Tee"/>
+          <!-- <div class="ind-img-ph">👕</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('Brown Tee', 1000, '👕')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Take a Step Tee — Brown</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 1,000</div>
+            <!-- <button class="ind-add" onclick="addToCart('Brown Tee', 1000, '👕')">+</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/Product1.jpeg') }}" alt="Green Tee"/>
+          <!-- <div class="ind-img-ph">👕</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('Green Tee', 1000, '👕')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Take a Step Tee — Olive</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 1,000</div>
+            <!-- <button class="ind-add" onclick="addToCart('Olive Tee', 1000, '👕')">+</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/Product2.jpeg') }}" alt="Varsity Jacket"/>
+          <!-- <div class="ind-img-ph">🧥</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('Varsity Jacket', 7500, '🧥')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Take a Step Varsity Jacket</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 7,500</div>
+            <!-- <button class="ind-add" onclick="addToCart('Varsity Jacket', 7500, '🧥')">+</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-img">
+          <img src="{{ url_for('static', filename='images/Apron1.jpeg') }}" alt="Apron"/>
+          <!-- <div class="ind-img-ph">👔</div> -->
+          <div class="ind-img-overlay"></div>
+          <!-- <button class="ind-quick-add" onclick="addToCart('C&C Apron', 3200, '👔')">Quick Add</button> -->
+        </div>
+        <div class="ind-body">
+          <div class="ind-name">Caffeine & Chaos Apron</div>
+          <div class="ind-footer">
+            <div class="ind-price">KES 3,200</div>
+            <!-- <button class="ind-add" onclick="addToCart('C&C Apron', 3200, '👔')">+</button> -->
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
 
    <!-- ══ GIFT HAMPERS ══ -->
-  <section id="gift-hampers">
+  <!-- <section id="gift-hampers">
     <div class="sec-head">
       <div>
         <div class="sec-eyebrow">Gifting</div>
@@ -185,21 +340,21 @@
       <p class="sec-desc">Beautifully curated hampers — coffee, branded merch, wrapped and ready. Perfect for corporate gifting or personal occasions.</p>
     </div>
 
-    <div class="hampers-grid">
+    <div class="hampers-grid"> -->
 
       <!-- FEATURED HAMPER -->
-      <div class="hamper-card featured">
+      <!-- <div class="hamper-card featured">
         <div class="hamper-img">
           <img src="" alt="C&C Gift Hamper"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/> -->
           <!-- Image 2 goes here: WhatsApp_Image_2026-04-11_at_18_06_58.jpeg -->
           <!-- src="{{ url_for('static', filename='images/hamper-classic.jpg') }}" -->
-          <div class="hamper-img-ph" style="display:none">🎁</div>
+          <!-- <div class="hamper-img-ph" style="display:none">🎁</div>
           <div class="hamper-img-overlay"></div>
           <span class="hamper-ribbon">🎀 Gift Ready</span>
           <span class="hamper-verified">C&C Curated</span>
-        </div>
-        <div class="hamper-body">
+        </div> -->
+        <!-- <div class="hamper-body">
           <div class="hamper-cat">Signature Hamper</div>
           <div class="hamper-name">The C&C <em>Classic</em> Hamper</div>
           <div class="hamper-contents">Wicker basket, cellophane-wrapped with ribbon. Includes: C&C branded cap, 250g Arabica coffee, branded napkins, assorted chocolates & seasonal treats.</div>
@@ -208,17 +363,17 @@
             <button class="hamper-btn" onclick="addToCart('C&C Classic Hamper', 3500, '🎁')">Add to Cart</button>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <!-- HAMPER 2 -->
-      <div class="hamper-card">
+      <!-- <div class="hamper-card">
         <div class="hamper-img">
           <img src="" alt="Premium Hamper"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/> -->
           <!-- Image 3: WhatsApp_Image_2026-04-11_at_21_09_41.jpeg -->
           <!-- src="{{ url_for('static', filename='images/hamper-premium.jpg') }}" -->
-          <div class="hamper-img-ph" style="display:none">🧺</div>
+          <!-- <div class="hamper-img-ph" style="display:none">🧺</div>
           <div class="hamper-img-overlay"></div>
           <span class="hamper-ribbon">🏆 Premium</span>
         </div>
@@ -231,11 +386,11 @@
             <button class="hamper-btn" onclick="addToCart('Gold Hamper', 6500, '🧺')">Add to Cart</button>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <!-- HAMPER 3 -->
-      <div class="hamper-card">
+      <!-- <div class="hamper-card">
         <div class="hamper-img">
           <div class="hamper-img-ph">💼</div>
           <div class="hamper-img-overlay"></div>
@@ -250,11 +405,11 @@
             <button class="hamper-btn" onclick="addToCart('Corporate Hamper', 8500, '💼')">Add to Cart</button>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <!-- HAMPER 4 -->
-      <div class="hamper-card">
+      <!-- <div class="hamper-card">
         <div class="hamper-img">
           <div class="hamper-img-ph">💝</div>
           <div class="hamper-img-overlay"></div>
@@ -272,90 +427,14 @@
       </div>
 
     </div>
-  </section>
+  </section> -->
 
 
-  <!-- ══ APPAREL ══ -->
-  <section id="apparel">
-    <div class="sec-head">
-      <div>
-        <div class="sec-eyebrow">Wear the brand</div>
-        <h2 class="sec-title"><em>Apparel</em></h2>
-      </div>
-      <p class="sec-desc">Take a Step. The collection that says you chose bold.</p>
-    </div>
-    <div class="individuals-grid">
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-tee-brown.jpg') }}" alt="Brown Tee"/> -->
-          <div class="ind-img-ph">👕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Brown Tee', 1000, '👕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Take a Step Tee — Brown</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 1,000</div>
-            <button class="ind-add" onclick="addToCart('Brown Tee', 1000, '👕')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-tee-green.jpg') }}" alt="Green Tee"/> -->
-          <div class="ind-img-ph">👕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Green Tee', 1000, '👕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Take a Step Tee — Olive</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 1,000</div>
-            <button class="ind-add" onclick="addToCart('Olive Tee', 1000, '👕')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-jacket.jpg') }}" alt="Varsity Jacket"/> -->
-          <div class="ind-img-ph">🧥</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Varsity Jacket', 7500, '🧥')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Take a Step Varsity Jacket</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 7,500</div>
-            <button class="ind-add" onclick="addToCart('Varsity Jacket', 7500, '🧥')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-apron.jpg') }}" alt="Apron"/> -->
-          <div class="ind-img-ph">👔</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('C&C Apron', 3200, '👔')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Caffeine & Chaos Apron</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 3,200</div>
-            <button class="ind-add" onclick="addToCart('C&C Apron', 3200, '👔')">+</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  
 
 
   <!-- ══ MERCH ══ -->
-  <section id="merch">
+  <!-- <section id="merch">
     <div class="sec-head">
       <div>
         <div class="sec-eyebrow">Branded Merch</div>
@@ -423,90 +502,16 @@
       </div>
 
     </div>
-  </section>
+  </section> -->
 
 
-  <!-- ══ COFFEE BAGS ══ -->
-  <section id="coffee">
-    <div class="sec-head">
-      <div>
-        <div class="sec-eyebrow">Single Origin</div>
-        <h2 class="sec-title">Coffee <em>Bags</em></h2>
-      </div>
-      <p class="sec-desc">Premium Kenyan Arabica. Farm direct. Roasted to order.</p>
-    </div>
-
-    <div class="individuals-grid">
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-arabica-250g.jpg') }}" alt="250g bag"/> -->
-          <div class="ind-img-ph">☕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Arabica 250g', 850, '☕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Arabica Premium Citrus — 250g</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 850</div>
-            <button class="ind-add" onclick="addToCart('Arabica 250g', 850, '☕')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <!-- <img src="{{ url_for('static', filename='images/product-arabica-1kg.jpg') }}" alt="1kg bag"/> -->
-          <div class="ind-img-ph">☕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Arabica 1kg', 2500, '☕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Arabica Batian — 1kg</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 2,500</div>
-            <button class="ind-add" onclick="addToCart('Arabica 1kg', 2500, '☕')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <div class="ind-img-ph">☕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('Arabica 3kg', 6500, '☕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">Arabica Batian — 3kg</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 6,500</div>
-            <button class="ind-add" onclick="addToCart('Arabica 3kg', 6500, '☕')">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="ind-card">
-        <div class="ind-img">
-          <div class="ind-img-ph">☕</div>
-          <div class="ind-img-overlay"></div>
-          <button class="ind-quick-add" onclick="addToCart('SL28 Natural 250g', 950, '☕')">Quick Add</button>
-        </div>
-        <div class="ind-body">
-          <div class="ind-name">SL28 Natural — 250g</div>
-          <div class="ind-footer">
-            <div class="ind-price">KES 950</div>
-            <button class="ind-add" onclick="addToCart('SL28 250g', 950, '☕')">+</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
+  
 
 </div>
 
 
 <!-- ══════════════════ CART DRAWER ══════════════════ -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<!-- <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-head">
     <div class="cart-head-title">Your Cart</div>
@@ -527,13 +532,13 @@
     <button class="cart-checkout-btn">Proceed to Checkout →</button>
     <div class="cart-mpesa"><div class="mpesa-dot"></div>Secure payment via M-Pesa</div>
   </div>
-</div>
+</div> -->
  
 <!-- Cart toggle button -->
-<button class="cart-toggle" onclick="openCart()">
+<!-- <button class="cart-toggle" onclick="openCart()">
   🛒
   <span class="cart-badge" id="cartBadge">0</span>
-</button>
+</button> -->
  
 <div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
@@ -570,53 +575,53 @@
   });
  
   /* ── CART ── */
-  let cart = [];
+  // let cart = [];
  
-  function addToCart(name, price, icon) {
-    const existing = cart.find(i => i.name === name);
-    if(existing) { existing.qty++; }
-    else { cart.push({ name, price, icon, qty: 1 }); }
-    updateCart();
-    openCart();
-  }
+  // function addToCart(name, price, icon) {
+  //   const existing = cart.find(i => i.name === name);
+  //   if(existing) { existing.qty++; }
+  //   else { cart.push({ name, price, icon, qty: 1 }); }
+  //   updateCart();
+  //   openCart();
+  // }
  
-  function removeFromCart(name) {
-    cart = cart.filter(i => i.name !== name);
-    updateCart();
-  }
+  // function removeFromCart(name) {
+  //   cart = cart.filter(i => i.name !== name);
+  //   updateCart();
+  // }
  
-  function updateCart() {
-    const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
-    const count = cart.reduce((s,i) => s + i.qty, 0);
-    document.getElementById('cartBadge').textContent = count;
-    document.getElementById('cartSubtotal').textContent = `KES ${total.toLocaleString()}`;
-    document.getElementById('cartGrand').textContent = `KES ${total.toLocaleString()}`;
+  // function updateCart() {
+  //   const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+  //   const count = cart.reduce((s,i) => s + i.qty, 0);
+  //   document.getElementById('cartBadge').textContent = count;
+  //   document.getElementById('cartSubtotal').textContent = `KES ${total.toLocaleString()}`;
+  //   document.getElementById('cartGrand').textContent = `KES ${total.toLocaleString()}`;
  
-    const itemsEl = document.getElementById('cartItems');
-    if(cart.length === 0) {
-      itemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-text">Your cart is empty</div></div>`;
-      return;
-    }
-    itemsEl.innerHTML = cart.map(i => `
-      <div class="cart-item">
-        <div class="cart-item-img">${i.icon}</div>
-        <div class="cart-item-info">
-          <div class="cart-item-name">${i.name} ${i.qty > 1 ? `×${i.qty}` : ''}</div>
-          <div class="cart-item-price">KES ${(i.price * i.qty).toLocaleString()}</div>
-        </div>
-        <button class="cart-item-remove" onclick="removeFromCart('${i.name}')">✕</button>
-      </div>
-    `).join('');
-  }
+  //   const itemsEl = document.getElementById('cartItems');
+  //   if(cart.length === 0) {
+  //     itemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-text">Your cart is empty</div></div>`;
+  //     return;
+  //   }
+  //   itemsEl.innerHTML = cart.map(i => `
+  //     <div class="cart-item">
+  //       <div class="cart-item-img">${i.icon}</div>
+  //       <div class="cart-item-info">
+  //         <div class="cart-item-name">${i.name} ${i.qty > 1 ? `×${i.qty}` : ''}</div>
+  //         <div class="cart-item-price">KES ${(i.price * i.qty).toLocaleString()}</div>
+  //       </div>
+  //       <button class="cart-item-remove" onclick="removeFromCart('${i.name}')">✕</button>
+  //     </div>
+  //   `).join('');
+  // }
  
-  function openCart() {
-    document.getElementById('cartDrawer').classList.add('open');
-    document.getElementById('cartOverlay').classList.add('open');
-  }
-  function closeCart() {
-    document.getElementById('cartDrawer').classList.remove('open');
-    document.getElementById('cartOverlay').classList.remove('open');
-  }
+  // function openCart() {
+  //   document.getElementById('cartDrawer').classList.add('open');
+  //   document.getElementById('cartOverlay').classList.add('open');
+  // }
+  // function closeCart() {
+  //   document.getElementById('cartDrawer').classList.remove('open');
+  //   document.getElementById('cartOverlay').classList.remove('open');
+  // }
  
   /* scroll reveal */
   const obs = new IntersectionObserver(entries => {

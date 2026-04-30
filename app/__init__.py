@@ -4,6 +4,7 @@ from flask_login import LoginManager, current_user
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect
+
 import os
 
 
@@ -27,10 +28,20 @@ login_manager.login_message_category = "info"
 
 def create_app():
     app = Flask(__name__)
+
+    # This check allows you to use SQLite locally but PostgreSQL on Render
+    database_url = os.environ.get('DATABASE_URL')
+    if database_url and database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+
     app.config.from_object("config.Config")
 
-    app.config['SECRET_KEY'] = 'your-secret-key'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///local.db")
+    app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "dev-secret-key")
     app.config['UPLOAD_FOLDER'] = os.path.join('app', 'static', 'uploads')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config["WTF_CSRF_ENABLED"] = True
 
     csrf = CSRFProtect(app)
 
@@ -39,6 +50,7 @@ def create_app():
     migrate.init_app(app, db)
     login_manager.init_app(app)
     bcrypt.init_app(app)
+    
 
     from app import models
 
