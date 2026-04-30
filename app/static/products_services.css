@@ -69,7 +69,7 @@ body::before {
 .page-hero::after {
     content: '';
     position: absolute; top: -10%; right: 0;
-    width: 50%; height: 120%;
+    width: 100%; height: 120%;
     background: radial-gradient(ellipse at right center, rgba(200,135,58,0.05) 0%, transparent 70%);
     pointer-events: none;
 }
@@ -145,6 +145,7 @@ body::before {
     max-width: 1400px; 
     margin: 0 auto; 
     padding: 0 4rem 8rem; 
+    align-items: center;
 }
 
 /* ══════════════════ SECTION HEADERS ══════════════════ */
@@ -181,7 +182,7 @@ body::before {
 .pack-hero-card {
     position: relative; overflow: hidden;
     background: var(--roast); cursor: none;
-    min-height: 580px;
+    min-height: 900px;
     display: flex; flex-direction: column; justify-content: flex-end;
 }
 
@@ -202,17 +203,17 @@ body::before {
 .pack-img-area {
     position: absolute; top: 0; left: 0; right: 0; bottom: 40%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 6rem; opacity: 0.12;
+    font-size: 6rem; 
     overflow: hidden;
 }
 .pack-img-area img {
     width: 100%; height: 100%;
-    object-fit: cover; object-position: center top;
-    opacity: 0.5;
+     object-position: center top;
+    opacity: 1;
 }
 .pack-img-area-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, var(--roast) 100%);
+    background: linear-gradient(to bottom, transparent 100%, var(--roast) 100%);
 }
 
  /* badges */
@@ -482,24 +483,44 @@ body::before {
        INDIVIDUAL ITEMS STRIP
     ══════════════════════════════════════════════ */
 .individuals-grid {
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5px;
+    display: flex; 
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 .ind-card {
-    background: var(--roast); cursor: none; position: relative; overflow: hidden;
+    background: var(--roast); 
+    /* (100% / 4) minus a bit for the gaps */
+    width: 350px; 
+    cursor: none; 
+    position: relative; 
+    overflow: hidden;
     transition: background 0.3s;
 }
 .ind-card:hover { background: var(--bark); }
 .ind-img {
-    height: 200px; position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
+    height: 410px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; 
 }
+
+@media (max-width: 768px){
+    .individuals-grid {
+        /* (100% / 2) minus the gap size */
+        width: calc(50% - 5px);
+        flex-direction: column;
+    }
+    .ind-img {
+        height: 250px;
+    }
+}
+
 .ind-img img { 
     width: 100%; 
     height: 100%; 
-    object-fit: cover; 
-    object-position: center top; 
+    /* object-fit: cover;  */
+    object-position: center; 
     display: block; 
     transition: transform 0.5s ease; 
 }

@@ -14,11 +14,6 @@ def list_products():
         body_class='page-products')
 
 
-@products.route('/products/<int:id>')
-def view_product(id):
-    product = Product.query.get_or_404(id)
-    return render_template('products/view.html', product=product)
-
 
 @products.route('/products/new', methods=['GET', 'POST'])
 @login_required
