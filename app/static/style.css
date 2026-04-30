@@ -20,6 +20,7 @@
 html, body { scroll-behavior: smooth; }
 
 body {
+  width: 100%;
   background: var(--espresso);
   color: var(--cream);
   font-family: 'Jost', sans-serif;
@@ -60,7 +61,8 @@ body::before {
   z-index: 9000;
 }
 
-/* ── NAVBAR ── */
+
+
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -72,6 +74,7 @@ nav {
   transition: background 0.4s, backdrop-filter 0.4s;
   background-color: var(--espresso);
 }
+
 nav.scrolled {
   background: rgba(10,6,4,0.88);
   backdrop-filter: blur(18px);
@@ -178,6 +181,7 @@ nav.scrolled {
   overflow: hidden;
 }
 
+
 .hero::before {
   content: "";
   position: absolute;
@@ -191,7 +195,7 @@ nav.scrolled {
   background-position: center;
   
   /* Change this value to adjust the background brightness */
-  opacity: 0.3; 
+  opacity: 0.2; 
   
   z-index: 1; /* Puts it behind the content */
 }
@@ -210,7 +214,7 @@ nav.scrolled {
   position: absolute;
   right: 6%; top: 50%;
   transform: translateY(-50%);
-  width: 380px; height: 480px;
+  height: 480px;
   opacity: 0.15;
   background: radial-gradient(circle at center, var(--crema) 0%, transparent 70%);
   border-radius: 50%;
@@ -231,14 +235,6 @@ nav.scrolled {
   object-position: center;
   display: block;
   object-fit: contain;
-}
-
-@media (max-width: 768px) {
-    .hero-photo-img {
-        height: auto;       /* Stop forcing a 600px height */
-        /* max-height: 50vh;   Limit it to half the screen height if you want */
-        width: 100%;
-    }
 }
 
 .hero-img-block::before {
@@ -278,8 +274,8 @@ nav.scrolled {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-left: 4rem;
-  max-width: 1000px;
+  /* padding-left: 4rem; */
+  max-width: 100%;
   animation: heroReveal 1.2s cubic-bezier(0.22,1,0.36,1) both;
 }
 @keyframes heroReveal {
@@ -385,7 +381,12 @@ font-weight: 300;
   animation: ticker 22s linear infinite;
 }
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.ticker-item { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; padding: 0 2.5rem; }
+.ticker-item { 
+  font-size: 0.72rem; 
+  letter-spacing: 0.25em; 
+  text-transform: uppercase; 
+  font-weight: 500; 
+  padding: 0 2.5rem; }
 .ticker-dot { color: rgba(10,6,4,0.35); }
 
 /* ── SECTION BASE ── */
@@ -400,6 +401,7 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
   align-items: center;
   gap: 0.8rem;
 }
+
 .section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--crema); }
 .section-title {
   font-family: 'Cormorant Garamond', serif;
@@ -420,25 +422,8 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
   margin: 0 auto;
   padding: 2rem;
 }
-@media (max-width: 768px) {
-    .story {
-        flex-direction: column; /* Stacked vertically */
-        align-items: flex-start;
-    }
 
-    .story-text {
-        order: 1; /* Title and story text first */
-        width: 100%;
-    }
-
-    .story-photo-img {
-        order: 2; /* Image last at the bottom */
-        width: 100%; /* Makes image fit the phone width */
-        height: auto;
-    }
-}
-
-.story-img { position: relative; height: 600px; width: 1000px; overflow: hidden; }
+.story-img { width: 100%; position: relative; height: 600px; overflow: hidden; }
 .story-img-inner {
   width: 100%; height: 100%;
   background: linear-gradient(135deg, #2E1A0E 0%, #1C0F08 60%, #0A0604 100%);
@@ -562,23 +547,7 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
   grid-template-rows: 300px 280px;
   gap: 1.5px;
 }
-@media (max-width: 768px) {
-    .community {
-        flex-direction: column; /* Stacked vertically */
-        align-items: flex-start;
-    }
 
-    .community-header {
-        order: 1; /* Title and story text first */
-        width: 100%;
-    }
-
-    .community-grid {
-        order: 2; /* Image last at the bottom */
-        width: 100%; /* Makes image fit the phone width */
-        height: auto;
-    }
-}
 .com-card { position: relative; overflow: hidden; background: var(--bark); }
 .com-card.tall { grid-row: span 2; }
 .com-card-bg-inner { width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
@@ -625,12 +594,6 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
   transition: opacity 0.4s;
 }
 
-@media (max-width: 786px){
-  .connect-inner{
-    flex-direction: column;
-  }
-}
-
 .connect-card.grower::before { background: var(--olive); }
 .connect-card.buyer::before  { background: var(--crema); }
 .connect-card:hover::before  { opacity: 0.12; }
@@ -670,12 +633,6 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
   display: block;
 }
 
-@media (max-width: 786px){
-  .products-scroll{
-    width: calc(50% - 5px);
-    flex-direction: column;
-  }
-}
 .product-bg-1 { background: linear-gradient(160deg, #1C2E10, #0A0F08); }
 .product-bg-2 { background: linear-gradient(160deg, #3B2010, #150A04); }
 .product-bg-3 { background: linear-gradient(160deg, #2E2010, #1C0F08); }
@@ -824,7 +781,7 @@ section { padding: 7rem 4rem; background-color: var(--espresso);}
 
 
 /* ── FOOTER ── */
-footer { background: #050302; padding: 5rem 4rem 2.5rem; border-top: 1px solid rgba(200,135,58,0.1); }
+footer { background: #050302; padding: 5rem 1rem 2.5rem; border-top: 1px solid rgba(200,135,58,0.1); }
 .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 4rem; max-width: 1300px; margin: 0 auto 4rem; }
 .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--white); margin-bottom: 1rem; line-height: 1.1; }
 .footer-brand-name span { color: var(--crema); font-style: italic; }
@@ -839,6 +796,232 @@ footer { background: #050302; padding: 5rem 4rem 2.5rem; border-top: 1px solid r
 .footer-mpesa { display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; color: rgba(245,236,215,0.3); letter-spacing: 0.12em; }
 .mpesa-dot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; }
  
+/* ── NAVBAR ── */
+@media (max-width: 768px) {
+
+  nav {
+    /* Reduce padding to give the logo breathing room */
+    padding: 1rem 1.5rem;
+    background-color: var(--espresso); /* Ensure solid background on mobile */
+    justify-content: center;
+    gap: 5.5rem;
+  }
+
+  .nav-logo {
+    gap: 0.5rem; /* Tighten the gap between icon and text */
+  }
+
+  .nav-logo-icon {
+    width: 40px; 
+    height: 40px;
+  }
+
+  .nav-logo-icon img {
+    width: 45px; 
+    height: 45px;
+  }
+
+  .nav-logo-text {
+    font-size: 1rem; /* Slightly smaller to prevent text wrapping */
+  }
+
+  .nav-links {
+    /* Reduce the large 2.8rem gap */
+    gap: 1rem; 
+  }
+
+  .nav-links a {
+    font-size: 0.65rem; /* Smaller, elegant font size for mobile navigation */
+    letter-spacing: 0.12em;
+  }
+
+  .hero-photo-img {
+      height: auto;       /* Stop forcing a 600px height */
+      width: 100%;
+  }
+
+  .hero-content {
+    max-width: 70%;
+  }
+
+  .hero-title {
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(245,236,215,0.55);
+    font-weight: 350;
+  }
+
+  .ticker {
+    background: var(--crema);
+    color: var(--espresso);
+    padding: 0.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-item { 
+    font-size: 0.60rem; 
+    letter-spacing: 0.25em; 
+    text-transform: uppercase; 
+    font-weight: 500; 
+    padding: 0 2.5rem; 
+  }
+
+  section{
+    padding: 7rem 0.5rem;
+    max-width: 700px;
+    align-items: center;
+  }
+  
+  .story {
+    flex-direction: column; /* Stacked vertically */
+    align-items: flex-start;
+  }
+
+  .story-text {
+    order: 1; /* Title and story text first */
+    width: 100%;
+  }
+
+  .story-stats {
+    width: 80%;
+  }
+
+  .story-photo-img {
+    /* order: 2; Image last at the bottom */
+    width: 100%; /* Makes image fit the phone width */
+    height: 100%;
+  }
+
+  .story-img {
+    height: 70%;
+  }
+
+  .menu-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .menu-grid {
+    /* Switch from 3 columns to 2 for better card width */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px; /* Keeps the thin "grid-line" aesthetic */
+  }
+
+  .menu-card {
+    /* Reduce height so two cards fit well on a phone screen */
+    height: 320px; 
+  }
+
+  .menu-card:first-child {
+    /* RESET the desktop span logic */
+    grid-row: span 1; 
+    height: 320px;
+    /* Optional: Make the first featured item take full width for impact */
+    grid-column: span 2; 
+    height: 350px;
+  }
+
+  .menu-card-content {
+    padding: 1.2rem;
+  }
+
+  .menu-tag {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .menu-card-name {
+    font-size: 1.3rem; /* Scaled down for smaller cards */
+  }
+
+  .menu-card-price {
+    font-size: 0.75rem;
+  }
+
+  .community {
+    display: flex;
+    flex-direction: column; /* Stacked vertically */
+    align-items: flex-start;
+    padding: 4rem 1.5rem;
+  }
+
+  .community-header {
+    flex-direction: column; /* Stack Title and Desc */
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .community-grid {
+    /* Change from 3 columns to a 2-column masonry feel */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto; /* Let images define height */
+    gap: 5px;
+    height: 100%;
+  }
+  .com-card {
+    height: auto; /* Consistent height for mobile cards */
+    display: flex;
+  }
+
+  .com-card.tall {
+    grid-row: span 1; /* Reset desktop span logic */
+    grid-column: span 2; /* Make the main event card full width */
+    height: 350px;
+  }
+
+  .com-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .com-label {
+    font-size: 0.55rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+  .community-desc {
+    width: 100%;
+  }
+
+  .connect-inner{
+    flex-direction: column;
+  }
+  .connect-card {
+    width: 100%;
+    
+  }
+  .connect-section {
+    padding: 0 2rem 5rem;
+  }
+
+  
+  .products-header { 
+    flex-direction: column;  
+    align-items: flex-start; 
+    gap: 1.5rem;
+    margin-bottom: 2.5rem; 
+    padding: 0 1.5rem;
+  }
+
+
+  .products-scroll{
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
+}
 
 
 

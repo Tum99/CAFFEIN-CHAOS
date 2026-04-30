@@ -263,7 +263,7 @@
         <h2 class="section-title">Shop <em>C&amp;C</em></h2>
       </div>
       <!-- <a href="#" class="btn-outline">All Products →</a> -->
-       <a href="{{url_for('products.list_products')}}" class="btn-outline">View Products →</a>
+      <a href="{{url_for('products.list_products')}}" class="btn-outline">View Products →</a>
     </div>
     <div class="products-scroll">
       <div class="product-card">
@@ -358,9 +358,11 @@
     <div>
       <div class="footer-col-title">Contact</div>
       <ul class="footer-links">
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">WhatsApp</a></li>
-        <li><a href="#">Email Us</a></li>
+        <li><a href="https://www.instagram.com/caffeineandchaos.shop" target="_blank" class="footer-link">
+          Instagram</a>
+        </li>
+        <li><a href="https://wa.me/254726142809">WhatsApp</a></li>
+        <li><a href="mailto:caffein.chaos@yahoo.com">Email Us</a></li>
         <li><a href="#">Eldoret, Kenya</a></li>
       </ul>
     </div>
@@ -370,6 +372,7 @@
     <!-- <div class="footer-mpesa"><div class="mpesa-dot"></div>Secure payments via M-Pesa</div> -->
   </div>
 </footer>
+<div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
 
 
 <script>
@@ -389,6 +392,10 @@
     requestAnimationFrame(animRing);
   }
   animRing();
+
+  /* scroll top */
+  const st = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => st.classList.toggle('visible', window.scrollY > 400));
 
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
