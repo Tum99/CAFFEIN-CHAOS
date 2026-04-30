@@ -799,6 +799,15 @@ footer { background: #050302; padding: 5rem 1rem 2.5rem; border-top: 1px solid r
 /* ── NAVBAR ── */
 @media (max-width: 768px) {
 
+  * {
+    cursor: auto !important;
+    
+  }
+
+  .cursor-ring{
+    display: none !important;
+  }
+
   nav {
     /* Reduce padding to give the logo breathing room */
     padding: 1rem 1.5rem;
