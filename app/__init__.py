@@ -46,7 +46,7 @@ def create_app():
     
 
     from app import models
-    
+
     # Flask-Login user loader
     from app.models import User
 
@@ -85,6 +85,10 @@ def create_app():
     @app.context_processor
     def inject_user():
         return dict(current_user=current_user)
+
+    with app.app_context():
+        # This ensures your coffee product tables are created on launch
+        db.create_all()
 
 
     return app
