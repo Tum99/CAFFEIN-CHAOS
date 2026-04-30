@@ -676,6 +676,13 @@ body::before {
     .ind-card {
         width: 250px;
     }
+    * {
+        cursor: auto !important;
+    }
+
+    .cursor-ring{
+        display: none !important;
+    }
 }
 
 .ind-img img { 
