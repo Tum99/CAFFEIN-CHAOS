@@ -8,12 +8,6 @@ from flask_wtf.csrf import CSRFProtect
 import os
 
 
-import pymysql
-
-
-# Make PyMySQL act as MySQLdb
-pymysql.install_as_MySQLdb()
-
 # Initialize extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -34,8 +28,10 @@ def create_app():
     if database_url and database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql://", 1)
 
+    secret_key = os.environ.get("SECRET_KEY")
+
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-    app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "dev-secret-key")
+    app.config['SECRET_KEY'] = secret_key
     app.config['UPLOAD_FOLDER'] = os.path.join('app', 'static', 'uploads')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["WTF_CSRF_ENABLED"] = True
@@ -50,6 +46,14 @@ def create_app():
     
 
     from app import models
+    
+    # Flask-Login user loader
+    from app.models import User
+
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     # Register blueprints
     from app.main.routes import main
@@ -86,10 +90,4 @@ def create_app():
     return app
 
 
-# Flask-Login user loader
-from app.models import User
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
