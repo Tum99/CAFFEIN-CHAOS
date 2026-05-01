@@ -52,8 +52,8 @@ body {
 }
 
 @media (max-width: 768px){
-  * {
-    cursor: auto !important;
+  .cursor {
+    display: none !important;
     
   }
 
